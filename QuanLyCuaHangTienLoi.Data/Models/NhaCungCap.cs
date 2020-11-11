@@ -4,9 +4,8 @@ using System.Text;
 
 namespace QuanLyCuaHangTienLoi.Data.Models
 {
-    public class NhaCungCap
+    public class NhaCungCap : BaseEntity
     {
-        public Guid Id { get; set; }
         public string TenNhaCungCap { get; set; }
         public string ThongTinLienHe { get; set; }
     }

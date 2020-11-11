@@ -5,13 +5,12 @@ using System.Text;
 
 namespace QuanLyCuaHangTienLoi.Data.Models
 {
-    public class SanPham
+    public class SanPham : BaseEntity
     {
-        public Guid Id { get; set; }
         public string TenSanPham { get; set; }
-        public ICollection<LoaiSanPham> LoaiSanPhams { get; set; }
-        public ICollection<NhaCungCap> NhaCungCap { get; set; }
-        public ICollection<LoSanPham> LoSanPhams { get; set; }
+        public List<LoaiSanPham> LoaiSanPhams { get; set; }
+        public List<NhaCungCap> NhaCungCap { get; set; }
+        public List<LoSanPham> LoSanPhams { get; set; }
         public double GiaTien { get; set; }
     }
 }
