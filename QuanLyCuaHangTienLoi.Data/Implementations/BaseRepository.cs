@@ -15,10 +15,13 @@ namespace QuanLyCuaHangTienLoi.Data.Implementations
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         protected readonly ILiteDatabase db;
+        public bool Disposed { get => isDisposed; }
+        private bool isDisposed;
 
         public BaseRepository(LiteDbContext db)
         {
             this.db = db.Context;
+            isDisposed = false;
         }
 
         internal virtual ILiteCollection<T> ResolveInclude()
@@ -70,6 +73,12 @@ namespace QuanLyCuaHangTienLoi.Data.Implementations
         {
             ILiteCollection<T> collection = ResolveInclude();
             collection.DeleteMany(x => x.Id == document.Id);
+        }
+
+        public void Dispose()
+        {
+            db.Dispose();
+            isDisposed = true;
         }
     }
 }

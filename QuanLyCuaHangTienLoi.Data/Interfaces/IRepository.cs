@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace QuanLyCuaHangTienLoi.Data.Interfaces
 {
-    public interface IBaseRepository<T> where T : BaseEntity
+    public interface IBaseRepository<T> : IDisposable where T : BaseEntity
     {
         IEnumerable<T> GetAll();
         T Get(ObjectId id);
