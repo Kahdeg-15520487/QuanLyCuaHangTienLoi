@@ -450,7 +450,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                         cmd.Connection = connect;
                         cmd.Parameters.AddWithValue("@IDhoadon", mahoadon);
                         cmd.Parameters.AddWithValue("@HDno", updatetienno);
-                        cmd.Parameters.AddWithValue("@nvthanhtoan", MainControl.tennv);
+                        cmd.Parameters.AddWithValue("@nvthanhtoan", CuaSoChinh.tennv);
                         connect.Open();
                         if (cmd.ExecuteNonQuery() > 0)
                         {

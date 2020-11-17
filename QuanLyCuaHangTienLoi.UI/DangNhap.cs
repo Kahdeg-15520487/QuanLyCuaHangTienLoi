@@ -101,7 +101,7 @@ namespace QuanLyCuaHangTienLoi.UI
             sqldata.Fill(datatb1);
             if (datatb1.Rows.Count == 1)
             {
-                MainControl mainmenu = new MainControl();
+                CuaSoChinh mainmenu = new CuaSoChinh();
                 this.Hide();
                 mainmenu.ShowDialog();
                 this.Show();

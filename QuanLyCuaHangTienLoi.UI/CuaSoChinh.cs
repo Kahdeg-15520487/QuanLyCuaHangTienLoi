@@ -15,7 +15,7 @@ using System.IO;
 
 namespace QuanLyCuaHangTienLoi.UI
 {
-    public partial class MainControl : Form
+    public partial class CuaSoChinh : Form
     {
         SqlConnection connect = ClassKetnoi.connect;
         // SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-A0E9NLI\MSSQLSERVER2019;Initial Catalog=doan-3;Integrated Security=True");
@@ -28,7 +28,9 @@ namespace QuanLyCuaHangTienLoi.UI
 
         public static string tennv = "";
 
-        public MainControl()
+        private List<IconButton> iconButtons;
+
+        public CuaSoChinh()
         {
             InitializeComponent();
             lefborderbtn = new Panel();
@@ -36,7 +38,15 @@ namespace QuanLyCuaHangTienLoi.UI
             PanelMenu.Controls.Add(lefborderbtn);
             timer1.Start();//dong ho
 
-
+            iconButtons = new List<IconButton>()
+            {
+                this.btndashboard,
+                this.btnhome,
+                this.btnorders,
+                this.btnnhapkho,
+                this.btntonkho,
+                this.btndashboard
+            };
         }
 
         private struct RGBColors
@@ -82,15 +92,18 @@ namespace QuanLyCuaHangTienLoi.UI
         {
             if (currentbtn != null)
             {
-                //button
-
-                currentbtn.BackColor = Color.FromArgb(34, 36, 49);
-                currentbtn.ForeColor = Color.Gainsboro;
-                currentbtn.TextAlign = ContentAlignment.MiddleLeft;
-                currentbtn.IconColor = Color.Gainsboro;
-                currentbtn.TextImageRelation = TextImageRelation.ImageBeforeText;
-                currentbtn.ImageAlign = ContentAlignment.MiddleLeft;
+                disablebtn(currentbtn);
             }
+        }
+
+        private void disablebtn(IconButton button)
+        {
+            button.BackColor = Color.FromArgb(40, 60, 70);
+            button.ForeColor = Color.Gainsboro;
+            button.TextAlign = ContentAlignment.MiddleLeft;
+            button.IconColor = Color.Gainsboro;
+            button.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button.ImageAlign = ContentAlignment.MiddleLeft;
         }
         private void motrangcon(Form trangcon)
         {
@@ -130,7 +143,8 @@ namespace QuanLyCuaHangTienLoi.UI
         private void btndashboard_Click(object sender, EventArgs e)
         {
             activebtn(sender, RGBColors.color4);
-            motrangcon(new Dashboard());
+            //motrangcon(new Dashboard());
+            MessageBox.Show("Chức năng này chưa được hoàn thành!");
         }
 
         private void btnnhanvien_Click(object sender, EventArgs e)
@@ -153,7 +167,7 @@ namespace QuanLyCuaHangTienLoi.UI
 
         private void Reset()
         {
-            disablebtn();
+            this.iconButtons.ForEach(disablebtn);
             lefborderbtn.Visible = false;
             iconmenusmall.IconChar = IconChar.Home;
             iconmenusmall.IconColor = Color.Gainsboro;
@@ -310,6 +324,18 @@ namespace QuanLyCuaHangTienLoi.UI
             this.labelGioBig.Text = datetime.ToString("HH:mm:ss");
             this.lbNgayThangBig.Text = datetime.ToString("dd/MM/yyyy");
             this.lbDateBig.Text = datetime.ToString("dddd");
+        }
+
+        private void iconmenusmall_Click(object sender, EventArgs e)
+        {
+            currentchildform?.Close();
+            Reset();
+        }
+
+        private void PanelLogo_Click(object sender, EventArgs e)
+        {
+            currentchildform?.Close();
+            Reset();
         }
     }
 }

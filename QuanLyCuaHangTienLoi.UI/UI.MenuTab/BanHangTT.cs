@@ -131,7 +131,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                             cmd.Parameters.AddWithValue("@TenKH", BanHang.TenKH);
                             cmd.Parameters.Add("@HDtime", SqlDbType.DateTime);
                             cmd.Parameters["@HDtime"].Value = DateTime.Now;
-                            cmd.Parameters.AddWithValue("@nvthanhtoan", MainControl.tennv);
+                            cmd.Parameters.AddWithValue("@nvthanhtoan", CuaSoChinh.tennv);
                             connect.Open();
                             if (cmd.ExecuteNonQuery() > 0)
                             {
@@ -201,7 +201,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                         cmd.Parameters.AddWithValue("@TenKH", BanHang.TenKH);
                         cmd.Parameters.Add("@HDtime", SqlDbType.DateTime);
                         cmd.Parameters["@HDtime"].Value = DateTime.Now;
-                        cmd.Parameters.AddWithValue("@nvthanhtoan", MainControl.tennv);
+                        cmd.Parameters.AddWithValue("@nvthanhtoan", CuaSoChinh.tennv);
                         connect.Open();
                         if (cmd.ExecuteNonQuery() > 0)
                         {

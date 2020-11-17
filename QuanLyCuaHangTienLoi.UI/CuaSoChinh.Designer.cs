@@ -1,6 +1,6 @@
 ﻿namespace QuanLyCuaHangTienLoi.UI
 {
-    partial class MainControl
+    partial class CuaSoChinh
     {
         /// <summary>
         /// Required designer variable.
@@ -351,6 +351,7 @@
             this.PanelLogo.Name = "PanelLogo";
             this.PanelLogo.Size = new System.Drawing.Size(198, 116);
             this.PanelLogo.TabIndex = 0;
+            this.PanelLogo.Click += new System.EventHandler(this.PanelLogo_Click);
             // 
             // panelTitlebar
             // 
@@ -470,6 +471,7 @@
             this.iconmenusmall.Size = new System.Drawing.Size(37, 36);
             this.iconmenusmall.TabIndex = 0;
             this.iconmenusmall.TabStop = false;
+            this.iconmenusmall.Click += new System.EventHandler(this.iconmenusmall_Click);
             // 
             // panelshadow
             // 

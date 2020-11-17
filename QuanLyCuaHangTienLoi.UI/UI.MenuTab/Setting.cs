@@ -22,7 +22,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         string imglogoloc = "";
         public Setting()
         {
-            if (MainControl.tennv == "Admin")
+            if (CuaSoChinh.tennv == "Admin")
             {
                 //MessageBox.Show("ban la nhan vien");
                 InitializeComponent();
