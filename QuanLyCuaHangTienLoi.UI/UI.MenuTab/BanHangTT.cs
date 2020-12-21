@@ -10,7 +10,9 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Drawing.Printing;
-
+using QuanLyCuaHangTienLoi.Data;
+using QuanLyCuaHangTienLoi.Data.Models;
+using QuanLyCuaHangTienLoi.Data.Implementation;
 
 namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
@@ -23,7 +25,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         int TienOK; //textbox thanh toán
         int txtno; // tien no neu co
         int thanhtoanno; //set tiền thanh toán sql nếu có nợ
-        string sdtkh = BanHang.TenKH;
+        string makh = BanHang.TenKH;
         string tenkh = BanHang.SDT;
 
         SqlCommand cmd = new SqlCommand();
@@ -33,12 +35,14 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         Label lbdiachi = new Label();
         Label lbSDT = new Label();
         Label lbLoichao = new Label();
+        private List<ChiTietHoaDon> chiTietHoaDons;
 
-        public BanHangTT(ListBox.ObjectCollection Items)
+        public BanHangTT(ListBox.ObjectCollection Items, List<ChiTietHoaDon> chiTietHoaDons)
         {
             InitializeComponent();
             txtTTOK.Text = BanHang.thanhtoan;
             listBox2.Items.AddRange(Items);
+            this.chiTietHoaDons = chiTietHoaDons;
         }
 
         private void btn50k_Click(object sender, EventArgs e)
@@ -89,7 +93,35 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void btnHuyTT_Click(object sender, EventArgs e)
         {
             Close();
+        }
 
+        private void InsertDatabase(Guid nhanVienId, Guid khachHangId)
+        {
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<HoaDon> hoadonRepo = new Repository<HoaDon>(dbCxt);
+                Repository<ChiTietHoaDon> chitiethoadonRepo = new Repository<ChiTietHoaDon>(dbCxt);
+                Repository<LoSanPham> lspRepo = new Repository<LoSanPham>(dbCxt);
+
+                HoaDon hoaDon = new HoaDon()
+                {
+                    Id = Guid.NewGuid(),
+                    KhachHangId = khachHangId == Guid.Empty ? Guid.Parse("00000000-0000-0000-0000-000000000001") : khachHangId,
+                    NhanVienId = nhanVienId,
+                    NgayLap = DateTime.Now
+                };
+
+                var cthds = chiTietHoaDons.Select(cthd => new ChiTietHoaDon()
+                {
+                    LoSanPhamId = lspRepo.Query(lsp => lsp.SanPhamId == cthd.LoSanPhamId).FirstOrDefault().Id,
+                    HoaDonId = hoaDon.Id,
+                    SoLuong = cthd.SoLuong,
+                    DonGia = cthd.DonGia
+                });
+
+                hoadonRepo.Insert(hoaDon);
+                cthds.ToList().ForEach(chitiethoadonRepo.Insert);
+            }
         }
 
         private void btnOKTT_Click(object sender, EventArgs e)
@@ -98,7 +130,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             string txttienthoi = txtTienThoiLai.Text;
             if (txtTienThoiLai.Text.StartsWith("-"))
             {
-                if (string.IsNullOrEmpty(sdtkh) && string.IsNullOrEmpty(tenkh))
+                if (string.IsNullOrEmpty(makh) && string.IsNullOrEmpty(tenkh))
                 {
                     MessageBox.Show("Khách hàng chưa đăng kí không thể nợ");
                     Close();
@@ -111,63 +143,12 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     thanhtoanno = int.Parse(txtTienKhachDua.Text);//tien no trong sql
                     TienOK = thanhtoanno; //tienthanhtoan trong sql = tiền khách đưa khi nợ
 
-
                     try
                     {
-                        using (var cmd = new SqlCommand("INSERT INTO HoaDon (HDmasp,HDtensp,HDsl,HDdongia,HDloai,HDthanhtoan,HDdonvi,HDno,SDT,TenKH,HDtime,nvthanhtoan) VALUES (@HDmasp,@HDtensp,@HDsl,@HDdongia,@HDloai, @HDthanhtoan,@HDdonvi,@HDno,@SDT,@TenKH,@HDtime,@nvthanhtoan)"))
-                        {
-                            cmd.Connection = connect;
-                            //  cmd.Parameters.AddWithValue("@IDhoadon", BanHang.IDhoadon);
-                            cmd.Parameters.AddWithValue("@HDmasp", BanHang.HDmasp);
-                            cmd.Parameters.AddWithValue("@HDtensp", BanHang.HDtensp);
-                            cmd.Parameters.AddWithValue("@HDsl", BanHang.HDsl);
-                            cmd.Parameters.AddWithValue("@HDdongia", BanHang.HDdongia);
-                            cmd.Parameters.AddWithValue("@HDloai", BanHang.HDloai);
-                            cmd.Parameters.AddWithValue("@HDthanhtoan", TienOK);//
-
-                            cmd.Parameters.AddWithValue("@HDdonvi", BanHang.HDdonvi);
-                            cmd.Parameters.AddWithValue("@HDno", txtno);
-
-                            cmd.Parameters.AddWithValue("@SDT", BanHang.SDT);
-                            cmd.Parameters.AddWithValue("@TenKH", BanHang.TenKH);
-                            cmd.Parameters.Add("@HDtime", SqlDbType.DateTime);
-                            cmd.Parameters["@HDtime"].Value = DateTime.Now;
-                            cmd.Parameters.AddWithValue("@nvthanhtoan", CuaSoChinh.tennv);
-                            connect.Open();
-                            if (cmd.ExecuteNonQuery() > 0)
-                            {
-                                // MessageBox.Show("Đã thêm");
-                                connect.Close();
-                                PrintDialog printDialog = new PrintDialog();
-
-                                PrintDocument printDocument = new PrintDocument();
-
-                                printDialog.Document = printDocument; //add the document to the dialog box...        
-
-                                printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
-
-                                //on a till you will not want to ask the user where to print but this is fine for the test envoironment.
-
-                                DialogResult result = printDialog.ShowDialog();
-
-                                if (result == DialogResult.OK)
-                                {
-                                    printDocument.Print();
-
-                                }
-                                Close();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Thêm không thành công!");
-                            }
-                            connect.Close();
-                        }
+                        InsertDatabase(CuaSoChinh.manv, BanHang.MaKH);
                     }
                     catch (Exception ex)
                     {
-                        connect.Close();
-
                         MessageBox.Show("Error during insert: " + ex.Message);
                     }
                 }
@@ -184,79 +165,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
                 try
                 {
-                    using (var cmd = new SqlCommand("INSERT INTO HoaDon (HDmasp,HDtensp,HDsl,HDdongia,HDloai,HDthanhtoan,HDdonvi,HDno,SDT,TenKH,HDtime,nvthanhtoan) VALUES (@HDmasp,@HDtensp,@HDsl,@HDdongia,@HDloai, @HDthanhtoan,@HDdonvi,@HDno,@SDT,@TenKH,@HDtime,@nvthanhtoan)"))
-                    {
-                        cmd.Connection = connect;
-                        //  cmd.Parameters.AddWithValue("@IDhoadon", BanHang.IDhoadon);
-                        cmd.Parameters.AddWithValue("@HDmasp", BanHang.HDmasp);
-                        cmd.Parameters.AddWithValue("@HDtensp", BanHang.HDtensp);
-                        cmd.Parameters.AddWithValue("@HDsl", BanHang.HDsl);
-                        cmd.Parameters.AddWithValue("@HDdongia", BanHang.HDdongia);
-                        cmd.Parameters.AddWithValue("@HDloai", BanHang.HDloai);
-                        cmd.Parameters.AddWithValue("@HDthanhtoan", TienOK);//
-
-                        cmd.Parameters.AddWithValue("@HDdonvi", BanHang.HDdonvi);
-                        cmd.Parameters.AddWithValue("@HDno", txtno);
-
-                        cmd.Parameters.AddWithValue("@SDT", BanHang.SDT);
-                        cmd.Parameters.AddWithValue("@TenKH", BanHang.TenKH);
-                        cmd.Parameters.Add("@HDtime", SqlDbType.DateTime);
-                        cmd.Parameters["@HDtime"].Value = DateTime.Now;
-                        cmd.Parameters.AddWithValue("@nvthanhtoan", CuaSoChinh.tennv);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            // MessageBox.Show("Đã thêm");
-                            connect.Close();
-
-                            //update sql so luong
-                            //using (var cmd2 = new SqlCommand("update sanpham set soluongsp = soluongsp - 1 where masp=@masp"))
-                            //{
-                            //    cmd2.Connection = connect;
-                            //    cmd2.Parameters.AddWithValue("@masp", txtid.Text);
-                            //    connect.Open();
-                            //    if (cmd2.ExecuteNonQuery() > 0)
-                            //    {
-                            //        MessageBox.Show("Đã xóa");                               
-                            //    }
-                            //    else
-                            //    {
-                            //        MessageBox.Show("Không thành công!");
-                            //    }
-                            //    connect.Close();
-                            //}
-
-                            ///print hoa don
-                            PrintDialog printDialog = new PrintDialog();
-
-                            PrintDocument printDocument = new PrintDocument();
-
-                            printDialog.Document = printDocument; //add the document to the dialog box...        
-
-                            printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
-
-                            //on a till you will not want to ask the user where to print but this is fine for the test envoironment.
-
-                            DialogResult result = printDialog.ShowDialog();
-
-                            if (result == DialogResult.OK)
-                            {
-                                printDocument.Print();
-
-                            }
-                            Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Thêm không thành công!");
-                        }
-                        connect.Close();
-                    }
+                    InsertDatabase(CuaSoChinh.manv, BanHang.MaKH);
                 }
                 catch (Exception ex)
                 {
-                    connect.Close();
-
                     MessageBox.Show("Error during insert: " + ex.Message);
                 }
             }
@@ -346,31 +258,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void BanHangTT_Load(object dataSource, EventArgs e)
         {
 
-            try
-            {
-                connect.Open();
-                cmd.CommandText = "select TenShop,Diachi,SDT,Loichao from ThongTinShop where ID='1'";
-                cmd.Connection = connect;
-                rdr = cmd.ExecuteReader();
-                bool temp = false;
-                while (rdr.Read())
-                {
-                    lbtenshop.Text = rdr.GetString(0);
-                    lbSDT.Text = rdr.GetString(2);
-                    lbdiachi.Text = rdr.GetString(1);
-                    lbLoichao.Text = rdr.GetString(3);
-                    temp = true;
-                }
-                if (temp == false)
-                    MessageBox.Show("not found");
-                connect.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-
+            lbtenshop.Text = "Loki";
+            lbSDT.Text = "0907033339";
+            lbdiachi.Text = "135 Nguyễn Văn Cừ, TPCT";
+            lbLoichao.Text = "Hẹn gặp lại bạn trong lần tới!";
         }
 
         private void btnTraDu_Click(object sender, EventArgs e)

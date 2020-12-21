@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+
+using Newtonsoft.Json;
 
 using QuanLyCuaHangTienLoi.Data;
-using QuanLyCuaHangTienLoi.Data.Implementations;
+using QuanLyCuaHangTienLoi.Data.Implementation;
 using QuanLyCuaHangTienLoi.Data.Models;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
 
 namespace testconsole
 {
@@ -15,50 +14,15 @@ namespace testconsole
     {
         static void Main(string[] args)
         {
-            LiteDbContext context = new LiteDbContext("chtl.db");
-            SanPhamRepository spRepo = new SanPhamRepository(context);
+            var contextOptions = new DbContextOptionsBuilder<CuaHangTienLoiDbContext>()
+                .UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=chtl;Integrated Security=True")
+                .Options;
 
-            var nhacungcap = new NhaCungCap()
-            {
-                TenNhaCungCap = "Viet Tien",
-                ThongTinLienHe = "121345"
-            };
-            context.Context.GetCollection<NhaCungCap>().Insert(nhacungcap);
+            CuaHangTienLoiDbContext context = new CuaHangTienLoiDbContext();
 
-            var loaisanpham = new LoaiSanPham()
-            {
-                TenLoaiSanPham = "may mac"
-            };
-            context.Context.GetCollection<LoaiSanPham>().Insert(loaisanpham);
+            Repository<SanPham> spRepo = new Repository<SanPham>(context);
 
-            var losanpham = new LoSanPham()
-            {
-                NhaCungCap = nhacungcap,
-                NgayNhap = DateTime.Now,
-                SoLuong = 50
-            };
-            context.Context.GetCollection<LoSanPham>().Insert(losanpham);
-
-            var sp = new SanPham()
-            {
-                TenSanPham = "Ao thun Nam",
-                GiaTien = 100,
-                LoaiSanPhams = new List<LoaiSanPham> { loaisanpham },
-                LoSanPhams = new List<LoSanPham> { losanpham },
-                NhaCungCap = new List<NhaCungCap> { nhacungcap }
-            };
-
-            spRepo.Save(sp);
-
-            foreach (var x in context.Context.GetCollection<SanPham>().FindAll().ToList())
-            {
-                Console.WriteLine(JsonConvert.SerializeObject(x));
-            }
-
-            foreach (var x in context.Context.GetCollection<LoSanPham>().FindAll().ToList())
-            {
-                Console.WriteLine(JsonConvert.SerializeObject(x));
-            }
+            Console.WriteLine(JsonConvert.SerializeObject(spRepo.GetAll().Include(sp => sp.LoaiSanPham), Formatting.Indented));
 
             Console.ReadLine();
         }

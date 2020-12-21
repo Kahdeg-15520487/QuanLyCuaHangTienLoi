@@ -12,19 +12,19 @@ using System.Runtime.InteropServices;
 using QuanLyCuaHangTienLoi.UI.MenuTab;
 using System.Data.SqlClient;
 using System.IO;
+using QuanLyCuaHangTienLoi.Data;
+using QuanLyCuaHangTienLoi.Data.Models;
+using QuanLyCuaHangTienLoi.Data.Implementation;
 
 namespace QuanLyCuaHangTienLoi.UI
 {
     public partial class CuaSoChinh : Form
     {
-        SqlConnection connect = ClassKetnoi.connect;
-        SqlCommand cmd = new SqlCommand();
-        SqlDataReader rdr;
-
         private IconButton currentbtn;
         private Panel lefborderbtn;
         private Form currentchildform;
 
+        public static Guid manv = Guid.Empty;
         public static string tennv = "";
 
         private List<IconButton> iconButtons;
@@ -147,7 +147,7 @@ namespace QuanLyCuaHangTienLoi.UI
         private void btnnhanvien_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
-            OpenChildForm(new SanPham());
+            OpenChildForm(new MenuTab.SanPham());
         }
 
         private void btnluong_Click(object sender, EventArgs e)
@@ -218,63 +218,26 @@ namespace QuanLyCuaHangTienLoi.UI
             try
             {
                 //todo db nhan vien
-                connect.Open();
-                cmd.CommandText = "select usernv,tennv from nhanvien where usernv='" + DangNhap.usernv + "'";
-                cmd.Connection = connect;
-                rdr = cmd.ExecuteReader();
-                bool temp = false;
-                while (rdr.Read())
+
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    LabelUser.Text = rdr.GetString(1);
-                    tennv = rdr.GetString(1);
-                    temp = true;
+                    Repository<NhanVien> repo = new Repository<NhanVien>(dbCxt);
+                    var nv = repo.Query(nv => nv.Username == DangNhap.usernv).FirstOrDefault();
+                    if (nv == null)
+                    {
+                        MessageBox.Show("not found");
+                    }
+                    else
+                    {
+                        LabelUser.Text = nv.TenNhanVien;
+                        tennv = nv.TenNhanVien;
+                        manv = nv.Id;
+                    }
                 }
-                if (temp == false)
-                    MessageBox.Show("not found");
-                connect.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-            // hien thi logo
-            try
-            {
-                //todo db logo
-                SqlCommand command;
-                string sqllogo = "select logo from ThongTinShop where ID=1 ";
-                if (connect.State != ConnectionState.Open)
-                    connect.Open();
-                command = new SqlCommand(sqllogo, connect);
-                SqlDataReader reader = command.ExecuteReader();
-
-                reader.Read();
-                if (reader.HasRows)
-                {
-                    byte[] img = (byte[])(reader[0]);
-                    //if (img == null)
-                    //{
-                    //    picLogo.Image = null;
-                    //}
-                    //else
-                    //{
-                    //    MemoryStream ms = new MemoryStream(img);
-                    //    picLogo.Image = Image.FromStream(ms);
-
-                    //}
-                    connect.Close();
-                }
-                else
-                {
-                    connect.Close();
-                    MessageBox.Show("bi loi");
-                }
-
-            }
-            catch (Exception ex)
-            {
-                connect.Close();
-                MessageBox.Show("loi logo: " + ex.Message);
             }
         }
 

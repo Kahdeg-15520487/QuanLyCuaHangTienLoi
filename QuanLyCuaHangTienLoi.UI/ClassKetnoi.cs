@@ -1,17 +1,14 @@
-﻿using QuanLyCuaHangTienLoi.UI.MenuTab;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+
+using QuanLyCuaHangTienLoi.Data;
+
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace QuanLyCuaHangTienLoi.UI
 {
     class ClassKetnoi
     {
-       public static SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=doan-3;Integrated Security=True");
-
+        public static readonly DbContextOptions<CuaHangTienLoiDbContext> contextOptions = new DbContextOptionsBuilder<CuaHangTienLoiDbContext>().UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=chtl;Integrated Security=True").Options;
+        internal static SqlConnection connect;
     }
 }

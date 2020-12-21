@@ -7,16 +7,13 @@ using System.Text;
 
 namespace QuanLyCuaHangTienLoi.Data.Models
 {
-    public class NhaCungCap : BaseEntity
+    public class DonViSanPham : BaseEntity
     {
         [Key]
         public Guid Id { get; set; }
-        public string TenNhaCungCap { get; set; }
-        public string ThongTinLienHe { get; set; }
+        public string TenDonViSanPham { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<SanPham> SanPhams { get; set; }
-        [JsonIgnore]
-        public virtual ICollection<LoSanPham> LoSanPhams { get; set; }
     }
 }

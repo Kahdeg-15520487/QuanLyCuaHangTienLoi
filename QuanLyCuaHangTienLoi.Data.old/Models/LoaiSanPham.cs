@@ -4,8 +4,8 @@ using System.Text;
 
 namespace QuanLyCuaHangTienLoi.Data.Models
 {
-    public interface BaseEntity
+    public class LoaiSanPham :BaseEntity
     {
-        Guid Id { get; }
+        public string TenLoaiSanPham { get; set; }
     }
 }

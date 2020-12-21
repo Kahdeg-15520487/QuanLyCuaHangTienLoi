@@ -10,14 +10,15 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
 using Newtonsoft.Json;
+using QuanLyCuaHangTienLoi.Data;
+using QuanLyCuaHangTienLoi.Data.Implementation;
+using QuanLyCuaHangTienLoi.Data.Models;
 
 namespace QuanLyCuaHangTienLoi.UI
 {
     public partial class DangNhap : Form
     {
         public static string usernv = "";
-        SqlConnection connect = ClassKetnoi.connect;
-        // SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-A0E9NLI\MSSQLSERVER2019;Initial Catalog=doan-3;Integrated Security=True");
         public DangNhap()
         {
             InitializeComponent();
@@ -140,11 +141,14 @@ namespace QuanLyCuaHangTienLoi.UI
         private void btnlogin_Click(object sender, EventArgs e)
         {
             usernv = txtuser.Text;
-            string querynv = "Select * From nhanvien where usernv ='" + txtuser.Text + "' and passnv='" + txtpass.Text + "' ";
-            SqlDataAdapter sqldata = new SqlDataAdapter(querynv, connect);
-            DataTable datatb1 = new DataTable();
-            sqldata.Fill(datatb1);
-            if (datatb1.Rows.Count == 1)
+            bool isValid = false;
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<NhanVien> repo = new Repository<NhanVien>(dbCxt);
+                isValid = repo.Query(nv => nv.Username == txtuser.Text && nv.Matkhau == txtpass.Text) != null;
+            }
+
+            if (isValid)
             {
                 CuaSoChinh mainmenu = new CuaSoChinh();
                 this.Hide();

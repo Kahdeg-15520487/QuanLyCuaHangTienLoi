@@ -4,8 +4,9 @@ using System.Text;
 
 namespace QuanLyCuaHangTienLoi.Data.Models
 {
-    public interface BaseEntity
+    public class HoaDon
     {
-        Guid Id { get; }
+        public Guid Id { get; set; }
+        public ICollection<Guid> ChiTietHoaDon { get; set; }
     }
 }

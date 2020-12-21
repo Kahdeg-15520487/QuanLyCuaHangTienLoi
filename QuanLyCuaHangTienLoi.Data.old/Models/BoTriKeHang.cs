@@ -4,8 +4,7 @@ using System.Text;
 
 namespace QuanLyCuaHangTienLoi.Data.Models
 {
-    public interface BaseEntity
+    class BoTriKeHang
     {
-        Guid Id { get; }
     }
 }

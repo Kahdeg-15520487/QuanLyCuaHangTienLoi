@@ -50,4 +50,7 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="System.Windows.Controls.DataVisualization.Toolkit" Version="4.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuanLyCuaHangTienLoi.Data\QuanLyCuaHangTienLoi.Data.csproj" />
+  </ItemGroup>
 </Project>
