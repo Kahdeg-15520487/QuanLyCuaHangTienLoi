@@ -30,14 +30,25 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         int checkslsp;
         int indexRow = 0;
+        string maspedit;
+        int slspedit;
+        string masp1;
+        int slsp1;
+        string colmasp;
+        string coltensp;
+        string colslsp;
+        string colloaisp;
+        string coldvsp;
+        string coldongiasp;
+
         public BanHang()
         {
             InitializeComponent();
-            //test
         }
 
         private void autoidHD()
         {
+            //todo db hoadon
             connect.Open();
             SqlCommand cmd = new SqlCommand("select count(IDhoadon) from HoaDon", connect);
             int i = Convert.ToInt32(cmd.ExecuteScalar());
@@ -46,6 +57,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             txtsohd.Text = i.ToString();
             IDhoadon = txtsohd.Text; // luu cho form tt
         }
+
         public void clearsp()
         {
             txtmasp.Clear();
@@ -56,9 +68,9 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             txttiensp.Clear();
             comboBoxdonvisp.SelectedItem = null;
             comboBoxdonvisp.Text = null;
-
             comboBoxloaisp.Text = null;
         }
+
         public void huyhd()
         {
             txtmakh.Clear();
@@ -125,6 +137,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             //------------------- update sql -----------------//
             try
             {
+                //todo db hoadon tonkho
                 using (var cmdupdatesl = new SqlCommand("update tonkho set soluongsp=soluongsp - '" + txtsoluongsp.Text + "' where masp='" + txtmasp.Text + "' "))
                 {
                     cmdupdatesl.Connection = connect;
@@ -154,6 +167,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void btnsua_Click(object sender, EventArgs e)
         {
             //tra lai slsp
+            //todo db hoadon tonkho
             using (var cmdedit = new SqlCommand("update tonkho set soluongsp=soluongsp + '" + slspedit + "' where masp='" + maspedit + "' "))
             {
                 cmdedit.Connection = connect;
@@ -180,9 +194,8 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             newDataRow.Cells[5].Value = comboBoxdonvisp.Text;
             newDataRow.Cells[6].Value = comboBoxloaisp.Text;
 
-            //
-
             // tru slsp
+            //todo db hoadon tonkho
             using (var cmdedit2 = new SqlCommand("update tonkho set soluongsp=soluongsp - '" + txtsoluongsp.Text + "' where masp='" + txtmasp.Text + "' "))
             {
                 cmdedit2.Connection = connect;
@@ -202,21 +215,17 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
             clearsp();
         }
-        string maspedit;
-        int slspedit;
+
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
-
             if (dataGridView1.CurrentRow.Index != -1)
             {
                 clearsp();
-
 
                 txtmasp.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 txttensp.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 txtsoluongsp.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
                 txtdongiasp.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
-
                 txttiensp.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
 
                 comboBoxdonvisp.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
@@ -230,8 +239,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 MessageBox.Show("No data!");
             }
         }
-        string masp1;
-        int slsp1;
+
         private void btnxoa_Click(object sender, EventArgs e)
         {
 
@@ -245,6 +253,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             //------------- tra lai soluong sp database -----------------//
             try
             {
+                //todo db hoadon tonkho
                 using (var cmdupdatesl2 = new SqlCommand("update tonkho set soluongsp=soluongsp + '" + slsp1 + "' where masp='" + masp1 + "' "))
                 {
                     cmdupdatesl2.Connection = connect;
@@ -265,7 +274,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 connect.Close();
                 MessageBox.Show("loi update ne" + ex.Message);
             }
-            //-----------------------------------------//
         }
 
         private void btnhuy_Click(object sender, EventArgs e)
@@ -358,9 +366,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     MessageBox.Show("sai tham số >100");
                     txtthanhtoan.Text = txttongcongtiensp.Text;
                 }
-
             }
-
         }
 
         private void txtgiamtientong_KeyPress(object sender, KeyPressEventArgs e)
@@ -458,7 +464,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     MessageBox.Show("sai tham số >100");
                     txtthanhtoan.Text = txttongcongtiensp.Text;
                 }
-
             }
         }
 
@@ -477,12 +482,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 e.Handled = true;
             }
         }
-        string colmasp;
-        string coltensp;
-        string colslsp;
-        string colloaisp;
-        string coldvsp;
-        string coldongiasp;
+
         private void btnthanhtoan_Click(object sender, EventArgs e)
         {
 
@@ -549,6 +549,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 }
                 else
                 {
+                    //todo db khanghang
                     connect.Open();
                     string sqlkh = "select * from KhachHang where SDT=" + int.Parse(txtmakh.Text);
                     SqlCommand cmd = new SqlCommand(sqlkh, connect);
@@ -574,6 +575,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             try
             {
                 autoidHD();
+                //todo db hoadon tonkho
                 string sqltensp = "select tensp from tonkho";
                 SqlCommand cmd = new SqlCommand(sqltensp, connect);
                 connect.Open();
@@ -593,17 +595,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 MessageBox.Show(ex.Message);
             }
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txttensp_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void txttensp_KeyDown(object sender, KeyEventArgs e)
@@ -613,6 +604,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
             if (e.KeyCode == Keys.Enter)
             {
+                //todo db sanpham tonkho
                 connect.Open();
                 string sqlsp = "select * from tonkho where (tensp= N'" + txttensp.Text + "') ";
                 SqlCommand cmd2 = new SqlCommand(sqlsp, connect);
@@ -666,19 +658,9 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void txtsoluongsp_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtsoluongsp.Text))
-            {
-
-            }
-            else if (string.IsNullOrWhiteSpace(txtdongiasp.Text))
-            {
-
-            }
-            else if (string.IsNullOrWhiteSpace(txtgiamphantramsp.Text))
-            {
-
-            }
-            else
+            if (!string.IsNullOrWhiteSpace(txtsoluongsp.Text)
+             && !string.IsNullOrWhiteSpace(txtdongiasp.Text)
+             && !string.IsNullOrWhiteSpace(txtgiamphantramsp.Text))
             {
                 int slspHienTai = Convert.ToInt32(txtsoluongsp.Text);
                 if (slspHienTai > checkslsp)
@@ -701,32 +683,15 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     double giamgiasp = (giamgiaTextbox * thanhtiensp) / 100;
                     //tien san pham = (so luong * don gia ) - giam gia
                     thanhtiensp2 = thanhtiensp - giamgiasp;
-
-
                     txttiensp.Text = thanhtiensp2.ToString("###,###");
                 }
-
-
             }
-
         }
 
         private void btnhuyHD_Click(object sender, EventArgs e)
         {
             huyhd();
             autoidHD();
-
-        }
-
-        private void txttensp_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-        //   string maspdata1;
-
-        private void btnexit_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void txtmasp_KeyDown(object sender, KeyEventArgs e)
@@ -735,6 +700,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 double giamgiaTextbox;
                 connect.Open();
+                //todo db sanpham tonkho
                 string sqlsp = "select * from tonkho where (masp= '" + txtmasp.Text + "') ";
                 SqlCommand cmd2 = new SqlCommand(sqlsp, connect);
                 SqlDataReader dr2 = cmd2.ExecuteReader();
@@ -762,7 +728,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     thanhtiensp2 = thanhtiensp - giamgiasp;
 
                     txttiensp.Text = thanhtiensp2.ToString("###,###");
-
                 }
                 connect.Close();
             }
@@ -790,11 +755,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 e.Handled = true;
             }
-        }
-
-        private void btnscansp_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

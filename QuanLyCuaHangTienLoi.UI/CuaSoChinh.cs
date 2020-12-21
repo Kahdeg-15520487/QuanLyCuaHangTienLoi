@@ -18,7 +18,6 @@ namespace QuanLyCuaHangTienLoi.UI
     public partial class CuaSoChinh : Form
     {
         SqlConnection connect = ClassKetnoi.connect;
-        // SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-A0E9NLI\MSSQLSERVER2019;Initial Catalog=doan-3;Integrated Security=True");
         SqlCommand cmd = new SqlCommand();
         SqlDataReader rdr;
 
@@ -42,10 +41,9 @@ namespace QuanLyCuaHangTienLoi.UI
             {
                 this.btndashboard,
                 this.btnhome,
-                this.btnorders,
-                this.btnnhapkho,
-                this.btntonkho,
-                this.btndashboard
+                this.btnDonHang,
+                this.btnNhapKho,
+                this.btnTonKho,
             };
         }
 
@@ -61,11 +59,11 @@ namespace QuanLyCuaHangTienLoi.UI
 
         }
 
-        private void activebtn(object senderbtn, Color color)
+        private void ActivateButton(object senderbtn, Color color)
         {
             if (senderbtn != null)
             {
-                disablebtn();
+                DisableButton();
                 //button
                 currentbtn = (IconButton)senderbtn;
                 currentbtn.BackColor = Color.FromArgb(37, 36, 81);
@@ -84,19 +82,18 @@ namespace QuanLyCuaHangTienLoi.UI
                 //icon small
                 iconmenusmall.IconChar = currentbtn.IconChar;
                 iconmenusmall.IconColor = color;
-
             }
         }
 
-        private void disablebtn()
+        private void DisableButton()
         {
             if (currentbtn != null)
             {
-                disablebtn(currentbtn);
+                DisableButton(currentbtn);
             }
         }
 
-        private void disablebtn(IconButton button)
+        private void DisableButton(IconButton button)
         {
             button.BackColor = Color.FromArgb(40, 60, 70);
             button.ForeColor = Color.Gainsboro;
@@ -105,69 +102,69 @@ namespace QuanLyCuaHangTienLoi.UI
             button.TextImageRelation = TextImageRelation.ImageBeforeText;
             button.ImageAlign = ContentAlignment.MiddleLeft;
         }
-        private void motrangcon(Form trangcon)
+        private void OpenChildForm(Form childForm)
         {
             if (currentchildform != null)
             {
                 currentchildform.Close();
 
             }
-            currentchildform = trangcon;
-            trangcon.TopLevel = false;
-            trangcon.FormBorderStyle = FormBorderStyle.None;
-            trangcon.Dock = DockStyle.Fill;
-            paneltrangcon.Controls.Add(trangcon);
-            paneltrangcon.Tag = trangcon;
-            trangcon.BringToFront();
-            trangcon.Show();
-            labelcon.Text = trangcon.Text;
+            currentchildform = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            paneltrangcon.Controls.Add(childForm);
+            paneltrangcon.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+            labelcon.Text = childForm.Text;
         }
         private void btnhome_Click(object sender, EventArgs e)
         {
-            activebtn(sender, RGBColors.color1);
-            motrangcon(new BanHang());
+            ActivateButton(sender, RGBColors.color1);
+            OpenChildForm(new BanHang());
         }
 
-        private void btnorders_Click(object sender, EventArgs e)
+        private void btndonhang_Click(object sender, EventArgs e)
         {
-            activebtn(sender, RGBColors.color2);
-            motrangcon(new donhang());
+            ActivateButton(sender, RGBColors.color2);
+            OpenChildForm(new DonHang());
         }
 
         private void btnsanpham_Click(object sender, EventArgs e)
         {
-            activebtn(sender, RGBColors.color3);
+            ActivateButton(sender, RGBColors.color3);
 
         }
 
         private void btndashboard_Click(object sender, EventArgs e)
         {
-            activebtn(sender, RGBColors.color4);
+            ActivateButton(sender, RGBColors.color4);
             //motrangcon(new Dashboard());
             MessageBox.Show("Chức năng này chưa được hoàn thành!");
         }
 
         private void btnnhanvien_Click(object sender, EventArgs e)
         {
-            activebtn(sender, RGBColors.color6);
-            motrangcon(new sanpham());
+            ActivateButton(sender, RGBColors.color6);
+            OpenChildForm(new SanPham());
         }
 
         private void btnluong_Click(object sender, EventArgs e)
         {
-            activebtn(sender, RGBColors.color3);
-            motrangcon(new tonkho());
+            ActivateButton(sender, RGBColors.color3);
+            OpenChildForm(new tonkho());
         }
 
         private void btnlogout_Click(object sender, EventArgs e)
         {
-            activebtn(sender, RGBColors.color7);
+            ActivateButton(sender, RGBColors.color7);
             this.DialogResult = DialogResult.OK;
         }
 
         private void Reset()
         {
-            this.iconButtons.ForEach(disablebtn);
+            this.iconButtons.ForEach(DisableButton);
             lefborderbtn.Visible = false;
             iconmenusmall.IconChar = IconChar.Home;
             iconmenusmall.IconColor = Color.Gainsboro;
@@ -220,6 +217,7 @@ namespace QuanLyCuaHangTienLoi.UI
             PanelDropDownSP.Height = 50;
             try
             {
+                //todo db nhan vien
                 connect.Open();
                 cmd.CommandText = "select usernv,tennv from nhanvien where usernv='" + DangNhap.usernv + "'";
                 cmd.Connection = connect;
@@ -242,6 +240,7 @@ namespace QuanLyCuaHangTienLoi.UI
             // hien thi logo
             try
             {
+                //todo db logo
                 SqlCommand command;
                 string sqllogo = "select logo from ThongTinShop where ID=1 ";
                 if (connect.State != ConnectionState.Open)
@@ -279,14 +278,8 @@ namespace QuanLyCuaHangTienLoi.UI
             }
         }
 
-        private void paneltrangcon_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void iconButtonSP_Click(object sender, EventArgs e)
         {
-            //activebtn(sender, RGBColors.color3);
             if (PanelDropDownSP.Height == 200)
             {
                 PanelDropDownSP.Height = 50;
@@ -299,22 +292,17 @@ namespace QuanLyCuaHangTienLoi.UI
 
         private void iconButtonSPLoai_Click(object sender, EventArgs e)
         {
-            motrangcon(new LoaiSP());
+            OpenChildForm(new LoaiSP());
         }
 
         private void iconButtonSPDonvi_Click(object sender, EventArgs e)
         {
-            motrangcon(new DonViSP());
+            OpenChildForm(new DonViSP());
         }
 
         private void btnsetting_Click(object sender, EventArgs e)
         {
-            motrangcon(new Setting());
-        }
-
-        private void PanelMenu_Paint(object sender, PaintEventArgs e)
-        {
-
+            OpenChildForm(new Setting());
         }
 
         private void timer1_Tick(object sender, EventArgs e)

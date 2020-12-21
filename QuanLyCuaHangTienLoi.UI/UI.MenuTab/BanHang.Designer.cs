@@ -239,7 +239,6 @@
             this.txttensp.Name = "txttensp";
             this.txttensp.Size = new System.Drawing.Size(326, 20);
             this.txttensp.TabIndex = 12;
-            this.txttensp.TextChanged += new System.EventHandler(this.txttensp_TextChanged_1);
             this.txttensp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txttensp_KeyDown);
             // 
             // txtsoluongsp
@@ -467,7 +466,6 @@
             this.btnexit.TabIndex = 26;
             this.btnexit.Text = "Thoát";
             this.btnexit.UseVisualStyleBackColor = true;
-            this.btnexit.Click += new System.EventHandler(this.btnexit_Click);
             // 
             // btnhuyHD
             // 

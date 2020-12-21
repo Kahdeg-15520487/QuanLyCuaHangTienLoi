@@ -1,6 +1,6 @@
 ﻿namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
-    partial class sanpham
+    partial class SanPham
     {
         /// <summary>
         /// Required designer variable.
@@ -248,7 +248,6 @@
             this.btnButtonChooseIMG.TabIndex = 24;
             this.btnButtonChooseIMG.Text = "Chọn ảnh";
             this.btnButtonChooseIMG.UseVisualStyleBackColor = true;
-            this.btnButtonChooseIMG.Click += new System.EventHandler(this.btnButtonChooseIMG_Click);
             // 
             // txtsearch
             // 

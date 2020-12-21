@@ -14,13 +14,53 @@ using System.Text.RegularExpressions;
 namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
 
-    public partial class sanpham : Form
+    public partial class SanPham : Form
     {
         SqlConnection connect = ClassKetnoi.connect;
 
         SqlCommand command;
+
+        public SanPham()
+        {
+            InitializeComponent();
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gridviewsp();
+
+            //todo db sanpham
+            // string querysp = @"select masp as 'Mã sản phẩm', tensp as 'Tên sản phẩm', soluongsp as 'Số lượng', gianhapsp as 'Giá nhập', giabansp as 'Giá bán', loaisp as 'Loại', donvisp as 'Đơn vị'from sanpham;";
+            string queryloai = @"select * from loaisp";
+            string querydonvi = @"select * from donvisp";
+
+            // SqlDataAdapter sqldatasp = new SqlDataAdapter(querysp, connect);
+            SqlDataAdapter sqldataloai = new SqlDataAdapter(queryloai, connect);
+            SqlDataAdapter sqldatadonvi = new SqlDataAdapter(querydonvi, connect);
+
+            // DataTable datatbsp = new DataTable();
+            DataTable datatbloai = new DataTable();
+            DataTable datatbdonvi = new DataTable();
+
+            // sqldatasp.Fill(datatbsp);
+            sqldataloai.Fill(datatbloai);
+            sqldatadonvi.Fill(datatbdonvi);
+
+            //combobox
+            comboloai.Items.Clear();
+            combodonvi.Items.Clear();
+            foreach (DataRow dr in datatbloai.Rows)
+            {
+                comboloai.Items.Add(dr["TenLoai"].ToString());
+            }
+            foreach (DataRow dr2 in datatbdonvi.Rows)
+            {
+                combodonvi.Items.Add(dr2["TenDonvi"].ToString());
+            }
+            connect.Close();
+        }
+
         public void gridviewsp()
         {
+            //todo db sanpham
             string querysp = @"select masp as 'Mã sản phẩm', tensp as 'Tên sản phẩm', soluongsp as 'Số lượng', gianhapsp as 'Giá nhập', giabansp as 'Giá bán', loaisp as 'Loại', donvisp as 'Đơn vị', ngaynhapkho as 'Ngày nhập kho', nvnhapkho as 'Nhân viên' from nhapkho";
             SqlDataAdapter sqldatasp = new SqlDataAdapter(querysp, connect);
             DataTable datatbsp = new DataTable();
@@ -38,7 +78,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             txtgiaban.Clear();
             comboloai.SelectedItem = null;
             combodonvi.SelectedItem = null;
-            // pictureBox1.Image = null;
             pictureBox1.Image = Properties.Resources._default;
         }
 
@@ -47,30 +86,36 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         {
             if (comboloai.SelectedIndex == -1)
             {
-                //    MessageBox.Show("nhập thông tin!");
+                MessageBox.Show("Xin chọn loại sản phẩm");
+                return;
             }
             else
             {
                 string s3;
                 string comboselected = this.comboloai.GetItemText(this.comboloai.SelectedItem);
-                //  string s1 = comboselected.Substring(0, comboselected.IndexOf(" "));
+
                 string s1 = comboselected.Substring(0, 1);
                 string s2 = comboselected.Substring(comboselected.IndexOf(" ") + 1);
+
                 if (s2 == null)
                 {
                     string s1a = s1.Substring(0, 1).ToUpper();
                     string s2a = s1.Substring(0, 1).ToUpper();
                     s3 = String.Concat(s1a, s2a);
+
+                    //todo db sanpham
                     connect.Open();
                     SqlCommand cmd = new SqlCommand("select count(masp) from nhapkho", connect);
                     int i = Convert.ToInt32(cmd.ExecuteScalar());
                     connect.Close();
+
                     i++;
                     //  MessageBox.Show(s3);
                     txtid.Text = s3 + i.ToString();
                 }
                 else
                 {
+                    //todo wtf
                     bool timA; bool timE; bool TimI; bool TimO; bool TimU; bool TimY; bool TimD;
                     string s1a = s1.Substring(0, 1).ToUpper();
                     string s2a = s2.Substring(0, 1).ToLower();
@@ -114,8 +159,8 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                         MessageBox.Show("ko tim thay");
                         s3 = String.Concat(s1a, s2a);
                     }
-                    //  String s3 = String.Concat(s1a, s2a)
 
+                    //todo db sanpham
                     connect.Open();
                     SqlCommand cmd = new SqlCommand("select count(masp) from nhapkho", connect);
                     int i = Convert.ToInt32(cmd.ExecuteScalar());
@@ -123,58 +168,12 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     i++;
                     txtid.Text = s3 + i.ToString();
                 }
-
-
-
             }
         }
-
-        public sanpham()
-        {
-            InitializeComponent();
-
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            gridviewsp();
-
-            // string querysp = @"select masp as 'Mã sản phẩm', tensp as 'Tên sản phẩm', soluongsp as 'Số lượng', gianhapsp as 'Giá nhập', giabansp as 'Giá bán', loaisp as 'Loại', donvisp as 'Đơn vị'from sanpham;";
-            string queryloai = @"select * from loaisp";
-            string querydonvi = @"select * from donvisp";
-
-            // SqlDataAdapter sqldatasp = new SqlDataAdapter(querysp, connect);
-            SqlDataAdapter sqldataloai = new SqlDataAdapter(queryloai, connect);
-            SqlDataAdapter sqldatadonvi = new SqlDataAdapter(querydonvi, connect);
-
-            // DataTable datatbsp = new DataTable();
-            DataTable datatbloai = new DataTable();
-            DataTable datatbdonvi = new DataTable();
-
-            // sqldatasp.Fill(datatbsp);
-            sqldataloai.Fill(datatbloai);
-            sqldatadonvi.Fill(datatbdonvi);
-
-            //combobox
-            comboloai.Items.Clear();
-            combodonvi.Items.Clear();
-            foreach (DataRow dr in datatbloai.Rows)
-            {
-                comboloai.Items.Add(dr["TenLoai"].ToString());
-            }
-            foreach (DataRow dr2 in datatbdonvi.Rows)
-            {
-                combodonvi.Items.Add(dr2["TenDonvi"].ToString());
-            }
-            connect.Close();
-            //table
-            // dataGridView1.DataSource = datatbsp;
-        }
-
-
-
         private void sanpham_Load(object sender, EventArgs e)
         {
             txtKhuyenmai.Text = "0";
             txtid.ReadOnly = true;
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -205,14 +204,9 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 comboloai.Select();
             }
-            //else if (combodonvi.SelectedIndex == -1)
-            //{
-            //    MessageBox.Show("nhập thông tin!");
-            //    combodonvi.Select();
-
-            //}
             else
             {
+                //todo db sanpham nhap kho
                 //---------------- nhap kho ---------------------//
                 using (var cmd = new SqlCommand("INSERT INTO nhapkho (masp,tensp,soluongsp,gianhapsp,giabansp,loaisp,donvisp,ngaynhapkho,nvnhapkho) VALUES (@masp,@tensp,@soluongsp,@gianhapsp, @giabansp,@loaisp,@donvisp,@ngaynhapkho,@nvnhapkho)"))
                 {
@@ -244,6 +238,8 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     connect.Close();
 
                 }
+
+                //todo db sanpham ton kho
                 //---------------- ton kho ---------------------//
                 using (var cmd3 = new SqlCommand("select masp from tonkho where masp=@masp"))
                 {
@@ -291,6 +287,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     {
                         connect.Close();
                         //khong ton tai
+                        //todo db sanpham ton kho
                         using (var cmd2 = new SqlCommand("INSERT INTO tonkho (masp,tensp,soluongsp,gianhapsp,giabansp,loaisp,donvisp,giamgia) VALUES (@masp,@tensp,@soluongsp,@gianhapsp, @giabansp,@loaisp,@donvisp,@giamgia)"))
                         {
                             cmd2.Connection = connect;
@@ -346,6 +343,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
                 try
                 {
+                    //todo db sanpham anhsp
                     string sql1 = "select anhsp from nhapkho where masp='" + txtid.Text + "' ";
 
                     if (connect.State != ConnectionState.Open)
@@ -383,8 +381,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     MessageBox.Show("loi bang: " + ex.Message);
                 }
                 txtid.ReadOnly = true;
-                //=====================
-
             }
         }
 
@@ -398,6 +394,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 try
                 {
+                    //todo db sanpham nhap kho
                     using (var cmd = new SqlCommand("update nhapkho set tensp=@tensp,soluongsp=@soluongsp,gianhapsp=@gianhapsp,giabansp=@giabansp,loaisp=@loaisp,donvisp=@donvisp,ngaynhapkho=@ngaynhapkho,nvnhapkho=@nvnhapkho where masp=@masp"))
                     {
                         cmd.Connection = connect;
@@ -442,10 +439,9 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             }
             else
             {
-
-
                 try
                 {
+                    //todo db sanpham nhap kho
                     using (var cmd = new SqlCommand("delete nhapkho where masp=@masp"))
                     {
                         cmd.Connection = connect;
@@ -478,14 +474,11 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             clearsp();
         }
 
-        private void btnButtonChooseIMG_Click(object sender, EventArgs e)
-        {
-        }
-
         private void btnDeleteIMG_Click(object sender, EventArgs e)
         {
             try
             {
+                //todo db sanpham nhap kho
                 using (var cmd = new SqlCommand("update nhapkho set anhsp=null where masp=@masp"))
                 {
                     cmd.Connection = connect;
@@ -515,6 +508,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         {
             try
             {
+                //todo db sanpham nhap kho
                 if (connect.State != ConnectionState.Open)
                     connect.Open();
                 using (SqlDataAdapter da = new SqlDataAdapter("select masp,tensp,soluongsp,gianhapsp,giabansp,loaisp,donvisp from nhapkho where ( masp like '" + txtsearch.Text + "%' or tensp like N'" + txtsearch.Text + "%' or soluongsp like '" + txtsearch.Text + "%' or gianhapsp like '" + txtsearch.Text + "%' or giabansp like '" + txtsearch.Text + "%'  or loaisp like N'" + txtsearch.Text + "%'  or donvisp like N'" + txtsearch.Text + "%'     )", connect))
@@ -549,13 +543,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         }
 
-        private void btnsearch_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
         private void comboloai_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtid.Text))
@@ -563,20 +550,12 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 autoid();
                 txtid.ReadOnly = false;
             }
-            else
-            {
-
-            }
-
-        }
-
-        private void ButtonAutoid_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
+            //todo replace excel
+
             // creating Excel Application  
             Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
             // creating new WorkBook within Excel application  
@@ -616,7 +595,11 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             try
             {
                 if (connect.State != ConnectionState.Open)
+                {
                     connect.Open();
+                }
+
+                //todo db sanpham nhap kho
                 using (SqlDataAdapter da = new SqlDataAdapter("select masp,tensp,soluongsp,gianhapsp,giabansp,loaisp,donvisp,ngaynhapkho,nvnhapkho from nhapkho where cast ([ngaynhapkho] as date) = '" + getdate + "'      ", connect))
                 {
                     DataTable dtsearch = new DataTable("nhapkho");
@@ -633,8 +616,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 {
                     //  labelSearch.Text = "Không tìm thấy...";
                 }
-
-
             }
             catch (Exception ex)
             {

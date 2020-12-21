@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
-    public partial class donhang : Form
+    public partial class DonHang : Form
     {
         SqlConnection connect = ClassKetnoi.connect;
         //SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-A0E9NLI\MSSQLSERVER2019;Initial Catalog=doan-3;Integrated Security=True");
@@ -29,14 +29,14 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         public static string hdno = "";
         public static string nvtt = "";
 
-        public donhang()
+        public DonHang()
         {
             InitializeComponent();
             gridviewsp();
-       //     dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.None;
         }
         public void gridviewsp()
         {
+            //todo db hoadon sanpham
             string querysp = @"select IDhoadon as 'Mã hóa đơn',HDmasp as 'Mã sản phẩm' , HDtensp as 'Tên sản phẩm', TenKH as 'Tên KH', HDsl as 'Số lượng',HDdongia as 'Đơn giá' ,HDthanhtoan as 'Thanh toán',HDtime as 'Thời gian', HDloai as 'Loại', HDdonvi as 'Đơn vị',SDT as 'SĐT',HDno as 'Nợ',nvthanhtoan as 'Nhân viên thanh toán' from HoaDon";
             SqlDataAdapter sqldatasp = new SqlDataAdapter(querysp, connect);
             DataTable datatbsp = new DataTable();
@@ -63,12 +63,11 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 hdno = dataGridView1.CurrentRow.Cells[11].Value.ToString();
                 nvtt = dataGridView1.CurrentRow.Cells[12].Value.ToString();
 
-                var form2 = new HoaDonChiTiet();
-                form2.Show();
+                var childForm = new HoaDonChiTiet();
+                childForm.Show();
             }
             else
             {
-                //
             }
         }
 
@@ -77,7 +76,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             try
             {
                 if (connect.State != ConnectionState.Open)
+                {
                     connect.Open();
+                }
+                //todo db hoadon
                 using (SqlDataAdapter da = new SqlDataAdapter("select * from HoaDon where ( IDhoadon like '" + textBoxSearch.Text + "%' or HDthanhtoan like N'" + textBoxSearch.Text + "%' or SDT like '" + textBoxSearch.Text + "%' or TenKH like '" + textBoxSearch.Text + "%' or HDtime like '" + textBoxSearch.Text + "%'       )", connect))
                 {
                     DataTable dtsearch = new DataTable("HoaDon");
@@ -88,11 +90,11 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 connect.Close();
                 if (dataGridView1.Rows.Count > 0 && dataGridView1.Rows != null)
                 {
-                     labelSearch.Text = "Đã tìm thấy";
+                    labelSearch.Text = "Đã tìm thấy";
                 }
                 else
                 {
-                     labelSearch.Text = "Không tìm thấy...";
+                    labelSearch.Text = "Không tìm thấy...";
                 }
 
                 if (string.IsNullOrWhiteSpace(textBoxSearch.Text))
@@ -100,8 +102,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     labelSearch.Text = "Tìm kiếm theo: ID hóa đơn, Tổng tiền thanh toán, " +
                         "SĐT khách hàng, Tên khách hàng.";
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -117,6 +117,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 if (connect.State != ConnectionState.Open)
                     connect.Open();
+                //todo db hoadon
                 using (SqlDataAdapter da = new SqlDataAdapter("select * from HoaDon where cast ([HDtime] as date) = '" + getdate + "'      ", connect))
                 {
                     DataTable dtsearch = new DataTable("HoaDon");
@@ -127,14 +128,12 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 connect.Close();
                 if (dataGridView1.Rows.Count > 1 && dataGridView1.Rows != null)
                 {
-                   // labelSearch.Text = "Đã tìm thấy";
+                    // labelSearch.Text = "Đã tìm thấy";
                 }
                 else
                 {
-                  //  labelSearch.Text = "Không tìm thấy...";
+                    //  labelSearch.Text = "Không tìm thấy...";
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -150,6 +149,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
+            //todo replace excel
             // creating Excel Application  
             Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
             // creating new WorkBook within Excel application  
@@ -190,17 +190,12 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 for (int i = 0; i < item.Cells.Count; i++)
                 {
-                    if (item.Cells[i].Value == null || item.Cells[i].Value == DBNull.Value )
+                    if (item.Cells[i].Value == null || item.Cells[i].Value == DBNull.Value)
                     {
                         for (int n = 1; n < dataGridView1.Rows.Count; n++)
                         {
                             dataGridView1.Rows[n].Cells[i].Value = " ";
                         }
-                    }
-                    else
-                    {
-
-
                     }
                 }
             }

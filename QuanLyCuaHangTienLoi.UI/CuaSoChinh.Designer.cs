@@ -37,10 +37,10 @@
             this.iconButtonSP = new FontAwesome.Sharp.IconButton();
             this.btndashboard = new FontAwesome.Sharp.IconButton();
             this.btnlogout = new FontAwesome.Sharp.IconButton();
-            this.btntonkho = new FontAwesome.Sharp.IconButton();
-            this.btnorders = new FontAwesome.Sharp.IconButton();
+            this.btnTonKho = new FontAwesome.Sharp.IconButton();
+            this.btnDonHang = new FontAwesome.Sharp.IconButton();
             this.btnhome = new FontAwesome.Sharp.IconButton();
-            this.btnnhapkho = new FontAwesome.Sharp.IconButton();
+            this.btnNhapKho = new FontAwesome.Sharp.IconButton();
             this.PanelLogo = new System.Windows.Forms.Panel();
             this.panelTitlebar = new System.Windows.Forms.Panel();
             this.lbDateTime = new System.Windows.Forms.Label();
@@ -70,10 +70,10 @@
             this.PanelMenu.Controls.Add(this.PanelDropDownSP);
             this.PanelMenu.Controls.Add(this.btndashboard);
             this.PanelMenu.Controls.Add(this.btnlogout);
-            this.PanelMenu.Controls.Add(this.btntonkho);
-            this.PanelMenu.Controls.Add(this.btnorders);
+            this.PanelMenu.Controls.Add(this.btnTonKho);
+            this.PanelMenu.Controls.Add(this.btnDonHang);
             this.PanelMenu.Controls.Add(this.btnhome);
-            this.PanelMenu.Controls.Add(this.btnnhapkho);
+            this.PanelMenu.Controls.Add(this.btnNhapKho);
             this.PanelMenu.Controls.Add(this.PanelLogo);
             this.PanelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.PanelMenu.Location = new System.Drawing.Point(0, 0);
@@ -81,7 +81,6 @@
             this.PanelMenu.Name = "PanelMenu";
             this.PanelMenu.Size = new System.Drawing.Size(198, 692);
             this.PanelMenu.TabIndex = 0;
-            this.PanelMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelMenu_Paint);
             // 
             // btnsetting
             // 
@@ -247,52 +246,52 @@
             // 
             // btntonkho
             // 
-            this.btntonkho.FlatAppearance.BorderSize = 0;
-            this.btntonkho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btntonkho.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.btntonkho.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btntonkho.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btntonkho.IconChar = FontAwesome.Sharp.IconChar.Boxes;
-            this.btntonkho.IconColor = System.Drawing.Color.Gainsboro;
-            this.btntonkho.IconSize = 35;
-            this.btntonkho.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btntonkho.Location = new System.Drawing.Point(0, 288);
-            this.btntonkho.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btntonkho.Name = "btntonkho";
-            this.btntonkho.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
-            this.btntonkho.Rotation = 0D;
-            this.btntonkho.Size = new System.Drawing.Size(198, 58);
-            this.btntonkho.TabIndex = 6;
-            this.btntonkho.Text = "Tồn kho";
-            this.btntonkho.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btntonkho.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btntonkho.UseVisualStyleBackColor = true;
-            this.btntonkho.Click += new System.EventHandler(this.btnluong_Click);
+            this.btnTonKho.FlatAppearance.BorderSize = 0;
+            this.btnTonKho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTonKho.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnTonKho.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnTonKho.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnTonKho.IconChar = FontAwesome.Sharp.IconChar.Boxes;
+            this.btnTonKho.IconColor = System.Drawing.Color.Gainsboro;
+            this.btnTonKho.IconSize = 35;
+            this.btnTonKho.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTonKho.Location = new System.Drawing.Point(0, 288);
+            this.btnTonKho.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnTonKho.Name = "btntonkho";
+            this.btnTonKho.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
+            this.btnTonKho.Rotation = 0D;
+            this.btnTonKho.Size = new System.Drawing.Size(198, 58);
+            this.btnTonKho.TabIndex = 6;
+            this.btnTonKho.Text = "Tồn kho";
+            this.btnTonKho.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTonKho.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTonKho.UseVisualStyleBackColor = true;
+            this.btnTonKho.Click += new System.EventHandler(this.btnluong_Click);
             // 
             // btnorders
             // 
-            this.btnorders.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnorders.FlatAppearance.BorderSize = 0;
-            this.btnorders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnorders.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.btnorders.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnorders.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnorders.IconChar = FontAwesome.Sharp.IconChar.ShoppingCart;
-            this.btnorders.IconColor = System.Drawing.Color.Gainsboro;
-            this.btnorders.IconSize = 35;
-            this.btnorders.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnorders.Location = new System.Drawing.Point(0, 174);
-            this.btnorders.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnorders.Name = "btnorders";
-            this.btnorders.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
-            this.btnorders.Rotation = 0D;
-            this.btnorders.Size = new System.Drawing.Size(198, 58);
-            this.btnorders.TabIndex = 2;
-            this.btnorders.Text = "Đơn Hàng";
-            this.btnorders.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnorders.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnorders.UseVisualStyleBackColor = true;
-            this.btnorders.Click += new System.EventHandler(this.btnorders_Click);
+            this.btnDonHang.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDonHang.FlatAppearance.BorderSize = 0;
+            this.btnDonHang.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDonHang.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnDonHang.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnDonHang.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnDonHang.IconChar = FontAwesome.Sharp.IconChar.ShoppingCart;
+            this.btnDonHang.IconColor = System.Drawing.Color.Gainsboro;
+            this.btnDonHang.IconSize = 35;
+            this.btnDonHang.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDonHang.Location = new System.Drawing.Point(0, 174);
+            this.btnDonHang.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnDonHang.Name = "btnorders";
+            this.btnDonHang.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
+            this.btnDonHang.Rotation = 0D;
+            this.btnDonHang.Size = new System.Drawing.Size(198, 58);
+            this.btnDonHang.TabIndex = 2;
+            this.btnDonHang.Text = "Đơn Hàng";
+            this.btnDonHang.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDonHang.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDonHang.UseVisualStyleBackColor = true;
+            this.btnDonHang.Click += new System.EventHandler(this.btndonhang_Click);
             // 
             // btnhome
             // 
@@ -321,27 +320,27 @@
             // 
             // btnnhapkho
             // 
-            this.btnnhapkho.FlatAppearance.BorderSize = 0;
-            this.btnnhapkho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnnhapkho.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.btnnhapkho.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnnhapkho.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnnhapkho.IconChar = FontAwesome.Sharp.IconChar.Truck;
-            this.btnnhapkho.IconColor = System.Drawing.Color.Gainsboro;
-            this.btnnhapkho.IconSize = 35;
-            this.btnnhapkho.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnnhapkho.Location = new System.Drawing.Point(0, 230);
-            this.btnnhapkho.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnnhapkho.Name = "btnnhapkho";
-            this.btnnhapkho.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
-            this.btnnhapkho.Rotation = 0D;
-            this.btnnhapkho.Size = new System.Drawing.Size(198, 58);
-            this.btnnhapkho.TabIndex = 5;
-            this.btnnhapkho.Text = "Nhập kho";
-            this.btnnhapkho.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnnhapkho.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnnhapkho.UseVisualStyleBackColor = true;
-            this.btnnhapkho.Click += new System.EventHandler(this.btnnhanvien_Click);
+            this.btnNhapKho.FlatAppearance.BorderSize = 0;
+            this.btnNhapKho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNhapKho.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnNhapKho.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnNhapKho.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnNhapKho.IconChar = FontAwesome.Sharp.IconChar.Truck;
+            this.btnNhapKho.IconColor = System.Drawing.Color.Gainsboro;
+            this.btnNhapKho.IconSize = 35;
+            this.btnNhapKho.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNhapKho.Location = new System.Drawing.Point(0, 230);
+            this.btnNhapKho.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnNhapKho.Name = "btnnhapkho";
+            this.btnNhapKho.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
+            this.btnNhapKho.Rotation = 0D;
+            this.btnNhapKho.Size = new System.Drawing.Size(198, 58);
+            this.btnNhapKho.TabIndex = 5;
+            this.btnNhapKho.Text = "Nhập kho";
+            this.btnNhapKho.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNhapKho.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnNhapKho.UseVisualStyleBackColor = true;
+            this.btnNhapKho.Click += new System.EventHandler(this.btnnhanvien_Click);
             // 
             // PanelLogo
             // 
@@ -493,7 +492,6 @@
             this.paneltrangcon.Name = "paneltrangcon";
             this.paneltrangcon.Size = new System.Drawing.Size(1085, 615);
             this.paneltrangcon.TabIndex = 3;
-            this.paneltrangcon.Paint += new System.Windows.Forms.PaintEventHandler(this.paneltrangcon_Paint);
             // 
             // lbDateBig
             // 
@@ -535,7 +533,7 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // MainControl
+            // CuaSoChinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -546,7 +544,7 @@
             this.Controls.Add(this.PanelMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "MainControl";
+            this.Name = "CuaSoChinh";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainControl";
             this.Load += new System.EventHandler(this.MainControl_Load);
@@ -566,10 +564,10 @@
         private System.Windows.Forms.Panel PanelMenu;
         private System.Windows.Forms.Panel PanelLogo;
         private FontAwesome.Sharp.IconButton btnhome;
-        private FontAwesome.Sharp.IconButton btnnhapkho;
+        private FontAwesome.Sharp.IconButton btnNhapKho;
         private FontAwesome.Sharp.IconButton btndashboard;
-        private FontAwesome.Sharp.IconButton btnorders;
-        private FontAwesome.Sharp.IconButton btntonkho;
+        private FontAwesome.Sharp.IconButton btnDonHang;
+        private FontAwesome.Sharp.IconButton btnTonKho;
         private FontAwesome.Sharp.IconButton btnlogout;
         private System.Windows.Forms.Panel panelTitlebar;
         private FontAwesome.Sharp.IconPictureBox iconmenusmall;

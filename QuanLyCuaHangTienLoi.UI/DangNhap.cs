@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
-
+using Newtonsoft.Json;
 
 namespace QuanLyCuaHangTienLoi.UI
 {
@@ -22,6 +22,51 @@ namespace QuanLyCuaHangTienLoi.UI
         {
             InitializeComponent();
             // txtuser.SelectionStart = 0;
+
+            //dump database
+            //string[] tables = new string[]
+            //{
+            //    "donvisp",
+            //    "HoaDon",
+            //    "KhachHang",
+            //    "loaisp",
+            //    "nhanvien",
+            //    "nhapkho",
+            //    "ThongTinShop",
+            //    "tonkho"
+            //};
+
+            //foreach (var t in tables)
+            //{
+            //    using (var cmd = new SqlCommand("select * from " + t))
+            //    {
+            //        cmd.Connection = connect;
+            //        connect.Open();
+
+            //        using (var dataReader = cmd.ExecuteReader())
+            //        {
+            //            var dt = new DataTable();
+            //            dt.Load(dataReader);
+            //            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            //            Dictionary<string, object> row;
+            //            foreach (DataRow dataRow in dt.Rows)
+            //            {
+            //                row = new Dictionary<string, object>();
+            //                foreach (DataColumn col in dt.Columns)
+            //                {
+            //                    row.Add(col.ColumnName, dataRow[col]);
+            //                }
+            //                rows.Add(row);
+            //            }
+            //            var serialized = JsonConvert.SerializeObject(rows, Formatting.Indented);
+            //            File.WriteAllText(t + ".txt", serialized);
+            //        }
+
+            //        connect.Close();
+            //    }
+            //}
+
+            //Console.WriteLine();
         }
 
         private void Form1_Load(object sender, EventArgs e)

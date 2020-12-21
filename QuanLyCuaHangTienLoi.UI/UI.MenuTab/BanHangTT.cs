@@ -33,6 +33,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         Label lbdiachi = new Label();
         Label lbSDT = new Label();
         Label lbLoichao = new Label();
+
         public BanHangTT(ListBox.ObjectCollection Items)
         {
             InitializeComponent();
