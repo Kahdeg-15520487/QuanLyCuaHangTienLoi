@@ -250,7 +250,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void BanHangTT_Load(object dataSource, EventArgs e)
         {
-
             lbtenshop.Text = "Loki";
             lbSDT.Text = "0907033339";
             lbdiachi.Text = "135 Nguyễn Văn Cừ, TPCT";

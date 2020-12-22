@@ -10,6 +10,10 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
+using QuanLyCuaHangTienLoi.Data;
+using QuanLyCuaHangTienLoi.Data.Implementation;
+using QuanLyCuaHangTienLoi.Data.Models;
+using QuanLyCuaHangTienLoi.UI.DisplayObject;
 
 namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
@@ -25,48 +29,60 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             InitializeComponent();
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            gridviewsp();
+            RefreshGridview();
 
             //todo db sanpham
-            // string querysp = @"select masp as 'Mã sản phẩm', tensp as 'Tên sản phẩm', soluongsp as 'Số lượng', gianhapsp as 'Giá nhập', giabansp as 'Giá bán', loaisp as 'Loại', donvisp as 'Đơn vị'from sanpham;";
-            string queryloai = @"select * from loaisp";
-            string querydonvi = @"select * from donvisp";
-
-            // SqlDataAdapter sqldatasp = new SqlDataAdapter(querysp, connect);
-            SqlDataAdapter sqldataloai = new SqlDataAdapter(queryloai, connect);
-            SqlDataAdapter sqldatadonvi = new SqlDataAdapter(querydonvi, connect);
-
-            // DataTable datatbsp = new DataTable();
-            DataTable datatbloai = new DataTable();
-            DataTable datatbdonvi = new DataTable();
-
-            // sqldatasp.Fill(datatbsp);
-            sqldataloai.Fill(datatbloai);
-            sqldatadonvi.Fill(datatbdonvi);
-
-            //combobox
-            comboloai.Items.Clear();
-            combodonvi.Items.Clear();
-            foreach (DataRow dr in datatbloai.Rows)
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
-                comboloai.Items.Add(dr["TenLoai"].ToString());
+                Repository<SanPham> sanPhamRepo = new Repository<SanPham>(dbCxt);
+                Repository<LoSanPham> loSanPhamRepo = new Repository<LoSanPham>(dbCxt);
+                Repository<LoaiSanPham> loaiSanPhamRepo = new Repository<LoaiSanPham>(dbCxt);
+                Repository<DonViSanPham> donViSanPhamRepo = new Repository<DonViSanPham>(dbCxt);
+                Repository<NhaCungCap> nccRepo = new Repository<NhaCungCap>(dbCxt);
+
+                comboloai.Items.Clear();
+                combodonvi.Items.Clear();
+                combonhaCungCap.Items.Clear();
+                foreach (var loaiSp in loaiSanPhamRepo.GetAll())
+                {
+                    comboloai.Items.Add(loaiSp);
+                }
+                foreach (var donviSp in donViSanPhamRepo.GetAll())
+                {
+                    combodonvi.Items.Add(donviSp);
+                }
+                foreach (var ncc in nccRepo.GetAll())
+                {
+                    combonhaCungCap.Items.Add(ncc);
+                }
             }
-            foreach (DataRow dr2 in datatbdonvi.Rows)
-            {
-                combodonvi.Items.Add(dr2["TenDonvi"].ToString());
-            }
-            connect.Close();
         }
 
-        public void gridviewsp()
+        public void RefreshGridview()
         {
             //todo db sanpham
-            string querysp = @"select masp as 'Mã sản phẩm', tensp as 'Tên sản phẩm', soluongsp as 'Số lượng', gianhapsp as 'Giá nhập', giabansp as 'Giá bán', loaisp as 'Loại', donvisp as 'Đơn vị', ngaynhapkho as 'Ngày nhập kho', nvnhapkho as 'Nhân viên' from nhapkho";
-            SqlDataAdapter sqldatasp = new SqlDataAdapter(querysp, connect);
-            DataTable datatbsp = new DataTable();
-            sqldatasp.Fill(datatbsp);
-            dataGridView1.DataSource = datatbsp;
-            connect.Close();
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<SanPham> sanPhamRepo = new Repository<SanPham>(dbCxt);
+                Repository<LoSanPham> loSanPhamRepo = new Repository<LoSanPham>(dbCxt);
+
+                DataTable datatbsp;
+                var spQuery = loSanPhamRepo.GetAll().Select(lsp => new HienThiLoSanPham
+                {
+                    Id = lsp.Id,
+                    SanPhamId = lsp.SanPhamId,
+                    TenSanPham = lsp.SanPham.TenSanPham,
+                    GiaTien = lsp.SanPham.GiaTien,
+                    SoLuong = lsp.SoLuong,
+                    LoaiSanPham = lsp.SanPham.LoaiSanPham,
+                    DonViSanPham = lsp.SanPham.DonViSanPham,
+                    NhaCungCap = lsp.NhaCungCap
+                });
+
+                datatbsp = spQuery.ToDataTable();
+
+                dataGridView1.DataSource = datatbsp;
+            }
         }
 
         public void clearsp()
@@ -74,116 +90,41 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             txtid.Clear();
             txttensp.Clear();
             txtsl.Clear();
-            txtgianhap.Clear();
             txtgiaban.Clear();
             comboloai.SelectedItem = null;
             combodonvi.SelectedItem = null;
-            pictureBox1.Image = Properties.Resources._default;
+            combonhaCungCap.SelectedItem = null;
         }
 
-
-        private void autoid()
+        private void SanPham_Load(object sender, EventArgs e)
         {
-            if (comboloai.SelectedIndex == -1)
-            {
-                MessageBox.Show("Xin chọn loại sản phẩm");
-                return;
-            }
-            else
-            {
-                string s3;
-                string comboselected = this.comboloai.GetItemText(this.comboloai.SelectedItem);
-
-                string s1 = comboselected.Substring(0, 1);
-                string s2 = comboselected.Substring(comboselected.IndexOf(" ") + 1);
-
-                if (s2 == null)
-                {
-                    string s1a = s1.Substring(0, 1).ToUpper();
-                    string s2a = s1.Substring(0, 1).ToUpper();
-                    s3 = String.Concat(s1a, s2a);
-
-                    //todo db sanpham
-                    connect.Open();
-                    SqlCommand cmd = new SqlCommand("select count(masp) from nhapkho", connect);
-                    int i = Convert.ToInt32(cmd.ExecuteScalar());
-                    connect.Close();
-
-                    i++;
-                    //  MessageBox.Show(s3);
-                    txtid.Text = s3 + i.ToString();
-                }
-                else
-                {
-                    //todo wtf
-                    bool timA; bool timE; bool TimI; bool TimO; bool TimU; bool TimY; bool TimD;
-                    string s1a = s1.Substring(0, 1).ToUpper();
-                    string s2a = s2.Substring(0, 1).ToLower();
-                    Regex a1 = new Regex("à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ");
-                    Regex e1 = new Regex("è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ");
-                    Regex i1 = new Regex("ì|í|ị|ỉ|ĩ");
-                    Regex o1 = new Regex("ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ");
-                    Regex u1 = new Regex("ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ");
-                    Regex y1 = new Regex("ỳ|ý|ỵ|ỷ|ỹ");
-                    Regex d1 = new Regex("đ");
-                    if (timA = a1.IsMatch(s2a))
-                    {
-                        s3 = String.Concat(s1a, "A");
-                    }
-                    else if (timE = e1.IsMatch(s2a))
-                    {
-                        s3 = String.Concat(s1a, "E");
-                    }
-                    else if (TimI = i1.IsMatch(s2a))
-                    {
-                        s3 = String.Concat(s1a, "I");
-                    }
-                    else if (TimO = o1.IsMatch(s2a))
-                    {
-                        s3 = String.Concat(s1a, "O");
-                    }
-                    else if (TimU = u1.IsMatch(s2a))
-                    {
-                        s3 = String.Concat(s1a, "U");
-                    }
-                    else if (TimY = y1.IsMatch(s2a))
-                    {
-                        s3 = String.Concat(s1a, "Y");
-                    }
-                    else if (TimD = d1.IsMatch(s2a))
-                    {
-                        s3 = String.Concat(s1a, "D");
-                    }
-                    else
-                    {
-                        MessageBox.Show("ko tim thay");
-                        s3 = String.Concat(s1a, s2a);
-                    }
-
-                    //todo db sanpham
-                    connect.Open();
-                    SqlCommand cmd = new SqlCommand("select count(masp) from nhapkho", connect);
-                    int i = Convert.ToInt32(cmd.ExecuteScalar());
-                    connect.Close();
-                    i++;
-                    txtid.Text = s3 + i.ToString();
-                }
-            }
-        }
-        private void sanpham_Load(object sender, EventArgs e)
-        {
-            txtKhuyenmai.Text = "0";
             txtid.ReadOnly = true;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtid.Text))
+            if (dataGridView1.CurrentRow.Index != -1)
             {
-                MessageBox.Show("Trống mã sản phẩm!");
-                txtid.Select();
-            }
+                clearsp();
 
+                txtid.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                txtlspId.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                txttensp.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                txtsl.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+                txtgiaban.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
+                var loaiSanPham = dataGridView1.CurrentRow.Cells[5].Value as LoaiSanPham;
+                var donViSanPham = dataGridView1.CurrentRow.Cells[6].Value as DonViSanPham;
+                var ncc = dataGridView1.CurrentRow.Cells[7].Value as NhaCungCap;
+                comboloai.Text = loaiSanPham.TenLoaiSanPham;
+                combodonvi.Text = donViSanPham.TenDonViSanPham;
+                combonhaCungCap.Text = ncc.TenNhaCungCap;
+
+                txtid.ReadOnly = true;
+            }
+        }
+
+        private bool ValidateInput()
+        {
             if (string.IsNullOrWhiteSpace(txttensp.Text))
             {
                 txttensp.Select();
@@ -191,10 +132,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             else if (string.IsNullOrWhiteSpace(txtsl.Text))
             {
                 txtsl.Select();
-            }
-            else if (string.IsNullOrWhiteSpace(txtgianhap.Text))
-            {
-                txtgianhap.Select();
             }
             else if (string.IsNullOrWhiteSpace(txtgiaban.Text))
             {
@@ -204,183 +141,71 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 comboloai.Select();
             }
+            else if (combodonvi.SelectedIndex == -1)
+            {
+                comboloai.Select();
+            }
+            else if (combonhaCungCap.SelectedIndex == -1)
+            {
+                comboloai.Select();
+            }
+            else
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtid.Text))
+            {
+                MessageBox.Show("Xin nhập sản phẩm mới, bấm nút Nhập lại để xoá các field.");
+                return;
+            }
+
+            if (!ValidateInput())
+            {
+                MessageBox.Show("Lỗi dữ liệu!");
+            }
             else
             {
                 //todo db sanpham nhap kho
-                //---------------- nhap kho ---------------------//
-                using (var cmd = new SqlCommand("INSERT INTO nhapkho (masp,tensp,soluongsp,gianhapsp,giabansp,loaisp,donvisp,ngaynhapkho,nvnhapkho) VALUES (@masp,@tensp,@soluongsp,@gianhapsp, @giabansp,@loaisp,@donvisp,@ngaynhapkho,@nvnhapkho)"))
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    cmd.Connection = connect;
-                    cmd.Parameters.AddWithValue("@masp", txtid.Text);
-                    cmd.Parameters.AddWithValue("@tensp", txttensp.Text);
-                    cmd.Parameters.AddWithValue("@soluongsp", txtsl.Text);
-                    cmd.Parameters.AddWithValue("@gianhapsp", txtgianhap.Text);
-                    cmd.Parameters.AddWithValue("@giabansp", txtgiaban.Text);
-                    cmd.Parameters.AddWithValue("@loaisp", comboloai.GetItemText(comboloai.SelectedItem));
-                    cmd.Parameters.AddWithValue("@donvisp", combodonvi.GetItemText(combodonvi.SelectedItem));
-                    cmd.Parameters.Add("@ngaynhapkho", SqlDbType.DateTime);
-                    cmd.Parameters["@ngaynhapkho"].Value = DateTime.Now;
-                    cmd.Parameters.AddWithValue("@nvnhapkho", DangNhap.usernv);
-                    connect.Open();
-                    if (cmd.ExecuteNonQuery() > 0)
-                    {
-                        MessageBox.Show("Đã thêm");
-                        connect.Close();
-                        // clearsp();
-                        gridviewsp();
+                    Repository<SanPham> sanPhamRepo = new Repository<SanPham>(dbCxt);
+                    Repository<LoSanPham> loSanPhamRepo = new Repository<LoSanPham>(dbCxt);
+                    Repository<LoaiSanPham> loaiSanPhamRepo = new Repository<LoaiSanPham>(dbCxt);
+                    Repository<DonViSanPham> donViSanPhamRepo = new Repository<DonViSanPham>(dbCxt);
+                    Repository<NhaCungCap> nccRepo = new Repository<NhaCungCap>(dbCxt);
 
-                    }
-                    else
+                    var sanphamMoi = new SanPham
                     {
-                        MessageBox.Show("Thêm không thành công!");
-                        connect.Close();
-                    }
-                    connect.Close();
+                        Id = Guid.NewGuid(),
+                        TenSanPham = txttensp.Text,
+                        GiaTien = double.Parse(txtgiaban.Text),
+                        LoaiSanPhamId = (comboloai.SelectedItem as LoaiSanPham).Id,
+                        DonViSanPhamId = (combodonvi.SelectedItem as DonViSanPham).Id,
+                    };
 
+                    var loSanPhamMoi = new LoSanPham
+                    {
+                        Id = Guid.NewGuid(),
+                        SanPhamId = sanphamMoi.Id,
+                        NhaCungCapId = (combonhaCungCap.SelectedItem as NhaCungCap).Id,
+                        NgayNhap = DateTime.Now,
+                        SoLuong = int.Parse(txtsl.Text)
+                    };
+
+                    sanPhamRepo.Insert(sanphamMoi);
+                    loSanPhamRepo.Insert(loSanPhamMoi);
+
+                    MessageBox.Show("Đã nhập xong");
                 }
-
-                //todo db sanpham ton kho
-                //---------------- ton kho ---------------------//
-                using (var cmd3 = new SqlCommand("select masp from tonkho where masp=@masp"))
-                {
-                    cmd3.Connection = connect;
-                    cmd3.Parameters.AddWithValue("@masp", txtid.Text);
-                    connect.Open();
-                    // cmd3.ExecuteNonQuery();
-
-                    SqlDataReader reader = cmd3.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        //  connect.Close();
-                        // da ton tai
-                        using (var cmd4 = new SqlCommand("update tonkho set tensp=@tensp,soluongsp=@soluongsp,gianhapsp=@gianhapsp,giabansp=@giabansp,loaisp=@loaisp,donvisp=@donvisp,giamgia=@giamgia where masp=@masp"))
-                        {
-                            cmd4.Connection = connect;
-                            cmd4.Parameters.AddWithValue("@masp", txtid.Text);
-                            cmd4.Parameters.AddWithValue("@tensp", txttensp.Text);
-                            cmd4.Parameters.AddWithValue("@soluongsp", txtsl.Text);
-                            cmd4.Parameters.AddWithValue("@gianhapsp", txtgianhap.Text);
-                            cmd4.Parameters.AddWithValue("@giabansp", txtgiaban.Text);
-                            cmd4.Parameters.AddWithValue("@loaisp", comboloai.GetItemText(comboloai.SelectedItem));
-                            cmd4.Parameters.AddWithValue("@donvisp", combodonvi.GetItemText(combodonvi.SelectedItem));
-                            cmd4.Parameters.AddWithValue("@giamgia", txtKhuyenmai.Text);
-                            connect.Close();
-                            connect.Open();
-                            if (cmd4.ExecuteNonQuery() > 0)
-                            {
-                                connect.Close();
-                                //  MessageBox.Show("Đã thêm");
-                                //  gridviewsp();
-                                clearsp();
-                            }
-                            else
-                            {
-                                connect.Close();
-                                // MessageBox.Show("Thêm không thành công!");
-                            }
-                            connect.Close();
-                        }
-                        connect.Close();
-                    }
-
-                    else
-                    {
-                        connect.Close();
-                        //khong ton tai
-                        //todo db sanpham ton kho
-                        using (var cmd2 = new SqlCommand("INSERT INTO tonkho (masp,tensp,soluongsp,gianhapsp,giabansp,loaisp,donvisp,giamgia) VALUES (@masp,@tensp,@soluongsp,@gianhapsp, @giabansp,@loaisp,@donvisp,@giamgia)"))
-                        {
-                            cmd2.Connection = connect;
-                            cmd2.Parameters.AddWithValue("@masp", txtid.Text);
-                            cmd2.Parameters.AddWithValue("@tensp", txttensp.Text);
-                            cmd2.Parameters.AddWithValue("@soluongsp", txtsl.Text);
-                            cmd2.Parameters.AddWithValue("@gianhapsp", txtgianhap.Text);
-                            cmd2.Parameters.AddWithValue("@giabansp", txtgiaban.Text);
-                            cmd2.Parameters.AddWithValue("@loaisp", comboloai.GetItemText(comboloai.SelectedItem));
-                            cmd2.Parameters.AddWithValue("@donvisp", combodonvi.GetItemText(combodonvi.SelectedItem));
-                            cmd2.Parameters.AddWithValue("@giamgia", txtKhuyenmai.Text);
-
-                            connect.Open();
-                            if (cmd2.ExecuteNonQuery() > 0)
-                            {
-                                connect.Close();
-                                //MessageBox.Show("Đã thêm");
-                                //gridviewsp();
-                                clearsp();
-                            }
-                            else
-                            {
-                                connect.Close();
-                                //   MessageBox.Show("Thêm không thành công!");
-                            }
-                            connect.Close();
-                        }
-                        connect.Close();
-                    }
-                    reader.Close();
-                    connect.Close();
-                }
-                //---------------- ton kho ---------------------//
 
                 txtid.ReadOnly = true;
-            }
-
-        }
-        private void dataGridView1_DoubleClick(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow.Index != -1)
-            {
-                clearsp();
-
-                txtid.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                txttensp.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                txtsl.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-                txtgianhap.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
-                txtgiaban.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
-
-                comboloai.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-                combodonvi.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
-
-                try
-                {
-                    //todo db sanpham anhsp
-                    string sql1 = "select anhsp from nhapkho where masp='" + txtid.Text + "' ";
-
-                    if (connect.State != ConnectionState.Open)
-                        connect.Open();
-                    command = new SqlCommand(sql1, connect);
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    reader.Read();
-                    if (reader.HasRows)
-                    {
-                        //byte[] img = (byte[])(reader[0]);
-                        //if (img == null)
-                        //{
-                        //    pictureBox1.Image = null;
-                        //}
-                        //else
-                        //{
-                        //    MemoryStream ms = new MemoryStream(img);
-                        //    pictureBox1.Image = Image.FromStream(ms);
-
-                        //}
-                        ////  MessageBox.Show(img.ToString());
-                        //connect.Close();
-                    }
-                    else
-                    {
-                        connect.Close();
-                        MessageBox.Show("bi loi");
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("loi bang: " + ex.Message);
-                }
-                txtid.ReadOnly = true;
+                RefreshGridview();
             }
         }
 
@@ -388,46 +213,40 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         {
             if (string.IsNullOrWhiteSpace(txtid.Text))
             {
-                MessageBox.Show("Thông tin trống!");
+                MessageBox.Show("Trống mã sản phẩm!");
+                txtid.Select();
+                return;
+            }
+
+
+            if (!ValidateInput())
+            {
+                MessageBox.Show("Lỗi dữ liệu!");
             }
             else
             {
-                try
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    //todo db sanpham nhap kho
-                    using (var cmd = new SqlCommand("update nhapkho set tensp=@tensp,soluongsp=@soluongsp,gianhapsp=@gianhapsp,giabansp=@giabansp,loaisp=@loaisp,donvisp=@donvisp,ngaynhapkho=@ngaynhapkho,nvnhapkho=@nvnhapkho where masp=@masp"))
+                    Repository<SanPham> sanPhamRepo = new Repository<SanPham>(dbCxt);
+                    Repository<LoSanPham> loSanPhamRepo = new Repository<LoSanPham>(dbCxt);
+                    Repository<LoaiSanPham> loaiSanPhamRepo = new Repository<LoaiSanPham>(dbCxt);
+                    Repository<DonViSanPham> donViSanPhamRepo = new Repository<DonViSanPham>(dbCxt);
+                    Repository<NhaCungCap> nccRepo = new Repository<NhaCungCap>(dbCxt);
+
+                    var loSanPhamMoi = new LoSanPham
                     {
-                        cmd.Connection = connect;
-                        cmd.Parameters.AddWithValue("@masp", txtid.Text);
-                        cmd.Parameters.AddWithValue("@tensp", txttensp.Text);
-                        cmd.Parameters.AddWithValue("@soluongsp", txtsl.Text);
-                        cmd.Parameters.AddWithValue("@gianhapsp", txtgianhap.Text);
-                        cmd.Parameters.AddWithValue("@giabansp", txtgiaban.Text);
-                        cmd.Parameters.AddWithValue("@loaisp", comboloai.GetItemText(comboloai.SelectedItem));
-                        cmd.Parameters.AddWithValue("@donvisp", combodonvi.GetItemText(combodonvi.SelectedItem));
-                        cmd.Parameters.Add("@ngaynhapkho", SqlDbType.DateTime);
-                        cmd.Parameters["@ngaynhapkho"].Value = DateTime.Now;
-                        cmd.Parameters.AddWithValue("@nvnhapkho", DangNhap.usernv);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Đã lựu");
-                            gridviewsp();
-                            txtid.ReadOnly = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Lưu không thành công!");
-                            txtid.ReadOnly = true;
-                        }
-                        connect.Close();
-                    }
+                        Id = Guid.NewGuid(),
+                        SanPhamId = Guid.Parse(txtid.Text),
+                        NhaCungCapId = (combonhaCungCap.SelectedItem as NhaCungCap).Id,
+                        NgayNhap = DateTime.Now,
+                        SoLuong = int.Parse(txtsl.Text)
+                    };
+                    loSanPhamRepo.Insert(loSanPhamMoi);
+
+                    MessageBox.Show("Đã nhập xong");
                 }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("Error during insert: " + ex.Message);
-                }
+
+                RefreshGridview();
             }
         }
 
@@ -437,35 +256,34 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 MessageBox.Show("Thông tin trống!");
             }
-            else
+
+            if (ValidateInput())
             {
-                try
+                if (MessageBox.Show(
+                    "Có chắc là muốn xoá lô sản phẩm" + Environment.NewLine +
+                    txttensp.Text,
+                    "Cảnh báo",
+                     MessageBoxButtons.YesNo) == DialogResult.No)
                 {
-                    //todo db sanpham nhap kho
-                    using (var cmd = new SqlCommand("delete nhapkho where masp=@masp"))
-                    {
-                        cmd.Connection = connect;
-                        cmd.Parameters.AddWithValue("@masp", txtid.Text);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Đã xóa");
-                            clearsp();
-                            gridviewsp();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Lưu không thành công!");
-                        }
-                        connect.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("Error during insert: " + ex.Message);
+                    return;
                 }
 
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+                {
+                    Repository<SanPham> sanPhamRepo = new Repository<SanPham>(dbCxt);
+                    Repository<LoSanPham> loSanPhamRepo = new Repository<LoSanPham>(dbCxt);
+                    Repository<LoaiSanPham> loaiSanPhamRepo = new Repository<LoaiSanPham>(dbCxt);
+                    Repository<DonViSanPham> donViSanPhamRepo = new Repository<DonViSanPham>(dbCxt);
+                    Repository<NhaCungCap> nccRepo = new Repository<NhaCungCap>(dbCxt);
+
+                    var loSanPham = loSanPhamRepo.Get(Guid.Parse(txtlspId.Text));
+
+                    loSanPhamRepo.Delete(loSanPham);
+
+                    MessageBox.Show("Đã xoá xong");
+                }
+
+                RefreshGridview();
             }
         }
 
@@ -474,51 +292,39 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             clearsp();
         }
 
-        private void btnDeleteIMG_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //todo db sanpham nhap kho
-                using (var cmd = new SqlCommand("update nhapkho set anhsp=null where masp=@masp"))
-                {
-                    cmd.Connection = connect;
-                    cmd.Parameters.AddWithValue("@masp", txtid.Text);
-                    connect.Open();
-                    if (cmd.ExecuteNonQuery() > 0)
-                    {
-                        MessageBox.Show("Đã xóa");
-                        clearsp();
-                        gridviewsp();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Không thành công!");
-                    }
-                    connect.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                connect.Close();
-                MessageBox.Show("Error during insert: " + ex.Message);
-            }
-        }
-
         private void txtsearch_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 //todo db sanpham nhap kho
-                if (connect.State != ConnectionState.Open)
-                    connect.Open();
-                using (SqlDataAdapter da = new SqlDataAdapter("select masp,tensp,soluongsp,gianhapsp,giabansp,loaisp,donvisp from nhapkho where ( masp like '" + txtsearch.Text + "%' or tensp like N'" + txtsearch.Text + "%' or soluongsp like '" + txtsearch.Text + "%' or gianhapsp like '" + txtsearch.Text + "%' or giabansp like '" + txtsearch.Text + "%'  or loaisp like N'" + txtsearch.Text + "%'  or donvisp like N'" + txtsearch.Text + "%'     )", connect))
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    DataTable dtsearch = new DataTable("nhapkho");
-                    da.Fill(dtsearch);
-                    dataGridView1.DataSource = dtsearch;
+                    string searchText = txtsearch.Text;
+                    Repository<SanPham> sanPhamRepo = new Repository<SanPham>(dbCxt);
+                    Repository<LoSanPham> loSanPhamRepo = new Repository<LoSanPham>(dbCxt);
 
+                    DataTable datatbsp;
+                    var spQuery = loSanPhamRepo
+                        .Query(lsp =>
+                            lsp.Id.ToString().Contains(searchText)
+                         || lsp.SanPham.TenSanPham.Contains(searchText))
+                        .Select(lsp => new HienThiLoSanPham
+                        {
+                            Id = lsp.Id,
+                            SanPhamId = lsp.SanPhamId,
+                            TenSanPham = lsp.SanPham.TenSanPham,
+                            GiaTien = lsp.SanPham.GiaTien,
+                            SoLuong = lsp.SoLuong,
+                            LoaiSanPham = lsp.SanPham.LoaiSanPham,
+                            DonViSanPham = lsp.SanPham.DonViSanPham,
+                            NhaCungCap = lsp.NhaCungCap
+                        });
+
+                    datatbsp = spQuery.ToDataTable();
+
+                    dataGridView1.DataSource = datatbsp;
                 }
-                connect.Close();
+
                 if (dataGridView1.Rows.Count > 0 && dataGridView1.Rows != null)
                 {
                     LabelSearch.Text = "Đã tìm thấy";
@@ -532,22 +338,18 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 {
                     LabelSearch.Text = "Tìm kiếm";
                 }
-
-
             }
             catch (Exception ex)
             {
                 connect.Close();
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void comboloai_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtid.Text))
             {
-                autoid();
                 txtid.ReadOnly = false;
             }
         }

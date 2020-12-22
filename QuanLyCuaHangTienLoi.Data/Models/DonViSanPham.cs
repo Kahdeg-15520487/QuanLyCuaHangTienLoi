@@ -15,5 +15,8 @@ namespace QuanLyCuaHangTienLoi.Data.Models
 
         [JsonIgnore]
         public virtual ICollection<SanPham> SanPhams { get; set; }
+
+        public override string ToString() => TenDonViSanPham;
+        public override int GetHashCode() => Id.GetHashCode();
     }
 }

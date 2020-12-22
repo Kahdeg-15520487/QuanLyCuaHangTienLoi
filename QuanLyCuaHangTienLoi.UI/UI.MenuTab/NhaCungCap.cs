@@ -16,45 +16,45 @@ using System.Windows.Forms;
 
 namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
-    public partial class DonViSP : Form
+    public partial class NhaCungCapForm : Form
     {
-        public DonViSP()
+        public NhaCungCapForm()
         {
             InitializeComponent();
-            RefreshGridView();
         }
 
         private void clear()
         {
-            textBoxTenDV.Clear();
+            textBoxTenNhaCungCap.Clear();
+            textBoxID.Clear();
         }
+
         private void RefreshGridView()
         {
             using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
-                Repository<DonViSanPham> dvSpRepo = new Repository<DonViSanPham>(dbCxt);
-                DataTable datatbdv = dvSpRepo.GetAll().Select(dvsp => new HienThiDonViSanPham
+                Repository<NhaCungCap> nccRepo = new Repository<NhaCungCap>(dbCxt);
+                DataTable datatbnhaCungCap = nccRepo.GetAll().Select(ncc => new HienThiNhaCungCap
                 {
-                    Id = dvsp.Id,
-                    TenDonViSanPham = dvsp.TenDonViSanPham
+                    Id = ncc.Id,
+                    TenNhaCungCap = ncc.TenNhaCungCap
                 }).ToDataTable();
 
-                dataGridViewDVsp.DataSource = datatbdv;
+                dataGridViewLoaiSPloai.DataSource = datatbnhaCungCap;
             }
         }
-
-        private void btnHuy_Click(object sender, EventArgs e)
+        private void iconButton4_Click(object sender, EventArgs e)
         {
             clear();
         }
 
-        private void dataGridViewDVsp_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewLoaiSP_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            clear();
-            if (dataGridViewDVsp.CurrentRow.Index != -1)
+            if (dataGridViewLoaiSPloai.CurrentRow.Index != -1)
             {
-                textBoxID.Text = dataGridViewDVsp.CurrentRow.Cells[0].Value.ToString();
-                textBoxTenDV.Text = dataGridViewDVsp.CurrentRow.Cells[1].Value.ToString();
+                clear();
+                textBoxID.Text = dataGridViewLoaiSPloai.CurrentRow.Cells[0].Value.ToString();
+                textBoxTenNhaCungCap.Text = dataGridViewLoaiSPloai.CurrentRow.Cells[1].Value.ToString();
             }
         }
 
@@ -68,15 +68,16 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    Repository<DonViSanPham> dvSpRepo = new Repository<DonViSanPham>(dbCxt);
-                    var dv = dvSpRepo.Get(Guid.Parse(textBoxID.Text));
-                    dv.TenDonViSanPham = textBoxTenDV.Text;
-                    dvSpRepo.Update(dv);
+                    Repository<NhaCungCap> nccRepo = new Repository<NhaCungCap>(dbCxt);
+                    var ncc = nccRepo.Get(Guid.Parse(textBoxID.Text));
+                    ncc.TenNhaCungCap = textBoxTenNhaCungCap.Text;
+                    nccRepo.Update(ncc);
 
-                    MessageBox.Show("Sửa đơn vị sản phẩm xong.");
+                    MessageBox.Show("Sửa nhà cung cấp xong.");
                 }
                 RefreshGridView();
             }
+            clear();
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -88,8 +89,8 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             else
             {
                 if (MessageBox.Show(
-                    "Có chắc là muốn xoá loại sản phẩm" + Environment.NewLine +
-                    textBoxTenDV.Text,
+                    "Có chắc là muốn xoá nhà cung cấp" + Environment.NewLine +
+                    textBoxTenNhaCungCap.Text,
                     "Cảnh báo",
                      MessageBoxButtons.YesNo) == DialogResult.No)
                 {
@@ -98,39 +99,48 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
                 using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    Repository<DonViSanPham> dvSpRepo = new Repository<DonViSanPham>(dbCxt);
-                    var dv = dvSpRepo.Get(Guid.Parse(textBoxID.Text));
-                    dvSpRepo.Delete(dv);
+                    Repository<NhaCungCap> nccRepo = new Repository<NhaCungCap>(dbCxt);
+                    var ncc = nccRepo.Get(Guid.Parse(textBoxID.Text));
+                    nccRepo.Delete(ncc);
 
-                    MessageBox.Show("Xoá đơn vị sản phẩm xong.");
+                    MessageBox.Show("Xoá nhà cung cấp xong.");
                 }
                 RefreshGridView();
             }
+            clear();
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(textBoxID.Text))
             {
-                MessageBox.Show("Xin nhập đơn vị sản phẩm mới, bấm nút Nhập lại để xoá các field.");
+                MessageBox.Show("Xin nhập nhà cung cấp mới, bấm nút Nhập lại để xoá các field.");
                 return;
             }
             else
             {
+
                 using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    Repository<DonViSanPham> dvSpRepo = new Repository<DonViSanPham>(dbCxt);
-                    var dvMoi = new DonViSanPham()
+                    Repository<NhaCungCap> nccRepo = new Repository<NhaCungCap>(dbCxt);
+
+                    NhaCungCap nccMoi = new NhaCungCap
                     {
                         Id = Guid.NewGuid(),
-                        TenDonViSanPham = textBoxTenDV.Text
+                        TenNhaCungCap = textBoxTenNhaCungCap.Text
                     };
-                    dvSpRepo.Insert(dvMoi);
 
-                    MessageBox.Show("Sửa đơn vị sản phẩm xong.");
+                    nccRepo.Insert(nccMoi);
+
+                    MessageBox.Show("Thêm nhà cung cấp xong.");
                 }
                 RefreshGridView();
             }
+        }
+
+        private void LoaiSP_Load(object sender, EventArgs e)
+        {
+            RefreshGridView();
         }
     }
 }

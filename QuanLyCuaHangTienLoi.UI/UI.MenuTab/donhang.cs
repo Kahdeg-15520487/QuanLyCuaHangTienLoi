@@ -27,9 +27,9 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         public DonHang()
         {
             InitializeComponent();
-            gridviewsp();
+            RefreshGridview();
         }
-        public void gridviewsp()
+        public void RefreshGridview()
         {
             using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
@@ -56,7 +56,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
                 var chiTietHoaDon = new HoaDonChiTiet();
                 chiTietHoaDon.Show();
-                gridviewsp();
+                RefreshGridview();
             }
         }
 
@@ -154,7 +154,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void ButtonReloadTable_Click(object sender, EventArgs e)
         {
-            gridviewsp();
+            RefreshGridview();
         }
 
         private void btnExportExcel_Click(object sender, EventArgs e)

@@ -437,16 +437,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             foreach (DataGridViewRow item in dataGridView1.Rows)
             {
                 listBox1a.Items.Add(item.Cells[1].Value.ToString() + '/' + item.Cells[2].Value.ToString() + '/' + item.Cells[3].Value.ToString());
-                //--  listBox1a.Items.Add(item.Cells[1].Value.ToString().PadRight(30) + item.Cells[4].Value.ToString());
             }
-            //------------------------------------------------// datagridview masp,tensp,slsp to list
-            //pass datagridview to listbox: masp,tensp,sl
-            ListBox listBox3 = new ListBox();
-            ListBox listBox4 = new ListBox();
-            ListBox listBox5 = new ListBox();
-            ListBox listBox6 = new ListBox();
-            ListBox listBox7 = new ListBox();
-            ListBox listBox8 = new ListBox();
 
             List<ChiTietHoaDon> chiTietHoaDons = new List<ChiTietHoaDon>();
 

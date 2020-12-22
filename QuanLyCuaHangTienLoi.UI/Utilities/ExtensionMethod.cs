@@ -4,12 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace QuanLyCuaHangTienLoi.UI
 {
     public static class ExtensionMethod
     {
+        public static DataTable ToDataTable<T>(this IEnumerable<T> data)
+        {
+            return ToDataTable(data.ToList());
+        }
         public static DataTable ToDataTable<T>(this IList<T> data)
         {
             PropertyDescriptorCollection properties =

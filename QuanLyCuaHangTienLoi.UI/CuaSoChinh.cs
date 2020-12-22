@@ -43,7 +43,6 @@ namespace QuanLyCuaHangTienLoi.UI
                 this.btnhome,
                 this.btnDonHang,
                 this.btnNhapKho,
-                this.btnTonKho,
             };
         }
 
@@ -140,7 +139,7 @@ namespace QuanLyCuaHangTienLoi.UI
         private void btndashboard_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color4);
-            //motrangcon(new Dashboard());
+            //OpenChildForm(new ThongKe());
             MessageBox.Show("Chức năng này chưa được hoàn thành!");
         }
 
@@ -247,13 +246,18 @@ namespace QuanLyCuaHangTienLoi.UI
             }
             else
             {
-                PanelDropDownSP.Height = 200;
+                PanelDropDownSP.Height = 300;
             }
         }
 
         private void iconButtonSPLoai_Click(object sender, EventArgs e)
         {
             OpenChildForm(new LoaiSP());
+        }
+
+        private void iconButtonSPNhaCungCap_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new NhaCungCapForm());
         }
 
         private void iconButtonSPDonvi_Click(object sender, EventArgs e)

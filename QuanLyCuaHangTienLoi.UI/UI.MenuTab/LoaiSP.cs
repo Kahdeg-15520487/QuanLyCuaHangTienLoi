@@ -1,4 +1,9 @@
-﻿using System;
+﻿using QuanLyCuaHangTienLoi.Data;
+using QuanLyCuaHangTienLoi.Data.Implementation;
+using QuanLyCuaHangTienLoi.Data.Models;
+using QuanLyCuaHangTienLoi.UI.DisplayObject;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,42 +18,34 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
     public partial class LoaiSP : Form
     {
-        SqlConnection connect = ClassKetnoi.connect;
-        //SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-A0E9NLI\MSSQLSERVER2019;Initial Catalog=doan-3;Integrated Security=True");
-
         public LoaiSP()
         {
             InitializeComponent();
+        }
 
-        }
-        private void autoidSPLoai()
-        {
-            connect.Open();
-            SqlCommand cmd = new SqlCommand("select count(IDloai) from loaisp", connect);
-            int i = Convert.ToInt32(cmd.ExecuteScalar());
-            i++;
-            textBoxID.Text = i.ToString();
-            connect.Close();
-        }
         private void clear()
         {
             textBoxTenLoai.Clear();
             textBoxID.Clear();
         }
-        private void gridviewsploai()
+
+        private void RefreshGridView()
         {
-            connect.Open();
-            string querysploai = @"select IDloai as 'Mã loại', TenLoai as 'Tên loại' from loaisp";
-            SqlDataAdapter sqldatasp = new SqlDataAdapter(querysploai, connect);
-            DataTable datatbsploai = new DataTable();
-            sqldatasp.Fill(datatbsploai);
-            dataGridViewLoaiSPloai.DataSource = datatbsploai;
-            connect.Close();
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<LoaiSanPham> loaiSpRepo = new Repository<LoaiSanPham>(dbCxt);
+                DataTable datatbsploai = loaiSpRepo.GetAll().Select(lsp => new HienThiLoaiSanPham
+                {
+                    Id = lsp.Id,
+                    TenLoaiSanPham = lsp.TenLoaiSanPham
+                }).ToDataTable();
+
+                dataGridViewLoaiSPloai.DataSource = datatbsploai;
+            }
         }
         private void iconButton4_Click(object sender, EventArgs e)
         {
             clear();
-            autoidSPLoai();
         }
 
         private void dataGridViewLoaiSP_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -58,7 +55,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 clear();
                 textBoxID.Text = dataGridViewLoaiSPloai.CurrentRow.Cells[0].Value.ToString();
                 textBoxTenLoai.Text = dataGridViewLoaiSPloai.CurrentRow.Cells[1].Value.ToString();
-                // lam toi day roi ne
             }
         }
 
@@ -70,37 +66,18 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             }
             else
             {
-                try
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    connect.Open();
-                    using (var cmd = new SqlCommand("update loaisp set TenLoai=@TenLoai where IDloai=@IDloai"))
-                    {
-                        cmd.Connection = connect;
-                        cmd.Parameters.AddWithValue("@IDloai", textBoxID.Text);
-                        cmd.Parameters.AddWithValue("@TenLoai", textBoxTenLoai.Text);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Đã lựu");
-                            connect.Close();
-                            gridviewsploai();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Lưu không thành công!");
-                            connect.Close();
-                        }
-                        connect.Close();
-                    }
+                    Repository<LoaiSanPham> loaiSpRepo = new Repository<LoaiSanPham>(dbCxt);
+                    var lsp = loaiSpRepo.Get(Guid.Parse(textBoxID.Text));
+                    lsp.TenLoaiSanPham = textBoxTenLoai.Text;
+                    loaiSpRepo.Update(lsp);
+
+                    MessageBox.Show("Sửa loại sản phẩm xong.");
                 }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("Error during update: " + ex.Message);
-                }
+                RefreshGridView();
             }
             clear();
-            autoidSPLoai();
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -111,81 +88,60 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             }
             else
             {
-
-
-                try
+                if (MessageBox.Show(
+                    "Có chắc là muốn xoá loại sản phẩm" + Environment.NewLine +
+                    textBoxTenLoai.Text,
+                    "Cảnh báo",
+                     MessageBoxButtons.YesNo) == DialogResult.No)
                 {
-                    using (var cmd = new SqlCommand("delete loaisp where IDloai=@IDloai"))
-                    {
-                        cmd.Connection = connect;
-                        cmd.Parameters.AddWithValue("@IDloai", textBoxID.Text);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Đã xóa");
-                            connect.Close();
-                            clear();
-                            gridviewsploai();
-                            
-                        }
-                        else
-                        {
-                            MessageBox.Show("Lưu không thành công!");
-                        }
-                        connect.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("Error during delete: " + ex.Message);
+                    return;
                 }
 
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+                {
+                    Repository<LoaiSanPham> loaiSpRepo = new Repository<LoaiSanPham>(dbCxt);
+                    var lsp = loaiSpRepo.Get(Guid.Parse(textBoxID.Text));
+                    loaiSpRepo.Delete(lsp);
+
+                    MessageBox.Show("Xoá loại sản phẩm xong.");
+                }
+                RefreshGridView();
             }
             clear();
-            autoidSPLoai(); 
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(textBoxID.Text))
+            if (!string.IsNullOrWhiteSpace(textBoxID.Text))
             {
-                MessageBox.Show("Trống mã loại!");
-                textBoxID.Select();
+                MessageBox.Show("Xin nhập loại sản phẩm mới, bấm nút Nhập lại để xoá các field.");
+                return;
             }
             else
             {
-                using (var cmd = new SqlCommand("INSERT INTO loaisp (IDloai,TenLoai) VALUES (@IDloai,@TenLoai)"))
+
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    cmd.Connection = connect;
-                    cmd.Parameters.AddWithValue("@IDloai", textBoxID.Text);
-                    cmd.Parameters.AddWithValue("@TenLoai", textBoxTenLoai.Text);
+                    Repository<LoaiSanPham> loaiSpRepo = new Repository<LoaiSanPham>(dbCxt);
 
-                    connect.Open();
-                    if (cmd.ExecuteNonQuery() > 0)
+                    LoaiSanPham lspMoi = new LoaiSanPham
                     {
-                        MessageBox.Show("Đã thêm");
-                        connect.Close();
-                        clear();
-                        gridviewsploai();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Thêm không thành công!");
-                        connect.Close();
-                    }
-                    connect.Close();
+                        Id = Guid.NewGuid(),
+                        TenLoaiSanPham = textBoxTenLoai.Text
+                    };
 
+                    loaiSpRepo.Insert(lspMoi);
+
+                    MessageBox.Show("Thêm loại sản phẩm xong.");
                 }
+                RefreshGridView();
             }
-            autoidSPLoai();
         }
 
 
         private void LoaiSP_Load(object sender, EventArgs e)
         {
-            autoidSPLoai();
-            gridviewsploai();
+            RefreshGridView();
         }
     }
 }

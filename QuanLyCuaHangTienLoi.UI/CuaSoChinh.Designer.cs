@@ -32,12 +32,12 @@
             this.PanelMenu = new System.Windows.Forms.Panel();
             this.btnsetting = new FontAwesome.Sharp.IconButton();
             this.PanelDropDownSP = new System.Windows.Forms.Panel();
+            this.iconButtonSPNhaCungCap = new FontAwesome.Sharp.IconButton();
             this.iconButtonSPDonvi = new FontAwesome.Sharp.IconButton();
             this.iconButtonSPLoai = new FontAwesome.Sharp.IconButton();
             this.iconButtonSP = new FontAwesome.Sharp.IconButton();
             this.btndashboard = new FontAwesome.Sharp.IconButton();
             this.btnlogout = new FontAwesome.Sharp.IconButton();
-            this.btnTonKho = new FontAwesome.Sharp.IconButton();
             this.btnDonHang = new FontAwesome.Sharp.IconButton();
             this.btnhome = new FontAwesome.Sharp.IconButton();
             this.btnNhapKho = new FontAwesome.Sharp.IconButton();
@@ -68,9 +68,9 @@
             this.PanelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
             this.PanelMenu.Controls.Add(this.btnsetting);
             this.PanelMenu.Controls.Add(this.PanelDropDownSP);
+            this.PanelMenu.Controls.Add(this.iconButtonSPNhaCungCap);
             this.PanelMenu.Controls.Add(this.btndashboard);
             this.PanelMenu.Controls.Add(this.btnlogout);
-            this.PanelMenu.Controls.Add(this.btnTonKho);
             this.PanelMenu.Controls.Add(this.btnDonHang);
             this.PanelMenu.Controls.Add(this.btnhome);
             this.PanelMenu.Controls.Add(this.btnNhapKho);
@@ -79,7 +79,7 @@
             this.PanelMenu.Location = new System.Drawing.Point(0, 0);
             this.PanelMenu.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.PanelMenu.Name = "PanelMenu";
-            this.PanelMenu.Size = new System.Drawing.Size(198, 692);
+            this.PanelMenu.Size = new System.Drawing.Size(198, 772);
             this.PanelMenu.TabIndex = 0;
             // 
             // btnsetting
@@ -94,7 +94,7 @@
             this.btnsetting.IconColor = System.Drawing.Color.Gainsboro;
             this.btnsetting.IconSize = 35;
             this.btnsetting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnsetting.Location = new System.Drawing.Point(0, 576);
+            this.btnsetting.Location = new System.Drawing.Point(0, 656);
             this.btnsetting.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnsetting.Name = "btnsetting";
             this.btnsetting.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
@@ -109,14 +109,41 @@
             // 
             // PanelDropDownSP
             // 
+            this.PanelDropDownSP.Controls.Add(this.iconButtonSPNhaCungCap);
             this.PanelDropDownSP.Controls.Add(this.iconButtonSPDonvi);
             this.PanelDropDownSP.Controls.Add(this.iconButtonSPLoai);
             this.PanelDropDownSP.Controls.Add(this.iconButtonSP);
             this.PanelDropDownSP.Location = new System.Drawing.Point(0, 404);
             this.PanelDropDownSP.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.PanelDropDownSP.Name = "PanelDropDownSP";
-            this.PanelDropDownSP.Size = new System.Drawing.Size(198, 58);
+            this.PanelDropDownSP.Size = new System.Drawing.Size(300, 58);
             this.PanelDropDownSP.TabIndex = 5;
+            // 
+            // iconButtonSPNhaCungCap
+            // 
+            this.iconButtonSPNhaCungCap.BackColor = System.Drawing.Color.Indigo;
+            this.iconButtonSPNhaCungCap.Dock = System.Windows.Forms.DockStyle.Top;
+            this.iconButtonSPNhaCungCap.FlatAppearance.BorderSize = 0;
+            this.iconButtonSPNhaCungCap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonSPNhaCungCap.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.iconButtonSPNhaCungCap.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.iconButtonSPNhaCungCap.ForeColor = System.Drawing.Color.Gainsboro;
+            this.iconButtonSPNhaCungCap.IconChar = FontAwesome.Sharp.IconChar.LayerGroup;
+            this.iconButtonSPNhaCungCap.IconColor = System.Drawing.Color.Gainsboro;
+            this.iconButtonSPNhaCungCap.IconSize = 35;
+            this.iconButtonSPNhaCungCap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iconButtonSPNhaCungCap.Location = new System.Drawing.Point(0, 232);
+            this.iconButtonSPNhaCungCap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.iconButtonSPNhaCungCap.Name = "iconButtonSPNhaCungCap";
+            this.iconButtonSPNhaCungCap.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
+            this.iconButtonSPNhaCungCap.Rotation = 0D;
+            this.iconButtonSPNhaCungCap.Size = new System.Drawing.Size(198, 58);
+            this.iconButtonSPNhaCungCap.TabIndex = 5;
+            this.iconButtonSPNhaCungCap.Text = "Nhà cung cấp";
+            this.iconButtonSPNhaCungCap.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iconButtonSPNhaCungCap.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonSPNhaCungCap.UseVisualStyleBackColor = false;
+            this.iconButtonSPNhaCungCap.Click += new System.EventHandler(this.iconButtonSPNhaCungCap_Click);
             // 
             // iconButtonSPDonvi
             // 
@@ -136,7 +163,7 @@
             this.iconButtonSPDonvi.Name = "iconButtonSPDonvi";
             this.iconButtonSPDonvi.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
             this.iconButtonSPDonvi.Rotation = 0D;
-            this.iconButtonSPDonvi.Size = new System.Drawing.Size(198, 58);
+            this.iconButtonSPDonvi.Size = new System.Drawing.Size(300, 58);
             this.iconButtonSPDonvi.TabIndex = 6;
             this.iconButtonSPDonvi.Text = "Đơn vị";
             this.iconButtonSPDonvi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -162,7 +189,7 @@
             this.iconButtonSPLoai.Name = "iconButtonSPLoai";
             this.iconButtonSPLoai.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
             this.iconButtonSPLoai.Rotation = 0D;
-            this.iconButtonSPLoai.Size = new System.Drawing.Size(198, 58);
+            this.iconButtonSPLoai.Size = new System.Drawing.Size(300, 58);
             this.iconButtonSPLoai.TabIndex = 5;
             this.iconButtonSPLoai.Text = "Loại";
             this.iconButtonSPLoai.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -187,7 +214,7 @@
             this.iconButtonSP.Name = "iconButtonSP";
             this.iconButtonSP.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
             this.iconButtonSP.Rotation = 0D;
-            this.iconButtonSP.Size = new System.Drawing.Size(198, 58);
+            this.iconButtonSP.Size = new System.Drawing.Size(300, 58);
             this.iconButtonSP.TabIndex = 4;
             this.iconButtonSP.Text = "Sản phẩm";
             this.iconButtonSP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -231,7 +258,7 @@
             this.btnlogout.IconColor = System.Drawing.Color.Gainsboro;
             this.btnlogout.IconSize = 35;
             this.btnlogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnlogout.Location = new System.Drawing.Point(0, 634);
+            this.btnlogout.Location = new System.Drawing.Point(0, 714);
             this.btnlogout.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnlogout.Name = "btnlogout";
             this.btnlogout.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
@@ -244,31 +271,7 @@
             this.btnlogout.UseVisualStyleBackColor = true;
             this.btnlogout.Click += new System.EventHandler(this.btnlogout_Click);
             // 
-            // btntonkho
-            // 
-            this.btnTonKho.FlatAppearance.BorderSize = 0;
-            this.btnTonKho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTonKho.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.btnTonKho.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnTonKho.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnTonKho.IconChar = FontAwesome.Sharp.IconChar.Boxes;
-            this.btnTonKho.IconColor = System.Drawing.Color.Gainsboro;
-            this.btnTonKho.IconSize = 35;
-            this.btnTonKho.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTonKho.Location = new System.Drawing.Point(0, 288);
-            this.btnTonKho.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnTonKho.Name = "btntonkho";
-            this.btnTonKho.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
-            this.btnTonKho.Rotation = 0D;
-            this.btnTonKho.Size = new System.Drawing.Size(198, 58);
-            this.btnTonKho.TabIndex = 6;
-            this.btnTonKho.Text = "Tồn kho";
-            this.btnTonKho.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTonKho.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnTonKho.UseVisualStyleBackColor = true;
-            this.btnTonKho.Click += new System.EventHandler(this.btnluong_Click);
-            // 
-            // btnorders
+            // btnDonHang
             // 
             this.btnDonHang.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnDonHang.FlatAppearance.BorderSize = 0;
@@ -282,7 +285,7 @@
             this.btnDonHang.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDonHang.Location = new System.Drawing.Point(0, 174);
             this.btnDonHang.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnDonHang.Name = "btnorders";
+            this.btnDonHang.Name = "btnDonHang";
             this.btnDonHang.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
             this.btnDonHang.Rotation = 0D;
             this.btnDonHang.Size = new System.Drawing.Size(198, 58);
@@ -318,7 +321,7 @@
             this.btnhome.UseVisualStyleBackColor = true;
             this.btnhome.Click += new System.EventHandler(this.btnhome_Click);
             // 
-            // btnnhapkho
+            // btnNhapKho
             // 
             this.btnNhapKho.FlatAppearance.BorderSize = 0;
             this.btnNhapKho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -331,7 +334,7 @@
             this.btnNhapKho.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNhapKho.Location = new System.Drawing.Point(0, 230);
             this.btnNhapKho.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnNhapKho.Name = "btnnhapkho";
+            this.btnNhapKho.Name = "btnNhapKho";
             this.btnNhapKho.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
             this.btnNhapKho.Rotation = 0D;
             this.btnNhapKho.Size = new System.Drawing.Size(198, 58);
@@ -490,7 +493,7 @@
             this.paneltrangcon.Location = new System.Drawing.Point(198, 77);
             this.paneltrangcon.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.paneltrangcon.Name = "paneltrangcon";
-            this.paneltrangcon.Size = new System.Drawing.Size(1085, 615);
+            this.paneltrangcon.Size = new System.Drawing.Size(1085, 695);
             this.paneltrangcon.TabIndex = 3;
             // 
             // lbDateBig
@@ -537,7 +540,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1283, 692);
+            this.ClientSize = new System.Drawing.Size(1283, 772);
             this.Controls.Add(this.panelTitlebar);
             this.Controls.Add(this.paneltrangcon);
             this.Controls.Add(this.panelshadow);
@@ -546,7 +549,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "CuaSoChinh";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MainControl";
+            this.Text = "Màn hình chính";
             this.Load += new System.EventHandler(this.MainControl_Load);
             this.PanelMenu.ResumeLayout(false);
             this.PanelDropDownSP.ResumeLayout(false);
@@ -567,7 +570,6 @@
         private FontAwesome.Sharp.IconButton btnNhapKho;
         private FontAwesome.Sharp.IconButton btndashboard;
         private FontAwesome.Sharp.IconButton btnDonHang;
-        private FontAwesome.Sharp.IconButton btnTonKho;
         private FontAwesome.Sharp.IconButton btnlogout;
         private System.Windows.Forms.Panel panelTitlebar;
         private FontAwesome.Sharp.IconPictureBox iconmenusmall;
@@ -582,6 +584,7 @@
         private FontAwesome.Sharp.IconButton iconButtonSP;
         private FontAwesome.Sharp.IconButton iconButtonSPDonvi;
         private FontAwesome.Sharp.IconButton iconButtonSPLoai;
+        private FontAwesome.Sharp.IconButton iconButtonSPNhaCungCap;
         private FontAwesome.Sharp.IconButton btnsetting;
         private System.Windows.Forms.Label lbDateTime;
         private System.Windows.Forms.Timer timer1;
