@@ -32,6 +32,11 @@ namespace QuanLyCuaHangTienLoi.UI
         public CuaSoChinh()
         {
             InitializeComponent();
+            this.PanelDropDownSP.Controls.Add(this.iconButtonSPNhaCungCap);
+            this.PanelDropDownSP.Controls.Add(this.iconButtonSPDonvi);
+            this.PanelDropDownSP.Controls.Add(this.iconButtonSPLoai);
+            this.PanelDropDownSP.Controls.Add(this.iconButtonSP);
+
             lefborderbtn = new Panel();
             lefborderbtn.Size = new Size(7, 50);
             PanelMenu.Controls.Add(lefborderbtn);

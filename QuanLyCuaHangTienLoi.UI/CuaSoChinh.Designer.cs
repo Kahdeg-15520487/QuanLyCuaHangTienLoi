@@ -32,10 +32,10 @@
             this.PanelMenu = new System.Windows.Forms.Panel();
             this.btnsetting = new FontAwesome.Sharp.IconButton();
             this.PanelDropDownSP = new System.Windows.Forms.Panel();
-            this.iconButtonSPNhaCungCap = new FontAwesome.Sharp.IconButton();
             this.iconButtonSPDonvi = new FontAwesome.Sharp.IconButton();
             this.iconButtonSPLoai = new FontAwesome.Sharp.IconButton();
             this.iconButtonSP = new FontAwesome.Sharp.IconButton();
+            this.iconButtonSPNhaCungCap = new FontAwesome.Sharp.IconButton();
             this.btndashboard = new FontAwesome.Sharp.IconButton();
             this.btnlogout = new FontAwesome.Sharp.IconButton();
             this.btnDonHang = new FontAwesome.Sharp.IconButton();
@@ -109,7 +109,6 @@
             // 
             // PanelDropDownSP
             // 
-            this.PanelDropDownSP.Controls.Add(this.iconButtonSPNhaCungCap);
             this.PanelDropDownSP.Controls.Add(this.iconButtonSPDonvi);
             this.PanelDropDownSP.Controls.Add(this.iconButtonSPLoai);
             this.PanelDropDownSP.Controls.Add(this.iconButtonSP);
@@ -118,32 +117,6 @@
             this.PanelDropDownSP.Name = "PanelDropDownSP";
             this.PanelDropDownSP.Size = new System.Drawing.Size(300, 58);
             this.PanelDropDownSP.TabIndex = 5;
-            // 
-            // iconButtonSPNhaCungCap
-            // 
-            this.iconButtonSPNhaCungCap.BackColor = System.Drawing.Color.Indigo;
-            this.iconButtonSPNhaCungCap.Dock = System.Windows.Forms.DockStyle.Top;
-            this.iconButtonSPNhaCungCap.FlatAppearance.BorderSize = 0;
-            this.iconButtonSPNhaCungCap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButtonSPNhaCungCap.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.iconButtonSPNhaCungCap.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.iconButtonSPNhaCungCap.ForeColor = System.Drawing.Color.Gainsboro;
-            this.iconButtonSPNhaCungCap.IconChar = FontAwesome.Sharp.IconChar.LayerGroup;
-            this.iconButtonSPNhaCungCap.IconColor = System.Drawing.Color.Gainsboro;
-            this.iconButtonSPNhaCungCap.IconSize = 35;
-            this.iconButtonSPNhaCungCap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonSPNhaCungCap.Location = new System.Drawing.Point(0, 232);
-            this.iconButtonSPNhaCungCap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.iconButtonSPNhaCungCap.Name = "iconButtonSPNhaCungCap";
-            this.iconButtonSPNhaCungCap.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
-            this.iconButtonSPNhaCungCap.Rotation = 0D;
-            this.iconButtonSPNhaCungCap.Size = new System.Drawing.Size(198, 58);
-            this.iconButtonSPNhaCungCap.TabIndex = 5;
-            this.iconButtonSPNhaCungCap.Text = "Nhà cung cấp";
-            this.iconButtonSPNhaCungCap.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonSPNhaCungCap.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconButtonSPNhaCungCap.UseVisualStyleBackColor = false;
-            this.iconButtonSPNhaCungCap.Click += new System.EventHandler(this.iconButtonSPNhaCungCap_Click);
             // 
             // iconButtonSPDonvi
             // 
@@ -221,6 +194,32 @@
             this.iconButtonSP.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.iconButtonSP.UseVisualStyleBackColor = true;
             this.iconButtonSP.Click += new System.EventHandler(this.iconButtonSP_Click);
+            // 
+            // iconButtonSPNhaCungCap
+            // 
+            this.iconButtonSPNhaCungCap.BackColor = System.Drawing.Color.Indigo;
+            this.iconButtonSPNhaCungCap.Dock = System.Windows.Forms.DockStyle.Top;
+            this.iconButtonSPNhaCungCap.FlatAppearance.BorderSize = 0;
+            this.iconButtonSPNhaCungCap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonSPNhaCungCap.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.iconButtonSPNhaCungCap.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.iconButtonSPNhaCungCap.ForeColor = System.Drawing.Color.Gainsboro;
+            this.iconButtonSPNhaCungCap.IconChar = FontAwesome.Sharp.IconChar.LayerGroup;
+            this.iconButtonSPNhaCungCap.IconColor = System.Drawing.Color.Gainsboro;
+            this.iconButtonSPNhaCungCap.IconSize = 35;
+            this.iconButtonSPNhaCungCap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iconButtonSPNhaCungCap.Location = new System.Drawing.Point(0, 232);
+            this.iconButtonSPNhaCungCap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.iconButtonSPNhaCungCap.Name = "iconButtonSPNhaCungCap";
+            this.iconButtonSPNhaCungCap.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
+            this.iconButtonSPNhaCungCap.Rotation = 0D;
+            this.iconButtonSPNhaCungCap.Size = new System.Drawing.Size(198, 58);
+            this.iconButtonSPNhaCungCap.TabIndex = 5;
+            this.iconButtonSPNhaCungCap.Text = "Nhà cung cấp";
+            this.iconButtonSPNhaCungCap.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iconButtonSPNhaCungCap.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonSPNhaCungCap.UseVisualStyleBackColor = false;
+            this.iconButtonSPNhaCungCap.Click += new System.EventHandler(this.iconButtonSPNhaCungCap_Click);
             // 
             // btndashboard
             // 
@@ -315,7 +314,7 @@
             this.btnhome.Rotation = 0D;
             this.btnhome.Size = new System.Drawing.Size(198, 58);
             this.btnhome.TabIndex = 1;
-            this.btnhome.Text = "Trang chủ";
+            this.btnhome.Text = "Bán hàng";
             this.btnhome.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnhome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnhome.UseVisualStyleBackColor = true;
@@ -453,7 +452,7 @@
             this.labelcon.AutoSize = true;
             this.labelcon.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelcon.ForeColor = System.Drawing.Color.Gainsboro;
-            this.labelcon.Location = new System.Drawing.Point(75, 35);
+            this.labelcon.Location = new System.Drawing.Point(67, 37);
             this.labelcon.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelcon.Name = "labelcon";
             this.labelcon.Size = new System.Drawing.Size(41, 16);

@@ -144,7 +144,12 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
                 Repository<LoSanPham> repo = new Repository<LoSanPham>(dbCxt);
-                var lsp = repo.Get(Guid.Parse(maspedit));
+                var lsp = repo.Query(lsp => lsp.SanPhamId == Guid.Parse(maspedit)).FirstOrDefault();
+                if (lsp == null)
+                {
+                    MessageBox.Show("Sản phẩm không tồn tại.");
+                    return;
+                }
                 lsp.SoLuong = lsp.SoLuong + slspedit;
                 repo.Update(lsp);
             }
@@ -162,7 +167,12 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
                 Repository<LoSanPham> repo = new Repository<LoSanPham>(dbCxt);
-                var lsp = repo.Get(Guid.Parse(txtmasp.Text));
+                var lsp = repo.Query(lsp => lsp.SanPhamId == Guid.Parse(txtmasp.Text)).FirstOrDefault();
+                if (lsp == null)
+                {
+                    MessageBox.Show("Sản phẩm không tồn tại.");
+                    return;
+                }
                 lsp.SoLuong = Math.Clamp(lsp.SoLuong - int.Parse(txtsoluongsp.Text), 0, lsp.SoLuong);
                 repo.Update(lsp);
             }
@@ -175,6 +185,8 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             if (dataGridView1.CurrentRow.Index != -1)
             {
                 clearsp();
+
+                indexRow = dataGridView1.CurrentRow.Index;
 
                 txtmasp.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 txttensp.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
@@ -204,13 +216,27 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 slsp1 = Convert.ToInt32(row.Cells[2].Value.ToString());
                 dataGridView1.Rows.RemoveAt(item.Index); //remove row in datagridview
             }
+
+            for (int i = 0; i < dataGridView1.SelectedCells.Count; i++)
+            {
+                int rowIndex = dataGridView1.SelectedCells[i].RowIndex;
+                DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                masp1 = row.Cells[0].Value.ToString();
+                dataGridView1.Rows.RemoveAt(rowIndex); //remove row in datagridview
+            }
+
             //------------- tra lai soluong sp database -----------------//
             try
             {
                 using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
                     Repository<LoSanPham> repo = new Repository<LoSanPham>(dbCxt);
-                    var lsp = repo.Get(Guid.Parse(masp1));
+                    var lsp = repo.Query(lsp => lsp.SanPhamId == Guid.Parse(masp1)).FirstOrDefault();
+                    if (lsp == null)
+                    {
+                        MessageBox.Show("Sản phẩm không tồn tại.");
+                        return;
+                    }
                     lsp.SoLuong = lsp.SoLuong + slsp1;
                     repo.Update(lsp);
                 }
