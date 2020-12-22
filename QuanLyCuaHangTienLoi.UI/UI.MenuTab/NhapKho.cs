@@ -20,10 +20,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
     public partial class NhapKho : Form
     {
-        SqlConnection connect = ClassKetnoi.connect;
-
-        SqlCommand command;
-
         public NhapKho()
         {
             InitializeComponent();
@@ -155,7 +151,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             }
             return false;
         }
-
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -341,7 +336,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             }
             catch (Exception ex)
             {
-                connect.Close();
                 MessageBox.Show(ex.Message);
             }
         }
@@ -393,37 +387,37 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            string getdate = dateTimePicker1.Value.Date.ToString("MM/dd/yyyy");
-            try
-            {
-                if (connect.State != ConnectionState.Open)
-                {
-                    connect.Open();
-                }
+            //string getdate = dateTimePicker1.Value.Date.ToString("MM/dd/yyyy");
+            //try
+            //{
+            //    if (connect.State != ConnectionState.Open)
+            //    {
+            //        connect.Open();
+            //    }
 
-                //todo db sanpham nhap kho
-                using (SqlDataAdapter da = new SqlDataAdapter("select masp,tensp,soluongsp,gianhapsp,giabansp,loaisp,donvisp,ngaynhapkho,nvnhapkho from nhapkho where cast ([ngaynhapkho] as date) = '" + getdate + "'      ", connect))
-                {
-                    DataTable dtsearch = new DataTable("nhapkho");
-                    da.Fill(dtsearch);
-                    dataGridView1.DataSource = dtsearch;
+            //    //todo db sanpham nhap kho
+            //    using (SqlDataAdapter da = new SqlDataAdapter("select masp,tensp,soluongsp,gianhapsp,giabansp,loaisp,donvisp,ngaynhapkho,nvnhapkho from nhapkho where cast ([ngaynhapkho] as date) = '" + getdate + "'      ", connect))
+            //    {
+            //        DataTable dtsearch = new DataTable("nhapkho");
+            //        da.Fill(dtsearch);
+            //        dataGridView1.DataSource = dtsearch;
 
-                }
-                connect.Close();
-                if (dataGridView1.Rows.Count > 1 && dataGridView1.Rows != null)
-                {
-                    // labelSearch.Text = "Đã tìm thấy";
-                }
-                else
-                {
-                    //  labelSearch.Text = "Không tìm thấy...";
-                }
-            }
-            catch (Exception ex)
-            {
-                connect.Close();
-                MessageBox.Show(ex.Message);
-            }
+            //    }
+            //    connect.Close();
+            //    if (dataGridView1.Rows.Count > 1 && dataGridView1.Rows != null)
+            //    {
+            //        // labelSearch.Text = "Đã tìm thấy";
+            //    }
+            //    else
+            //    {
+            //        //  labelSearch.Text = "Không tìm thấy...";
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    connect.Close();
+            //    MessageBox.Show(ex.Message);
+            //}
         }
     }
 }

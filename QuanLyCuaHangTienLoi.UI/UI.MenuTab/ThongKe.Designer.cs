@@ -31,14 +31,17 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.iconDBHoaDon = new FontAwesome.Sharp.IconPictureBox();
             this.lbHDtoday = new System.Windows.Forms.Label();
             this.lbSumHD = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.iconDBProduct = new FontAwesome.Sharp.IconPictureBox();
             this.lbSPtoday = new System.Windows.Forms.Label();
             this.lbSumSP = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.iconDBMoney = new FontAwesome.Sharp.IconPictureBox();
             this.lbDoanhSoToday = new System.Windows.Forms.Label();
             this.lbTongDoanhSo = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -57,19 +60,16 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             this.lbTongLoaiSp = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.PanelChart = new System.Windows.Forms.Panel();
-            this.iconDBMoney = new FontAwesome.Sharp.IconPictureBox();
-            this.iconDBProduct = new FontAwesome.Sharp.IconPictureBox();
-            this.iconDBHoaDon = new FontAwesome.Sharp.IconPictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconDBHoaDon)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconDBProduct)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconDBMoney)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconDBMoney)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconDBProduct)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconDBHoaDon)).BeginInit();
-            //this.SuspendLayout();
+            this.SuspendLayout();
             // 
             // panel1
             // 
@@ -78,17 +78,33 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             this.panel1.Controls.Add(this.lbHDtoday);
             this.panel1.Controls.Add(this.lbSumHD);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(14, 14);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(290, 136);
+            this.panel1.Size = new System.Drawing.Size(338, 157);
             this.panel1.TabIndex = 0;
+            // 
+            // iconDBHoaDon
+            // 
+            this.iconDBHoaDon.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.iconDBHoaDon.IconChar = FontAwesome.Sharp.IconChar.Receipt;
+            this.iconDBHoaDon.IconColor = System.Drawing.Color.White;
+            this.iconDBHoaDon.IconSize = 128;
+            this.iconDBHoaDon.Location = new System.Drawing.Point(216, 16);
+            this.iconDBHoaDon.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.iconDBHoaDon.Name = "iconDBHoaDon";
+            this.iconDBHoaDon.Size = new System.Drawing.Size(144, 128);
+            this.iconDBHoaDon.TabIndex = 3;
+            this.iconDBHoaDon.TabStop = false;
+            this.iconDBHoaDon.Click += new System.EventHandler(this.iconPictureBox1_Click);
             // 
             // lbHDtoday
             // 
             this.lbHDtoday.AutoSize = true;
-            this.lbHDtoday.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbHDtoday.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbHDtoday.ForeColor = System.Drawing.Color.White;
-            this.lbHDtoday.Location = new System.Drawing.Point(16, 91);
+            this.lbHDtoday.Location = new System.Drawing.Point(19, 105);
+            this.lbHDtoday.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbHDtoday.Name = "lbHDtoday";
             this.lbHDtoday.Size = new System.Drawing.Size(89, 20);
             this.lbHDtoday.TabIndex = 2;
@@ -97,9 +113,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // lbSumHD
             // 
             this.lbSumHD.AutoSize = true;
-            this.lbSumHD.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSumHD.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbSumHD.ForeColor = System.Drawing.Color.White;
-            this.lbSumHD.Location = new System.Drawing.Point(11, 44);
+            this.lbSumHD.Location = new System.Drawing.Point(13, 51);
+            this.lbSumHD.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbSumHD.Name = "lbSumHD";
             this.lbSumHD.Size = new System.Drawing.Size(159, 33);
             this.lbSumHD.TabIndex = 1;
@@ -109,9 +126,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(16, 14);
+            this.label1.Location = new System.Drawing.Point(19, 16);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 20);
             this.label1.TabIndex = 0;
@@ -124,17 +142,32 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             this.panel2.Controls.Add(this.lbSPtoday);
             this.panel2.Controls.Add(this.lbSumSP);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(310, 12);
+            this.panel2.Location = new System.Drawing.Point(362, 14);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(290, 136);
+            this.panel2.Size = new System.Drawing.Size(338, 157);
             this.panel2.TabIndex = 4;
+            // 
+            // iconDBProduct
+            // 
+            this.iconDBProduct.BackColor = System.Drawing.Color.DarkMagenta;
+            this.iconDBProduct.IconChar = FontAwesome.Sharp.IconChar.Cubes;
+            this.iconDBProduct.IconColor = System.Drawing.Color.White;
+            this.iconDBProduct.IconSize = 128;
+            this.iconDBProduct.Location = new System.Drawing.Point(216, 1);
+            this.iconDBProduct.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.iconDBProduct.Name = "iconDBProduct";
+            this.iconDBProduct.Size = new System.Drawing.Size(144, 128);
+            this.iconDBProduct.TabIndex = 3;
+            this.iconDBProduct.TabStop = false;
             // 
             // lbSPtoday
             // 
             this.lbSPtoday.AutoSize = true;
-            this.lbSPtoday.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSPtoday.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbSPtoday.ForeColor = System.Drawing.Color.White;
-            this.lbSPtoday.Location = new System.Drawing.Point(16, 91);
+            this.lbSPtoday.Location = new System.Drawing.Point(19, 105);
+            this.lbSPtoday.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbSPtoday.Name = "lbSPtoday";
             this.lbSPtoday.Size = new System.Drawing.Size(89, 20);
             this.lbSPtoday.TabIndex = 2;
@@ -143,9 +176,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // lbSumSP
             // 
             this.lbSumSP.AutoSize = true;
-            this.lbSumSP.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSumSP.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbSumSP.ForeColor = System.Drawing.Color.White;
-            this.lbSumSP.Location = new System.Drawing.Point(8, 44);
+            this.lbSumSP.Location = new System.Drawing.Point(9, 51);
+            this.lbSumSP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbSumSP.Name = "lbSumSP";
             this.lbSumSP.Size = new System.Drawing.Size(159, 33);
             this.lbSumSP.TabIndex = 1;
@@ -154,9 +188,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(16, 14);
+            this.label6.Location = new System.Drawing.Point(19, 16);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(131, 20);
             this.label6.TabIndex = 0;
@@ -169,17 +204,32 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             this.panel3.Controls.Add(this.lbDoanhSoToday);
             this.panel3.Controls.Add(this.lbTongDoanhSo);
             this.panel3.Controls.Add(this.label9);
-            this.panel3.Location = new System.Drawing.Point(606, 13);
+            this.panel3.Location = new System.Drawing.Point(707, 15);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(290, 136);
+            this.panel3.Size = new System.Drawing.Size(338, 157);
             this.panel3.TabIndex = 5;
+            // 
+            // iconDBMoney
+            // 
+            this.iconDBMoney.BackColor = System.Drawing.Color.Crimson;
+            this.iconDBMoney.IconChar = FontAwesome.Sharp.IconChar.MoneyBillAlt;
+            this.iconDBMoney.IconColor = System.Drawing.Color.White;
+            this.iconDBMoney.IconSize = 128;
+            this.iconDBMoney.Location = new System.Drawing.Point(214, -13);
+            this.iconDBMoney.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.iconDBMoney.Name = "iconDBMoney";
+            this.iconDBMoney.Size = new System.Drawing.Size(144, 128);
+            this.iconDBMoney.TabIndex = 3;
+            this.iconDBMoney.TabStop = false;
             // 
             // lbDoanhSoToday
             // 
             this.lbDoanhSoToday.AutoSize = true;
-            this.lbDoanhSoToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDoanhSoToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbDoanhSoToday.ForeColor = System.Drawing.Color.White;
-            this.lbDoanhSoToday.Location = new System.Drawing.Point(16, 91);
+            this.lbDoanhSoToday.Location = new System.Drawing.Point(19, 105);
+            this.lbDoanhSoToday.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbDoanhSoToday.Name = "lbDoanhSoToday";
             this.lbDoanhSoToday.Size = new System.Drawing.Size(89, 20);
             this.lbDoanhSoToday.TabIndex = 2;
@@ -188,9 +238,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // lbTongDoanhSo
             // 
             this.lbTongDoanhSo.AutoSize = true;
-            this.lbTongDoanhSo.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongDoanhSo.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbTongDoanhSo.ForeColor = System.Drawing.Color.White;
-            this.lbTongDoanhSo.Location = new System.Drawing.Point(8, 44);
+            this.lbTongDoanhSo.Location = new System.Drawing.Point(9, 51);
+            this.lbTongDoanhSo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbTongDoanhSo.Name = "lbTongDoanhSo";
             this.lbTongDoanhSo.Size = new System.Drawing.Size(159, 33);
             this.lbTongDoanhSo.TabIndex = 1;
@@ -199,9 +250,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(16, 14);
+            this.label9.Location = new System.Drawing.Point(19, 16);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(133, 20);
             this.label9.TabIndex = 0;
@@ -209,9 +261,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // 
             // btnChartMoney
             // 
-            this.btnChartMoney.Location = new System.Drawing.Point(717, 261);
+            this.btnChartMoney.Location = new System.Drawing.Point(836, 301);
+            this.btnChartMoney.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnChartMoney.Name = "btnChartMoney";
-            this.btnChartMoney.Size = new System.Drawing.Size(184, 43);
+            this.btnChartMoney.Size = new System.Drawing.Size(215, 50);
             this.btnChartMoney.TabIndex = 7;
             this.btnChartMoney.Text = "Thống kê theo tổng tiền";
             this.btnChartMoney.UseVisualStyleBackColor = true;
@@ -219,9 +272,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // 
             // btnChartSL
             // 
-            this.btnChartSL.Location = new System.Drawing.Point(717, 310);
+            this.btnChartSL.Location = new System.Drawing.Point(836, 358);
+            this.btnChartSL.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnChartSL.Name = "btnChartSL";
-            this.btnChartSL.Size = new System.Drawing.Size(184, 43);
+            this.btnChartSL.Size = new System.Drawing.Size(215, 50);
             this.btnChartSL.TabIndex = 9;
             this.btnChartSL.Text = "Thống kê theo số lượng";
             this.btnChartSL.UseVisualStyleBackColor = true;
@@ -229,9 +283,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // 
             // btnSanPhamSapHet
             // 
-            this.btnSanPhamSapHet.Location = new System.Drawing.Point(717, 359);
+            this.btnSanPhamSapHet.Location = new System.Drawing.Point(836, 414);
+            this.btnSanPhamSapHet.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnSanPhamSapHet.Name = "btnSanPhamSapHet";
-            this.btnSanPhamSapHet.Size = new System.Drawing.Size(184, 43);
+            this.btnSanPhamSapHet.Size = new System.Drawing.Size(215, 50);
             this.btnSanPhamSapHet.TabIndex = 10;
             this.btnSanPhamSapHet.Text = "Sản phẩm sắp hết hàng";
             this.btnSanPhamSapHet.UseVisualStyleBackColor = true;
@@ -243,17 +298,19 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             this.panel4.Controls.Add(this.lbKhachNoToday);
             this.panel4.Controls.Add(this.lbKhachNoThang);
             this.panel4.Controls.Add(this.label4);
-            this.panel4.Location = new System.Drawing.Point(606, 155);
+            this.panel4.Location = new System.Drawing.Point(707, 179);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(290, 94);
+            this.panel4.Size = new System.Drawing.Size(338, 108);
             this.panel4.TabIndex = 6;
             // 
             // lbKhachNoToday
             // 
             this.lbKhachNoToday.AutoSize = true;
-            this.lbKhachNoToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbKhachNoToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbKhachNoToday.ForeColor = System.Drawing.Color.White;
-            this.lbKhachNoToday.Location = new System.Drawing.Point(18, 63);
+            this.lbKhachNoToday.Location = new System.Drawing.Point(21, 73);
+            this.lbKhachNoToday.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbKhachNoToday.Name = "lbKhachNoToday";
             this.lbKhachNoToday.Size = new System.Drawing.Size(89, 20);
             this.lbKhachNoToday.TabIndex = 2;
@@ -262,9 +319,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // lbKhachNoThang
             // 
             this.lbKhachNoThang.AutoSize = true;
-            this.lbKhachNoThang.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbKhachNoThang.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbKhachNoThang.ForeColor = System.Drawing.Color.White;
-            this.lbKhachNoThang.Location = new System.Drawing.Point(13, 34);
+            this.lbKhachNoThang.Location = new System.Drawing.Point(15, 39);
+            this.lbKhachNoThang.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbKhachNoThang.Name = "lbKhachNoThang";
             this.lbKhachNoThang.Size = new System.Drawing.Size(129, 29);
             this.lbKhachNoThang.TabIndex = 1;
@@ -273,9 +331,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(16, 14);
+            this.label4.Location = new System.Drawing.Point(19, 16);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(163, 20);
             this.label4.TabIndex = 0;
@@ -287,17 +346,19 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             this.panel5.Controls.Add(this.lbNhapKhoToday);
             this.panel5.Controls.Add(this.lbTongSP);
             this.panel5.Controls.Add(this.label8);
-            this.panel5.Location = new System.Drawing.Point(12, 154);
+            this.panel5.Location = new System.Drawing.Point(14, 178);
+            this.panel5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(290, 94);
+            this.panel5.Size = new System.Drawing.Size(338, 108);
             this.panel5.TabIndex = 7;
             // 
             // lbNhapKhoToday
             // 
             this.lbNhapKhoToday.AutoSize = true;
-            this.lbNhapKhoToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNhapKhoToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbNhapKhoToday.ForeColor = System.Drawing.Color.White;
-            this.lbNhapKhoToday.Location = new System.Drawing.Point(18, 63);
+            this.lbNhapKhoToday.Location = new System.Drawing.Point(21, 73);
+            this.lbNhapKhoToday.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbNhapKhoToday.Name = "lbNhapKhoToday";
             this.lbNhapKhoToday.Size = new System.Drawing.Size(89, 20);
             this.lbNhapKhoToday.TabIndex = 2;
@@ -306,9 +367,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // lbTongSP
             // 
             this.lbTongSP.AutoSize = true;
-            this.lbTongSP.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongSP.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbTongSP.ForeColor = System.Drawing.Color.White;
-            this.lbTongSP.Location = new System.Drawing.Point(13, 34);
+            this.lbTongSP.Location = new System.Drawing.Point(15, 39);
+            this.lbTongSP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbTongSP.Name = "lbTongSP";
             this.lbTongSP.Size = new System.Drawing.Size(129, 29);
             this.lbTongSP.TabIndex = 1;
@@ -317,9 +379,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(16, 14);
+            this.label8.Location = new System.Drawing.Point(19, 16);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(254, 20);
             this.label8.TabIndex = 0;
@@ -330,17 +393,19 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             this.panel6.BackColor = System.Drawing.Color.SteelBlue;
             this.panel6.Controls.Add(this.lbTongLoaiSp);
             this.panel6.Controls.Add(this.label12);
-            this.panel6.Location = new System.Drawing.Point(308, 155);
+            this.panel6.Location = new System.Drawing.Point(359, 179);
+            this.panel6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(290, 94);
+            this.panel6.Size = new System.Drawing.Size(338, 108);
             this.panel6.TabIndex = 8;
             // 
             // lbTongLoaiSp
             // 
             this.lbTongLoaiSp.AutoSize = true;
-            this.lbTongLoaiSp.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongLoaiSp.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbTongLoaiSp.ForeColor = System.Drawing.Color.White;
-            this.lbTongLoaiSp.Location = new System.Drawing.Point(13, 34);
+            this.lbTongLoaiSp.Location = new System.Drawing.Point(15, 39);
+            this.lbTongLoaiSp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbTongLoaiSp.Name = "lbTongLoaiSp";
             this.lbTongLoaiSp.Size = new System.Drawing.Size(129, 29);
             this.lbTongLoaiSp.TabIndex = 1;
@@ -349,9 +414,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(16, 14);
+            this.label12.Location = new System.Drawing.Point(19, 16);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(184, 20);
             this.label12.TabIndex = 0;
@@ -359,53 +425,17 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // 
             // PanelChart
             // 
-            this.PanelChart.Location = new System.Drawing.Point(13, 261);
+            this.PanelChart.Location = new System.Drawing.Point(15, 301);
+            this.PanelChart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.PanelChart.Name = "PanelChart";
-            this.PanelChart.Size = new System.Drawing.Size(698, 247);
+            this.PanelChart.Size = new System.Drawing.Size(814, 372);
             this.PanelChart.TabIndex = 11;
             // 
-            // iconDBMoney
+            // ThongKe
             // 
-            this.iconDBMoney.BackColor = System.Drawing.Color.Crimson;
-            this.iconDBMoney.IconChar = FontAwesome.Sharp.IconChar.MoneyBillAlt;
-            this.iconDBMoney.IconColor = System.Drawing.Color.White;
-            this.iconDBMoney.IconSize = 111;
-            this.iconDBMoney.Location = new System.Drawing.Point(183, -11);
-            this.iconDBMoney.Name = "iconDBMoney";
-            this.iconDBMoney.Size = new System.Drawing.Size(123, 111);
-            this.iconDBMoney.TabIndex = 3;
-            this.iconDBMoney.TabStop = false;
-            // 
-            // iconDBProduct
-            // 
-            this.iconDBProduct.BackColor = System.Drawing.Color.DarkMagenta;
-            this.iconDBProduct.IconChar = FontAwesome.Sharp.IconChar.Cubes;
-            this.iconDBProduct.IconColor = System.Drawing.Color.White;
-            this.iconDBProduct.IconSize = 111;
-            this.iconDBProduct.Location = new System.Drawing.Point(185, 1);
-            this.iconDBProduct.Name = "iconDBProduct";
-            this.iconDBProduct.Size = new System.Drawing.Size(123, 111);
-            this.iconDBProduct.TabIndex = 3;
-            this.iconDBProduct.TabStop = false;
-            // 
-            // iconDBHoaDon
-            // 
-            this.iconDBHoaDon.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.iconDBHoaDon.IconChar = FontAwesome.Sharp.IconChar.Receipt;
-            this.iconDBHoaDon.IconColor = System.Drawing.Color.White;
-            this.iconDBHoaDon.IconSize = 111;
-            this.iconDBHoaDon.Location = new System.Drawing.Point(185, 14);
-            this.iconDBHoaDon.Name = "iconDBHoaDon";
-            this.iconDBHoaDon.Size = new System.Drawing.Size(123, 111);
-            this.iconDBHoaDon.TabIndex = 3;
-            this.iconDBHoaDon.TabStop = false;
-            this.iconDBHoaDon.Click += new System.EventHandler(this.iconPictureBox1_Click);
-            // 
-            // Dashboard
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(914, 511);
+            this.ClientSize = new System.Drawing.Size(1066, 685);
             this.Controls.Add(this.PanelChart);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
@@ -416,24 +446,25 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Name = "Dashboard";
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Name = "ThongKe";
             this.Text = "Dashboard";
             this.Load += new System.EventHandler(this.Dashboard_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconDBHoaDon)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconDBProduct)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconDBMoney)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconDBMoney)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconDBProduct)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconDBHoaDon)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -9,23 +9,39 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
+using QuanLyCuaHangTienLoi.Data;
+using QuanLyCuaHangTienLoi.Data.Implementation;
+using QuanLyCuaHangTienLoi.Data.Models;
+using QuanLyCuaHangTienLoi.UI.DisplayObject;
+using Microsoft.EntityFrameworkCore;
 
 namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
 
     public partial class tonkho : Form
     {
-        SqlConnection connect = ClassKetnoi.connect;
-
-        SqlCommand command;
-        public void gridviewsp()
+        public void RefreshGridView()
         {
-            string querysp = @"select masp as 'Mã sản phẩm', tensp as 'Tên sản phẩm', soluongsp as 'Số lượng', gianhapsp as 'Giá nhập', giabansp as 'Giá bán', loaisp as 'Loại', donvisp as 'Đơn vị',giamgia as 'Giảm giá' from tonkho";
-            SqlDataAdapter sqldatasp = new SqlDataAdapter(querysp, connect);
-            DataTable datatbsp = new DataTable();
-            sqldatasp.Fill(datatbsp);
-            dataGridView1.DataSource = datatbsp;
-            connect.Close();
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<SanPham> spRepo = new Repository<SanPham>(dbCxt);
+                dataGridView1.DataSource = spRepo
+                    .GetAll()
+                    .Include(sp => sp.LoSanPhams)
+                    .Include(sp => sp.LoaiSanPham)
+                    .Include(sp => sp.DonViSanPham)
+                    .ToList()
+                    .Select(sp => new HienThiSanPhamTonKho
+                    {
+                        Id = sp.Id,
+                        TenSanPham = sp.TenSanPham,
+                        SoLuong = sp.LoSanPhams.Sum(lsp => lsp.SoLuong),
+                        GiaTien = sp.GiaTien,
+                        DonViSanPham = sp.DonViSanPham,
+                        LoaiSanPham = sp.LoaiSanPham
+                    })
+                    .ToDataTable();
+            }
         }
 
         public void clearsp()
@@ -33,53 +49,9 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             txtid.Clear();
             txttensp.Clear();
             txtsl.Clear();
-            txtgianhap.Clear();
             txtgiaban.Clear();
             comboloai.SelectedItem = null;
             combodonvi.SelectedItem = null;
-            // pictureBox1.Image = null;
-            pictureBox1.Image = Properties.Resources._default;
-        }
-        private void autoid()
-        {
-            if (comboloai.SelectedIndex == -1)
-            {
-                //    MessageBox.Show("nhập thông tin!");
-            }
-            else
-            {
-                string comboselected = this.comboloai.GetItemText(this.comboloai.SelectedItem);
-                // string s1 = comboselected.Substring(0, comboselected.IndexOf(" "));
-                string s1 = comboselected.Substring(0, 1);
-                string s2 = comboselected.Substring(comboselected.IndexOf(" ") + 1);
-                if (s2 == null)
-                {
-                    string s1a = s1.Substring(0, 1).ToUpper();
-                    string s2a = s1.Substring(0, 1).ToUpper();
-                    String s3 = String.Concat(s1a, s2a);
-
-                    connect.Open();
-                    SqlCommand cmd = new SqlCommand("select count(masp) from tonkho", connect);
-                    int i = Convert.ToInt32(cmd.ExecuteScalar());
-                    connect.Close();
-                    i++;
-                    txtid.Text = s3 + i.ToString();
-                }
-                else
-                {
-                    string s1a = s1.Substring(0, 1).ToUpper();
-                    string s2a = s2.Substring(0, 1).ToUpper();
-                    String s3 = String.Concat(s1a, s2a);
-
-                    connect.Open();
-                    SqlCommand cmd = new SqlCommand("select count(masp) from tonkho", connect);
-                    int i = Convert.ToInt32(cmd.ExecuteScalar());
-                    connect.Close();
-                    i++;
-                    txtid.Text = s3 + i.ToString();
-                }
-
-            }
         }
 
         public tonkho()
@@ -87,46 +59,27 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             InitializeComponent();
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            gridviewsp();
-
-            // string querysp = @"select masp as 'Mã sản phẩm', tensp as 'Tên sản phẩm', soluongsp as 'Số lượng', gianhapsp as 'Giá nhập', giabansp as 'Giá bán', loaisp as 'Loại', donvisp as 'Đơn vị'from sanpham;";
-            string queryloai = @"select * from loaisp";
-            string querydonvi = @"select * from donvisp";
-
-            // SqlDataAdapter sqldatasp = new SqlDataAdapter(querysp, connect);
-            SqlDataAdapter sqldataloai = new SqlDataAdapter(queryloai, connect);
-            SqlDataAdapter sqldatadonvi = new SqlDataAdapter(querydonvi, connect);
-
-            // DataTable datatbsp = new DataTable();
-            DataTable datatbloai = new DataTable();
-            DataTable datatbdonvi = new DataTable();
-
-            // sqldatasp.Fill(datatbsp);
-            sqldataloai.Fill(datatbloai);
-            sqldatadonvi.Fill(datatbdonvi);
-
-            //combobox
-            comboloai.Items.Clear();
-            combodonvi.Items.Clear();
-            foreach (DataRow dr in datatbloai.Rows)
+            RefreshGridView();
+            //todo db sanpham
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
-                comboloai.Items.Add(dr["TenLoai"].ToString());
+                Repository<SanPham> sanPhamRepo = new Repository<SanPham>(dbCxt);
+                Repository<LoSanPham> loSanPhamRepo = new Repository<LoSanPham>(dbCxt);
+                Repository<LoaiSanPham> loaiSanPhamRepo = new Repository<LoaiSanPham>(dbCxt);
+                Repository<DonViSanPham> donViSanPhamRepo = new Repository<DonViSanPham>(dbCxt);
+                Repository<NhaCungCap> nccRepo = new Repository<NhaCungCap>(dbCxt);
+
+                comboloai.Items.Clear();
+                combodonvi.Items.Clear();
+                foreach (var loaiSp in loaiSanPhamRepo.GetAll())
+                {
+                    comboloai.Items.Add(loaiSp);
+                }
+                foreach (var donviSp in donViSanPhamRepo.GetAll())
+                {
+                    combodonvi.Items.Add(donviSp);
+                }
             }
-            foreach (DataRow dr2 in datatbdonvi.Rows)
-            {
-                combodonvi.Items.Add(dr2["TenDonvi"].ToString());
-            }
-            connect.Close();
-            //table
-            // dataGridView1.DataSource = datatbsp;
-        }
-
-
-
-        private void sanpham_Load(object sender, EventArgs e)
-        {
-
-
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -138,137 +91,129 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 txtid.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 txttensp.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 txtsl.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-                txtgianhap.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
-                txtgiaban.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
-
-                comboloai.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-                combodonvi.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
-                txtGiamGia.Text = dataGridView1.CurrentRow.Cells[7].Value.ToString();
-
-                try
-                {
-                    string sql1 = "select anhsp from tonkho where masp='" + txtid.Text + "' ";
-
-                    if (connect.State != ConnectionState.Open)
-                        connect.Open();
-                    command = new SqlCommand(sql1, connect);
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    reader.Read();
-                    if (reader.HasRows)
-                    {
-                        //byte[] img = (byte[])(reader[0]);
-                        //if (img == null)
-                        //{
-                        //    pictureBox1.Image = null;
-                        //}
-                        //else
-                        //{
-                        //    MemoryStream ms = new MemoryStream(img);
-                        //    pictureBox1.Image = Image.FromStream(ms);
-
-                        //}
-                        //  MessageBox.Show(img.ToString());
-                        connect.Close();
-                    }
-                    else
-                    {
-                        connect.Close();
-                        MessageBox.Show("bi loi");
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("loi bang: " + ex.Message);
-                }
-                txtid.ReadOnly = true;
-                //=====================
-
+                txtgiaban.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+                var loaiSanPham = dataGridView1.CurrentRow.Cells[4].Value as LoaiSanPham;
+                var donViSanPham = dataGridView1.CurrentRow.Cells[5].Value as DonViSanPham;
+                comboloai.Text = loaiSanPham.TenLoaiSanPham;
+                combodonvi.Text = donViSanPham.TenDonViSanPham;
             }
+        }
+
+        private bool ValidateInput()
+        {
+            if (string.IsNullOrWhiteSpace(txttensp.Text))
+            {
+                txttensp.Select();
+            }
+            else if (string.IsNullOrWhiteSpace(txtsl.Text))
+            {
+                txtsl.Select();
+            }
+            else if (string.IsNullOrWhiteSpace(txtgiaban.Text))
+            {
+                txtgiaban.Select();
+            }
+            else if (comboloai.SelectedIndex == -1)
+            {
+                comboloai.Select();
+            }
+            else if (combodonvi.SelectedIndex == -1)
+            {
+                comboloai.Select();
+            }
+            else
+            {
+                return true;
+            }
+            return false;
         }
 
         private void btnsave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtid.Text))
-            {
-                MessageBox.Show("Thông tin trống!");
-            }
-            else
-            {
-                try
-                {
-                    using (var cmd = new SqlCommand("update tonkho set tensp=@tensp,soluongsp=@soluongsp,gianhapsp=@gianhapsp,giabansp=@giabansp,loaisp=@loaisp,donvisp=@donvisp where masp=@masp"))
-                    {
-                        cmd.Connection = connect;
-                        cmd.Parameters.AddWithValue("@masp", txtid.Text);
-                        cmd.Parameters.AddWithValue("@tensp", txttensp.Text);
-                        cmd.Parameters.AddWithValue("@soluongsp", txtsl.Text);
-                        cmd.Parameters.AddWithValue("@gianhapsp", txtgianhap.Text);
-                        cmd.Parameters.AddWithValue("@giabansp", txtgiaban.Text);
-                        cmd.Parameters.AddWithValue("@loaisp", comboloai.GetItemText(comboloai.SelectedItem));
-                        cmd.Parameters.AddWithValue("@donvisp", combodonvi.GetItemText(combodonvi.SelectedItem));
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Đã lưu");
-                            gridviewsp();
-                            txtid.ReadOnly = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Lưu không thành công!");
-                            txtid.ReadOnly = true;
-                        }
-                        connect.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("Error during insert: " + ex.Message);
-                }
-            }
+            //if (string.IsNullOrWhiteSpace(txtid.Text))
+            //{
+            //    MessageBox.Show("Thông tin trống!");
+            //    return;
+            //}
+
+            //if (ValidateInput())
+            //{
+
+            //}
+            //else
+            //{
+            //    try
+            //    {
+            //        using (var cmd = new SqlCommand("update tonkho set tensp=@tensp,soluongsp=@soluongsp,gianhapsp=@gianhapsp,giabansp=@giabansp,loaisp=@loaisp,donvisp=@donvisp where masp=@masp"))
+            //        {
+            //            cmd.Connection = connect;
+            //            cmd.Parameters.AddWithValue("@masp", txtid.Text);
+            //            cmd.Parameters.AddWithValue("@tensp", txttensp.Text);
+            //            cmd.Parameters.AddWithValue("@soluongsp", txtsl.Text);
+            //            cmd.Parameters.AddWithValue("@gianhapsp", txtgianhap.Text);
+            //            cmd.Parameters.AddWithValue("@giabansp", txtgiaban.Text);
+            //            cmd.Parameters.AddWithValue("@loaisp", comboloai.GetItemText(comboloai.SelectedItem));
+            //            cmd.Parameters.AddWithValue("@donvisp", combodonvi.GetItemText(combodonvi.SelectedItem));
+            //            connect.Open();
+            //            if (cmd.ExecuteNonQuery() > 0)
+            //            {
+            //                MessageBox.Show("Đã lưu");
+            //                RefreshGridView();
+            //                txtid.ReadOnly = true;
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("Lưu không thành công!");
+            //                txtid.ReadOnly = true;
+            //            }
+            //            connect.Close();
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        connect.Close();
+            //        MessageBox.Show("Error during insert: " + ex.Message);
+            //    }
+            //}
         }
 
         private void btndelete_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtid.Text))
-            {
-                MessageBox.Show("Thông tin trống!");
-            }
-            else
-            {
+            //if (string.IsNullOrWhiteSpace(txtid.Text))
+            //{
+            //    MessageBox.Show("Thông tin trống!");
+            //}
+            //else
+            //{
 
 
-                try
-                {
-                    using (var cmd = new SqlCommand("delete tonkho where masp=@masp"))
-                    {
-                        cmd.Connection = connect;
-                        cmd.Parameters.AddWithValue("@masp", txtid.Text);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Đã xóa");
-                            clearsp();
-                            gridviewsp();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Lưu không thành công!");
-                        }
-                        connect.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("Error during insert: " + ex.Message);
-                }
+            //    try
+            //    {
+            //        using (var cmd = new SqlCommand("delete tonkho where masp=@masp"))
+            //        {
+            //            cmd.Connection = connect;
+            //            cmd.Parameters.AddWithValue("@masp", txtid.Text);
+            //            connect.Open();
+            //            if (cmd.ExecuteNonQuery() > 0)
+            //            {
+            //                MessageBox.Show("Đã xóa");
+            //                clearsp();
+            //                RefreshGridView();
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("Lưu không thành công!");
+            //            }
+            //            connect.Close();
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        connect.Close();
+            //        MessageBox.Show("Error during insert: " + ex.Message);
+            //    }
 
-            }
+            //}
         }
 
         private void btnclear_Click(object sender, EventArgs e)
@@ -282,69 +227,65 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void btnDeleteIMG_Click(object sender, EventArgs e)
         {
-            try
-            {
-                using (var cmd = new SqlCommand("update tonkho set anhsp=null where masp=@masp"))
-                {
-                    cmd.Connection = connect;
-                    cmd.Parameters.AddWithValue("@masp", txtid.Text);
-                    connect.Open();
-                    if (cmd.ExecuteNonQuery() > 0)
-                    {
-                        MessageBox.Show("Đã xóa");
-                        clearsp();
-                        gridviewsp();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Không thành công!");
-                    }
-                    connect.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                connect.Close();
-                MessageBox.Show("Error during insert: " + ex.Message);
-            }
+            //try
+            //{
+            //    using (var cmd = new SqlCommand("update tonkho set anhsp=null where masp=@masp"))
+            //    {
+            //        cmd.Connection = connect;
+            //        cmd.Parameters.AddWithValue("@masp", txtid.Text);
+            //        connect.Open();
+            //        if (cmd.ExecuteNonQuery() > 0)
+            //        {
+            //            MessageBox.Show("Đã xóa");
+            //            clearsp();
+            //            RefreshGridView();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Không thành công!");
+            //        }
+            //        connect.Close();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    connect.Close();
+            //    MessageBox.Show("Error during insert: " + ex.Message);
+            //}
         }
 
         private void txtsearch_TextChanged(object sender, EventArgs e)
         {
-            try
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
-                if (connect.State != ConnectionState.Open)
-                    connect.Open();
-                using (SqlDataAdapter da = new SqlDataAdapter("select masp,tensp,soluongsp,gianhapsp,giabansp,loaisp,donvisp from tonkho where ( masp like '" + txtsearch.Text + "%' or tensp like N'" + txtsearch.Text + "%' or soluongsp like '" + txtsearch.Text + "%' or gianhapsp like '" + txtsearch.Text + "%' or giabansp like '" + txtsearch.Text + "%'  or loaisp like N'" + txtsearch.Text + "%'  or donvisp like N'" + txtsearch.Text + "%'     )", connect))
-                {
-                    DataTable dtsearch = new DataTable("tonkho");
-                    da.Fill(dtsearch);
-                    dataGridView1.DataSource = dtsearch;
-
-                }
-                connect.Close();
-                if (dataGridView1.Rows.Count > 0 && dataGridView1.Rows != null)
-                {
-                    LabelSearch.Text = "Đã tìm thấy";
-                }
-                else
-                {
-                    LabelSearch.Text = "Không tìm thấy...";
-                }
-
-                if (string.IsNullOrWhiteSpace(txtsearch.Text))
-                {
-                    LabelSearch.Text = "Tìm kiếm";
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                connect.Close();
-                MessageBox.Show(ex.Message);
+                Repository<SanPham> spRepo = new Repository<SanPham>(dbCxt);
+                var searchText = txtsearch.Text;
+                dataGridView1.DataSource = spRepo
+                    .Query(
+                        sp => sp.Id.ToString().Contains(searchText)
+                     || sp.TenSanPham.Contains(searchText))
+                    .Include(sp => sp.LoSanPhams).ToList().Select(sp => new HienThiSanPham
+                    {
+                        Id = sp.Id,
+                        TenSanPham = sp.TenSanPham,
+                        SoLuong = sp.LoSanPhams.Sum(lsp => lsp.SoLuong)
+                    })
+                    .ToDataTable();
             }
 
+            if (dataGridView1.Rows.Count > 0 && dataGridView1.Rows != null)
+            {
+                LabelSearch.Text = "Đã tìm thấy";
+            }
+            else
+            {
+                LabelSearch.Text = "Không tìm thấy...";
+            }
+
+            if (string.IsNullOrWhiteSpace(txtsearch.Text))
+            {
+                LabelSearch.Text = "Tìm kiếm";
+            }
         }
 
         private void btnsearch_Click(object sender, EventArgs e)
@@ -356,15 +297,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void comboloai_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtid.Text))
-            {
-                autoid();
-            }
-            else
-            {
-
-            }
-
         }
 
         private void ButtonAutoid_Click(object sender, EventArgs e)

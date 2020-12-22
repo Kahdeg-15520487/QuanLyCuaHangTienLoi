@@ -31,19 +31,19 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         }
         private void motrangcon(Form trangcon)
         {
-            //if (currentchildform != null)
-            //{
-            //    currentchildform.Close();
+            if (currentchildform != null)
+            {
+                currentchildform.Close();
 
-            //}
-            //currentchildform = trangcon;
-            //trangcon.TopLevel = false;
-            //trangcon.FormBorderStyle = FormBorderStyle.None;
-            //trangcon.Dock = DockStyle.Fill;
-            //PanelChart.Controls.Add(trangcon);
-            //PanelChart.Tag = trangcon;
-            //trangcon.BringToFront();
-            //trangcon.Show();
+            }
+            currentchildform = trangcon;
+            trangcon.TopLevel = false;
+            trangcon.FormBorderStyle = FormBorderStyle.None;
+            trangcon.Dock = DockStyle.Fill;
+            PanelChart.Controls.Add(trangcon);
+            PanelChart.Tag = trangcon;
+            trangcon.BringToFront();
+            trangcon.Show();
 
         }
         private void doanhsobanhang()
@@ -70,7 +70,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 int CountTongHD = hdThangNay.Count;
                 int CountHDtoday = hdHomNay.Count; ;
                 double CountTongTienThangNay = hdThangNay.SelectMany(hd => hd.ChiTietHoaDon.Select(cthd => cthd.DonGia)).Sum();
-                var CountTienToday = hdHomNay.SelectMany(hd => hd.ChiTietHoaDon.Select(cthd => cthd.DonGia)).Sum();
+                var CountTienToday = hdHomNay.SelectMany(hd => hd.ChiTietHoaDon.Select(cthd => cthd.DonGia * cthd.SoLuong)).Sum();
                 int CountDistinctMasp = hdThangNay.SelectMany(hd => hd.ChiTietHoaDon.Select(cthd => cthd.LoSanPham.SanPhamId)).Distinct().Count();
                 int CountDistinctMaspToday = hdHomNay.SelectMany(hd => hd.ChiTietHoaDon.Select(cthd => cthd.LoSanPham.SanPhamId)).Distinct().Count();
 
@@ -122,7 +122,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         }
         private void Dashboard_Load(object sender, EventArgs e)
         {
-            //motrangcon(new ChartMoney());
+            motrangcon(new ChartMoney());
             doanhsobanhang();
             tongslsptrongkho();
             loaisptrongkho();
@@ -141,18 +141,18 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //motrangcon(new ChartMoney());
+            motrangcon(new ChartMoney());
 
         }
 
         private void btnChartSL_Click(object sender, EventArgs e)
         {
-            //motrangcon(new ChartSLSP());
+            motrangcon(new ChartSLSP());
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            //motrangcon(new ChartSPHet());
+            motrangcon(new ChartSanPhamHet());
         }
     }
 }
