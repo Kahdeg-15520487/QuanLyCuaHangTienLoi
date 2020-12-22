@@ -144,8 +144,8 @@ namespace QuanLyCuaHangTienLoi.UI
         private void btndashboard_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color4);
-            //OpenChildForm(new ThongKe());
-            MessageBox.Show("Chức năng này chưa được hoàn thành!");
+            OpenChildForm(new ThongKe());
+            //MessageBox.Show("Chức năng này chưa được hoàn thành!");
         }
 
         private void btnnhanvien_Click(object sender, EventArgs e)

@@ -1,7 +1,8 @@
-﻿using QuanLyCuaHangTienLoi.Data;
+﻿using Microsoft.EntityFrameworkCore;
+
+using QuanLyCuaHangTienLoi.Data;
 using QuanLyCuaHangTienLoi.Data.Implementation;
 using QuanLyCuaHangTienLoi.Data.Models;
-using QuanLyCuaHangTienLoi.UI.DisplayObject;
 
 using System;
 using System.Collections.Generic;
@@ -13,135 +14,145 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using System.Windows.Forms.DataVisualization.Charting;
+
 
 namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
     public partial class ThongKe : Form
     {
+        SqlConnection connect = ClassKetnoi.connect;
+
+        private Form currentchildform;
+        string CurrentMonth = DateTime.Now.ToString("MM");
         public ThongKe()
         {
             InitializeComponent();
         }
-
-        private void clear()
+        private void motrangcon(Form trangcon)
         {
-            textBoxTenLoai.Clear();
-            textBoxID.Clear();
-        }
+            //if (currentchildform != null)
+            //{
+            //    currentchildform.Close();
 
-        private void RefreshGridView()
+            //}
+            //currentchildform = trangcon;
+            //trangcon.TopLevel = false;
+            //trangcon.FormBorderStyle = FormBorderStyle.None;
+            //trangcon.Dock = DockStyle.Fill;
+            //PanelChart.Controls.Add(trangcon);
+            //PanelChart.Tag = trangcon;
+            //trangcon.BringToFront();
+            //trangcon.Show();
+
+        }
+        private void doanhsobanhang()
         {
             using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
-                Repository<LoaiSanPham> loaiSpRepo = new Repository<LoaiSanPham>(dbCxt);
-                DataTable datatbsploai = loaiSpRepo.GetAll().Select(lsp => new HienThiLoaiSanPham
-                {
-                    Id = lsp.Id,
-                    TenLoaiSanPham = lsp.TenLoaiSanPham
-                }).ToDataTable();
+                Repository<HoaDon> hoadonRepo = new Repository<HoaDon>(dbCxt);
 
-                dataGridViewLoaiSPloai.DataSource = datatbsploai;
-            }
-        }
-        private void iconButton4_Click(object sender, EventArgs e)
-        {
-            clear();
-        }
+                var hdThangNay = hoadonRepo.Query(hd => hd.NgayLap.Month == DateTime.Now.Month)
+                    .Include(hd => hd.ChiTietHoaDon)
+                    .ThenInclude(cthd => cthd.LoSanPham)
+                    .ThenInclude(lsp => lsp.NhaCungCap)
+                    .Include(hd => hd.KhachHang)
+                    .ToList()
+                    ;
+                var hdHomNay = hoadonRepo.Query(hd => hd.NgayLap.Day == DateTime.Now.Day)
+                    .Include(hd => hd.ChiTietHoaDon)
+                    .ThenInclude(cthd => cthd.LoSanPham)
+                    .ThenInclude(lsp => lsp.NhaCungCap)
+                    .Include(hd => hd.KhachHang)
+                    .ToList()
+                    ;
 
-        private void dataGridViewLoaiSP_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridViewLoaiSPloai.CurrentRow.Index != -1)
-            {
-                clear();
-                textBoxID.Text = dataGridViewLoaiSPloai.CurrentRow.Cells[0].Value.ToString();
-                textBoxTenLoai.Text = dataGridViewLoaiSPloai.CurrentRow.Cells[1].Value.ToString();
-            }
-        }
+                int CountTongHD = hdThangNay.Count;
+                int CountHDtoday = hdHomNay.Count; ;
+                double CountTongTienThangNay = hdThangNay.SelectMany(hd => hd.ChiTietHoaDon.Select(cthd => cthd.DonGia)).Sum();
+                var CountTienToday = hdHomNay.SelectMany(hd => hd.ChiTietHoaDon.Select(cthd => cthd.DonGia)).Sum();
+                int CountDistinctMasp = hdThangNay.SelectMany(hd => hd.ChiTietHoaDon.Select(cthd => cthd.LoSanPham.SanPhamId)).Distinct().Count();
+                int CountDistinctMaspToday = hdHomNay.SelectMany(hd => hd.ChiTietHoaDon.Select(cthd => cthd.LoSanPham.SanPhamId)).Distinct().Count();
 
-        private void btnSua_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(textBoxID.Text))
-            {
-                MessageBox.Show("Thông tin trống!");
-            }
-            else
-            {
-                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
-                {
-                    Repository<LoaiSanPham> loaiSpRepo = new Repository<LoaiSanPham>(dbCxt);
-                    var lsp = loaiSpRepo.Get(Guid.Parse(textBoxID.Text));
-                    lsp.TenLoaiSanPham = textBoxTenLoai.Text;
-                    loaiSpRepo.Update(lsp);
+                lbDoanhSoToday.Text = "Hôm nay: " + CountTienToday.ToString();
+                lbTongDoanhSo.Text = CountTongTienThangNay.ToString();
+                lbSumHD.Text = CountTongHD.ToString();
+                lbHDtoday.Text = "Hôm nay: " + CountHDtoday.ToString();
+                lbSumSP.Text = CountDistinctMasp.ToString();
+                lbSPtoday.Text = "Hôm nay: " + CountDistinctMaspToday.ToString();
 
-                    MessageBox.Show("Sửa loại sản phẩm xong.");
-                }
-                RefreshGridView();
-            }
-            clear();
-        }
-
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(textBoxID.Text))
-            {
-                MessageBox.Show("Thông tin trống!");
-            }
-            else
-            {
-                if (MessageBox.Show(
-                    "Có chắc là muốn xoá loại sản phẩm" + Environment.NewLine +
-                    textBoxTenLoai.Text,
-                    "Cảnh báo",
-                     MessageBoxButtons.YesNo) == DialogResult.No)
-                {
-                    return;
-                }
-
-                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
-                {
-                    Repository<LoaiSanPham> loaiSpRepo = new Repository<LoaiSanPham>(dbCxt);
-                    var lsp = loaiSpRepo.Get(Guid.Parse(textBoxID.Text));
-                    loaiSpRepo.Delete(lsp);
-
-                    MessageBox.Show("Xoá loại sản phẩm xong.");
-                }
-                RefreshGridView();
-            }
-            clear();
-        }
-
-        private void btnThem_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(textBoxID.Text))
-            {
-                MessageBox.Show("Xin nhập loại sản phẩm mới, bấm nút Nhập lại để xoá các field.");
-                return;
-            }
-            else
-            {
-
-                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
-                {
-                    Repository<LoaiSanPham> loaiSpRepo = new Repository<LoaiSanPham>(dbCxt);
-
-                    LoaiSanPham lspMoi = new LoaiSanPham
-                    {
-                        Id = Guid.NewGuid(),
-                        TenLoaiSanPham = textBoxTenLoai.Text
-                    };
-
-                    loaiSpRepo.Insert(lspMoi);
-
-                    MessageBox.Show("Thêm loại sản phẩm xong.");
-                }
-                RefreshGridView();
             }
         }
 
-
-        private void LoaiSP_Load(object sender, EventArgs e)
+        private void tongslsptrongkho()
         {
-            RefreshGridView();
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<LoSanPham> lspRepo = new Repository<LoSanPham>(dbCxt);
+
+                var tongLuongSanPham = lspRepo.GetAll().Sum(lsp => lsp.SoLuong);
+                var loSanPhamNhapKhoHomNay = lspRepo.Query(lsp => lsp.NgayNhap.Day == DateTime.Now.Day).Sum(lsp => lsp.SoLuong);
+
+                lbTongSP.Text = tongLuongSanPham.ToString();
+                lbNhapKhoToday.Text = "Nhập kho hôm nay: " + loSanPhamNhapKhoHomNay.ToString() + " sản phẩm";
+            }
+        }
+        private void loaisptrongkho()
+        {
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<SanPham> spRepo = new Repository<SanPham>(dbCxt);
+
+                var soLoaiSanPhamTrongKho = spRepo.GetAll().Count();
+                lbTongLoaiSp.Text = soLoaiSanPhamTrongKho.ToString();
+            }
+        }
+        private void khachno()
+        {
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<HoaDon> hoadonRepo = new Repository<HoaDon>(dbCxt);
+
+                var noThangNay = hoadonRepo.Query(hd => hd.NgayLap.Month == DateTime.Now.Month).Sum(hd => hd.No);
+                var noHomNay = hoadonRepo.Query(hd => hd.NgayLap.Day == DateTime.Now.Day).Sum(hd => hd.No);
+
+                lbKhachNoToday.Text = "Hôm nay: " + noHomNay.ToString();
+                lbKhachNoThang.Text = noThangNay.ToString();
+            }
+        }
+        private void Dashboard_Load(object sender, EventArgs e)
+        {
+            //motrangcon(new ChartMoney());
+            doanhsobanhang();
+            tongslsptrongkho();
+            loaisptrongkho();
+            khachno();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void iconPictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //motrangcon(new ChartMoney());
+
+        }
+
+        private void btnChartSL_Click(object sender, EventArgs e)
+        {
+            //motrangcon(new ChartSLSP());
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            //motrangcon(new ChartSPHet());
         }
     }
 }

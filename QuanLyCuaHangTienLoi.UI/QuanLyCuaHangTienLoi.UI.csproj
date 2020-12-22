@@ -57,9 +57,6 @@
     <ProjectReference Include="..\QuanLyCuaHangTienLoi.Data\QuanLyCuaHangTienLoi.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="UI.MenuTab\ThongKe.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="UI.MenuTab\NhaCungCap.cs">
       <SubType>Form</SubType>
     </Compile>
