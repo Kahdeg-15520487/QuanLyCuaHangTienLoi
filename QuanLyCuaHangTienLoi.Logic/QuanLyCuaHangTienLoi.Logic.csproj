@@ -8,8 +8,4 @@
     <Folder Include="DTOs\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\QuanLyCuaHangTienLoi.Data\QuanLyCuaHangTienLoi.Data.csproj" />
-  </ItemGroup>
-
 </Project>

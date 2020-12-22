@@ -1,4 +1,9 @@
-﻿using System;
+﻿using QuanLyCuaHangTienLoi.Data;
+using QuanLyCuaHangTienLoi.Data.Implementation;
+using QuanLyCuaHangTienLoi.Data.Models;
+using QuanLyCuaHangTienLoi.UI.DisplayObject;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,43 +18,34 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
     public partial class DonViSP : Form
     {
-        SqlConnection connect = ClassKetnoi.connect;
-        //SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-A0E9NLI\MSSQLSERVER2019;Initial Catalog=doan-3;Integrated Security=True");
         public DonViSP()
         {
             InitializeComponent();
-            autoidSPLoai();
-            gridviewsp();
+            RefreshGridView();
         }
-        private void autoidSPLoai()
-        {
-            connect.Open();
-            SqlCommand cmd = new SqlCommand("select count(IDdonvi) from donvisp", connect);
-            int i = Convert.ToInt32(cmd.ExecuteScalar());
-            connect.Close();
-            i++;
-            textBoxID.Text = i.ToString();
 
-        }
         private void clear()
         {
             textBoxTenDV.Clear();
-
         }
-        private void gridviewsp()
+        private void RefreshGridView()
         {
-            string querydv = @"select IDdonvi as 'ID đơn vị', TenDonvi as 'Tên đơn vị' from donvisp";
-            SqlDataAdapter sqldatasp = new SqlDataAdapter(querydv, connect);
-            DataTable datatbdv = new DataTable();
-            sqldatasp.Fill(datatbdv);
-            dataGridViewDVsp.DataSource = datatbdv;
-            connect.Close();
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<DonViSanPham> dvSpRepo = new Repository<DonViSanPham>(dbCxt);
+                DataTable datatbdv = dvSpRepo.GetAll().Select(dvsp => new HienThiDonViSanPham
+                {
+                    Id = dvsp.Id,
+                    TenDonViSanPham = dvsp.TenDonViSanPham
+                }).ToDataTable();
+
+                dataGridViewDVsp.DataSource = datatbdv;
+            }
         }
 
         private void btnHuy_Click(object sender, EventArgs e)
         {
             clear();
-            autoidSPLoai();
         }
 
         private void dataGridViewDVsp_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -70,35 +66,16 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             }
             else
             {
-                try
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    using (var cmd = new SqlCommand("update donvisp set TenDonVi=@TenDonvi where IDdonvi=@IDdonvi"))
-                    {
-                        cmd.Connection = connect;
-                        cmd.Parameters.AddWithValue("@IDdonvi", textBoxID.Text);
-                        cmd.Parameters.AddWithValue("@TenDonvi", textBoxTenDV.Text);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Đã lựu");
-                            connect.Close();
-                            clear();
-                            gridviewsp();
-                            autoidSPLoai();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Lưu không thành công!");
-                            connect.Close();
-                        }
-                        connect.Close();
-                    }
+                    Repository<DonViSanPham> dvSpRepo = new Repository<DonViSanPham>(dbCxt);
+                    var dv = dvSpRepo.Get(Guid.Parse(textBoxID.Text));
+                    dv.TenDonViSanPham = textBoxTenDV.Text;
+                    dvSpRepo.Update(dv);
+
+                    MessageBox.Show("Sửa đơn vị sản phẩm xong.");
                 }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("Error during update: " + ex.Message);
-                }
+                RefreshGridView();
             }
         }
 
@@ -110,75 +87,50 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             }
             else
             {
-
-
-                try
+                if (MessageBox.Show(
+                    "Có chắc là muốn xoá loại sản phẩm" + Environment.NewLine +
+                    textBoxTenDV.Text,
+                    "Cảnh báo",
+                     MessageBoxButtons.YesNo) == DialogResult.No)
                 {
-                    using (var cmd = new SqlCommand("delete donvisp where IDdonvi=@IDdonvi"))
-                    {
-                        cmd.Connection = connect;
-                        cmd.Parameters.AddWithValue("@IDdonvi", textBoxID.Text);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Đã xóa");
-                            connect.Close();
-                            clear();
-                            gridviewsp();
-                            autoidSPLoai();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Lưu không thành công!");
-                            connect.Close();
-                        }
-                        connect.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("Error during delete: " + ex.Message);
+                    return;
                 }
 
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+                {
+                    Repository<DonViSanPham> dvSpRepo = new Repository<DonViSanPham>(dbCxt);
+                    var dv = dvSpRepo.Get(Guid.Parse(textBoxID.Text));
+                    dvSpRepo.Delete(dv);
+
+                    MessageBox.Show("Xoá đơn vị sản phẩm xong.");
+                }
+                RefreshGridView();
             }
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(textBoxID.Text))
+            if (!string.IsNullOrWhiteSpace(textBoxID.Text))
             {
-                MessageBox.Show("Trống mã loại!");
-                textBoxID.Select();
+                MessageBox.Show("Xin nhập đơn vị sản phẩm mới, bấm nút Nhập lại để xoá các field.");
+                return;
             }
             else
             {
-                using (var cmd = new SqlCommand("INSERT INTO donvisp (IDdonvi,TenDonvi) VALUES (@IDdonvi,@TenDonvi)"))
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    cmd.Connection = connect;
-                    cmd.Parameters.AddWithValue("@IDdonvi", textBoxID.Text);
-                    cmd.Parameters.AddWithValue("@TenDonvi", textBoxTenDV.Text);
-
-                    connect.Open();
-                    if (cmd.ExecuteNonQuery() > 0)
+                    Repository<DonViSanPham> dvSpRepo = new Repository<DonViSanPham>(dbCxt);
+                    var dvMoi = new DonViSanPham()
                     {
-                        MessageBox.Show("Đã thêm");
-                        connect.Close();
-                        clear();
-                        gridviewsp();
-                        autoidSPLoai();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Thêm không thành công!");
-                        connect.Close();
-                    }
-                    connect.Close();
+                        Id = Guid.NewGuid(),
+                        TenDonViSanPham = textBoxTenDV.Text
+                    };
+                    dvSpRepo.Insert(dvMoi);
 
+                    MessageBox.Show("Sửa đơn vị sản phẩm xong.");
                 }
+                RefreshGridView();
             }
-
         }
-
     }
 }

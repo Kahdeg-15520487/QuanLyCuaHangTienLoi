@@ -1,4 +1,9 @@
-﻿using System;
+﻿using QuanLyCuaHangTienLoi.Data;
+using QuanLyCuaHangTienLoi.Data.Implementation;
+using QuanLyCuaHangTienLoi.Data.Models;
+using QuanLyCuaHangTienLoi.UI.DisplayObject;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,9 +27,8 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         string imglogoloc = "";
         public Setting()
         {
-            if (CuaSoChinh.tennv == "Admin")
+            if (CuaSoChinh.tennv.ToLower() == "admin")
             {
-                //MessageBox.Show("ban la nhan vien");
                 InitializeComponent();
                 gridviewNhanVien();
                 gridviewKhachHang();
@@ -32,184 +36,138 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             else
             {
                 MessageBox.Show("Chỉ có admin mới có thể truy cập chức năng này!");
-
             }
-
         }
+
         public void gridviewNhanVien()
         {
-            //data grid view nhan vien
-            string querynv = @"select STT as 'STT', usernv as 'Tên tài khoản', tennv as 'Tên nhân viên', passnv as 'Mật khẩu' from nhanvien";
-            SqlDataAdapter sqldatasp = new SqlDataAdapter(querynv, connect);
-            DataTable datatbsp = new DataTable();
-            sqldatasp.Fill(datatbsp);
-            dataGridViewNV.DataSource = datatbsp;
-            connect.Close();
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<NhanVien> nvRepo = new Repository<NhanVien>(dbCxt);
 
+                DataTable datatbnv = nvRepo.GetAll().Select(nv => new HienThiNhanVien
+                {
+                    Id = nv.Id,
+                    TenNhanVien = nv.TenNhanVien
+                }).ToDataTable();
+
+                dataGridViewNV.DataSource = datatbnv;
+            }
         }
+
         private void gridviewKhachHang()
         {
-            //datagridview thong tin khach hang
-
-            try
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
-                connect.Open();
-                adap = new SqlDataAdapter("select IDkh as 'ID', TenKH as 'Tên khách hàng', SDT as 'SĐT', DiaChi as 'Địa chỉ',Email as 'Email' from KhachHang", connect);
-                dskh = new System.Data.DataSet();
-                adap.Fill(dskh, "KhachHangTable");
-                dataGridViewKH.DataSource = dskh.Tables[0];
-                //string querykh = @"select IDkh as 'ID', TenKH as 'Tên khách hàng', SDT as 'SĐT', DiaChi as 'Địa chỉ',Email as 'Email' from KhachHang";
-                //SqlDataAdapter sqldatakh = new SqlDataAdapter(querykh, connect);
-                //DataTable datatbkh = new DataTable();
-                //sqldatakh.Fill(datatbkh, "KhachHangTable");
-                //dataGridViewKH.DataSource = datatbkh;
-                //connect.Close();
-            }
-            catch (Exception ex)
-            {
-                connect.Close();
-                MessageBox.Show(ex.Message);
-            }
+                Repository<KhachHang> khRepo = new Repository<KhachHang>(dbCxt);
 
+                DataTable datatbkh = khRepo.GetAll().Select(kh => new HienThiKhachHang
+                {
+                    Id = kh.Id,
+                    TenKhachHang = kh.TenKhachHang,
+                    SoDienThoai = kh.SoDienThoai,
+                    DiaChi = kh.DiaChi,
+                    Email = kh.Email
+                }).ToDataTable();
+
+                dataGridViewKH.DataSource = datatbkh;
+            }
         }
 
         public void clearnv()
         {
-            txtUserNV.Clear();
-            txtNameNV.Clear();
-            txtPassNV.Clear();
+            txtTenNV.Clear();
         }
 
         private void BtnThem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtUserNV.Text))
+            if (!string.IsNullOrWhiteSpace(txtIdNV.Text))
             {
                 MessageBox.Show("Trống!");
-                txtUserNV.Select();
+                txtIdNV.Select();
             }
 
-            if (string.IsNullOrWhiteSpace(txtNameNV.Text))
+            if (string.IsNullOrWhiteSpace(txtTenNV.Text))
             {
-                txtNameNV.Select();
-            }
-            else if (string.IsNullOrWhiteSpace(txtPassNV.Text))
-            {
-                txtPassNV.Select();
+                txtTenNV.Select();
             }
             else
             {
-                using (var cmd = new SqlCommand("INSERT INTO nhanvien (usernv,tennv,passnv) VALUES (@usernv,@tennv,@passnv)"))
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    cmd.Connection = connect;
-                    //    cmd.Parameters.AddWithValue("@usernv", txtUserNV.Text);
-                    cmd.Parameters.AddWithValue("@usernv", txtUserNV.Text);
-                    cmd.Parameters.AddWithValue("@tennv", txtNameNV.Text);
-                    cmd.Parameters.AddWithValue("@passnv", txtPassNV.Text);
-                    connect.Open();
-                    if (cmd.ExecuteNonQuery() > 0)
-                    {
-                        MessageBox.Show("Đã thêm");
-                        connect.Close();
-                        clearnv();
-                        gridviewNhanVien();
+                    Repository<NhanVien> nvRepo = new Repository<NhanVien>(dbCxt);
 
-                    }
-                    else
+                    var nvMoi = new NhanVien
                     {
-                        MessageBox.Show("Thêm không thành công!");
-                        connect.Close();
-                    }
-                    connect.Close();
+                        Id = Guid.NewGuid(),
+                        TenNhanVien = txtTenNV.Text,
+                        Username = txtTenNV.Text.Replace(" ", "").ToLower(),
+                        Matkhau = "123456"
+                    };
+                    nvRepo.Insert(nvMoi);
 
+                    MessageBox.Show("Đã thêm nhân viên" + Environment.NewLine + "Tên đăng nhập mới:" + nvMoi.Username);
                 }
+                gridviewNhanVien();
             }
         }
 
         private void BtnSua_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtUserNV.Text))
+            if (string.IsNullOrWhiteSpace(txtIdNV.Text))
             {
-                MessageBox.Show("Trống!");
-                txtUserNV.Select();
+                MessageBox.Show("Xin chọn nhân viên cần sửa ở bảng bên phải!");
+                return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtNameNV.Text))
+            if (string.IsNullOrWhiteSpace(txtTenNV.Text))
             {
-                txtNameNV.Select();
-            }
-            else if (string.IsNullOrWhiteSpace(txtPassNV.Text))
-            {
-                txtPassNV.Select();
+                txtTenNV.Select();
             }
             else
             {
-                try
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    using (var cmd = new SqlCommand("update nhanvien set usernv=@usernv,tennv=@tennv,passnv=@passnv where STT=@STT"))
-                    {
-                        cmd.Connection = connect;
-                        cmd.Parameters.AddWithValue("@STT", txtSttNV.Text);
-                        cmd.Parameters.AddWithValue("@usernv", txtUserNV.Text);
-                        cmd.Parameters.AddWithValue("@tennv", txtNameNV.Text);
-                        cmd.Parameters.AddWithValue("@passnv", txtPassNV.Text);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Đã lựu");
-                            connect.Close();
-                            clearnv();
-                            gridviewNhanVien();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Lưu không thành công!");
-                        }
-                        connect.Close();
-                    }
+                    Repository<NhanVien> nvRepo = new Repository<NhanVien>(dbCxt);
+                    var nv = nvRepo.Get(Guid.Parse(txtIdNV.Text));
+                    nv.TenNhanVien = txtTenNV.Text;
+                    nv.Username = txtTenNV.Text.Replace(" ", "").ToLower();
+                    nvRepo.Update(nv);
+
+                    MessageBox.Show("Đã sửa nhân viên" + Environment.NewLine + "Tên đăng nhập mới:" + nv.Username);
                 }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("Error during update: " + ex.Message);
-                }
+                gridviewNhanVien();
             }
         }
 
         private void BtnXoa_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtUserNV.Text))
+            if (string.IsNullOrWhiteSpace(txtIdNV.Text))
             {
-                MessageBox.Show("Thông tin trống!");
+                MessageBox.Show("Xin chọn nhân viên cần xoá ở bảng bên phải!");
+                return;
             }
             else
             {
-                try
+                if (MessageBox.Show(
+                    "Có chắc là muốn xoá loại sản phẩm" + Environment.NewLine +
+                    txtTenNV.Text,
+                    "Cảnh báo",
+                     MessageBoxButtons.YesNo) == DialogResult.No)
                 {
-                    using (var cmd = new SqlCommand("delete nhanvien where usernv=@usernv"))
-                    {
-                        cmd.Connection = connect;
-                        cmd.Parameters.AddWithValue("@usernv", txtUserNV.Text);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Đã xóa");
-                            connect.Close();
-                            clearnv();
-                            gridviewNhanVien();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Xóa không thành công!");
-                        }
-                        connect.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("Error during delete: " + ex.Message);
+                    return;
                 }
 
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+                {
+                    Repository<NhanVien> nvRepo = new Repository<NhanVien>(dbCxt);
+                    var nv = nvRepo.Get(Guid.Parse(txtIdNV.Text));
+
+                    nvRepo.Delete(nv);
+
+                    MessageBox.Show("Đã xoá nhân viên: " + nv.TenNhanVien);
+                }
+                gridviewNhanVien();
             }
         }
 
@@ -220,202 +178,56 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         }
         private void Setting_Load(object sender, EventArgs e)
         {
-            try
-            {
-                connect.Close();
-                connect.Open();
-                string sqlquery = "select ID,TenShop,Diachi,SDT,Loichao from ThongTinShop";
-                SqlCommand command = new SqlCommand(sqlquery, connect);
-                SqlDataReader sdr = command.ExecuteReader();
-                while (sdr.Read())
-                {
-                    IDtt.Text = sdr["ID"].ToString();
-                    txtTenShop.Text = sdr["TenShop"].ToString();
-                    txtSDT.Text = sdr["SDT"].ToString();
-                    txtDiaChi.Text = sdr["Diachi"].ToString();
-                    txtLoiChao.Text = sdr["Loichao"].ToString();
-                }
-                connect.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                connect.Close();
-            }
-            // hien thi anh logo setting
-            try
-            {
-                SqlCommand command;
-                string sqllogo = "select logo from ThongTinShop where ID=1 ";
-                if (connect.State != ConnectionState.Open)
-                    connect.Open();
-                command = new SqlCommand(sqllogo, connect);
-                SqlDataReader reader = command.ExecuteReader();
-
-                reader.Read();
-                if (reader.HasRows)
-                {
-                    byte[] img = (byte[])(reader[0]);
-                    if (img == null)
-                    {
-                        pictureBox1.Image = null;
-                    }
-                    else
-                    {
-                        MemoryStream ms = new MemoryStream(img);
-                        pictureBox1.Image = Image.FromStream(ms);
-
-                    }
-                    //  MessageBox.Show(img.ToString());
-                    connect.Close();
-                }
-                else
-                {
-                    connect.Close();
-                    MessageBox.Show("bi loi");
-                }
-
-            }
-            catch (Exception ex)
-            {
-                connect.Close();
-                MessageBox.Show("loi logo: " + ex.Message);
-            }
-
+            txtTenShop.Text = "Loki";
+            txtSDT.Text = "0907033339";
+            txtDiaChi.Text = "135 Nguyễn Văn Cừ, TPCT";
+            txtLoiChao.Text = "Hẹn gặp lại bạn trong lần tới!";
         }
 
         private void BtnSaveThongtin_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtTenShop.Text))
-            {
-                MessageBox.Show("Trống!");
-                txtTenShop.Select();
-            }
-            else if (string.IsNullOrWhiteSpace(txtSDT.Text))
-            {
-                txtSDT.Select();
-            }
-            else if (string.IsNullOrWhiteSpace(txtDiaChi.Text))
-            {
-                txtDiaChi.Select();
-            }
-            else if (string.IsNullOrWhiteSpace(txtLoiChao.Text))
-            {
-                txtLoiChao.Select();
-            }
-            else
-            {
-                try
-                {
-                    using (var cmd = new SqlCommand("update ThongTinShop set TenShop=@TenShop,SDT=@SDT,Diachi=@Diachi,Loichao=@Loichao where ID=1"))
-                    {
-
-                        cmd.Connection = connect;
-                        //cmd.Parameters.AddWithValue("@ID", IDtt.Text);
-                        cmd.Parameters.AddWithValue("@TenShop", txtTenShop.Text);
-                        cmd.Parameters.AddWithValue("@SDT", txtSDT.Text);
-                        cmd.Parameters.AddWithValue("@Diachi", txtDiaChi.Text);
-                        cmd.Parameters.AddWithValue("@Loichao", txtLoiChao.Text);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Đã lưu");
-                            connect.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Lưu không thành công!");
-                        }
-                        connect.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    connect.Close();
-                    MessageBox.Show("Error during update tt: " + ex.Message);
-                }
-            }
+            //if (string.IsNullOrWhiteSpace(txtTenShop.Text))
+            //{
+            //    MessageBox.Show("Trống!");
+            //    txtTenShop.Select();
+            //}
+            //else if (string.IsNullOrWhiteSpace(txtSDT.Text))
+            //{
+            //    txtSDT.Select();
+            //}
+            //else if (string.IsNullOrWhiteSpace(txtDiaChi.Text))
+            //{
+            //    txtDiaChi.Select();
+            //}
+            //else if (string.IsNullOrWhiteSpace(txtLoiChao.Text))
+            //{
+            //    txtLoiChao.Select();
+            //}
+            //else
+            //{
+            //}
         }
 
         private void dataGridViewNV_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridViewNV.CurrentRow.Index != -1)
             {
-                txtSttNV.Text = dataGridViewNV.CurrentRow.Cells[0].Value.ToString();
-                txtUserNV.Text = dataGridViewNV.CurrentRow.Cells[1].Value.ToString();
-                txtNameNV.Text = dataGridViewNV.CurrentRow.Cells[2].Value.ToString();
-                txtPassNV.Text = dataGridViewNV.CurrentRow.Cells[3].Value.ToString();
-            }
-            else
-            {
-
+                txtIdNV.Text = dataGridViewNV.CurrentRow.Cells[0].Value.ToString();
+                txtTenNV.Text = dataGridViewNV.CurrentRow.Cells[1].Value.ToString();
             }
         }
 
         private void btnButtonChooseIMG_Click(object sender, EventArgs e)
         {
-            try
-            {
-                OpenFileDialog dlg = new OpenFileDialog();
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    imglogoloc = dlg.FileName.ToString();
-                    pictureBox1.ImageLocation = imglogoloc;
-                }
-            }
-            catch (Exception ex)
-            {
-                connect.Close();
-                MessageBox.Show("Error during insert: " + ex.Message);
-            }
         }
 
         private void SaveIMGlogo_Click(object sender, EventArgs e)
         {
-            try
-            {
-                byte[] img = null;
-                FileStream fs = new FileStream(imglogoloc, FileMode.Open, FileAccess.Read);
-                BinaryReader br = new BinaryReader(fs);
-                img = br.ReadBytes((int)fs.Length);
-                using (var cmd = new SqlCommand("update ThongTinShop set logo=@logo where ID=1"))
-                {
-                    cmd.Connection = connect;
-                    cmd.Parameters.AddWithValue("@logo", img);
-                    connect.Open();
-                    if (cmd.ExecuteNonQuery() > 0)
-                    {
-                        MessageBox.Show("Đã lưu");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Lưu không thành công!");
-                    }
-                    connect.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                connect.Close();
-                MessageBox.Show(ex.Message);
-            }
         }
-        SqlCommandBuilder cmdbuilder;
+
         private void btnUpdateKH_Click(object sender, EventArgs e)
         {
-
-            try
-            {
-                cmdbuilder = new SqlCommandBuilder();
-                adap.UpdateCommand = new SqlCommandBuilder(adap).GetUpdateCommand();
-                adap.Update(dskh, "KhachHangTable");
-                MessageBox.Show("Cập nhật thành công!");
-            }
-            catch (Exception ex)
-            {
-                connect.Close();
-                MessageBox.Show(ex.Message);
-            }
+            gridviewKhachHang();
         }
     }
 }

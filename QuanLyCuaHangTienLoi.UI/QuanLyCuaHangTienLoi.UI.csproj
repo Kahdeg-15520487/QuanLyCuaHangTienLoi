@@ -45,8 +45,20 @@
   <ItemGroup>
     <PackageReference Include="FontAwesome.Sharp" Version="5.13.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="System.Windows.Controls.DataVisualization.Toolkit" Version="4.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuanLyCuaHangTienLoi.Data\QuanLyCuaHangTienLoi.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="UI.MenuTab\ThongKe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UI.MenuTab\NhaCungCap.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

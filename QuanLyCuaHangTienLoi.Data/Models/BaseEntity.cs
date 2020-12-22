@@ -1,17 +1,11 @@
-﻿using LiteDB;
-
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace QuanLyCuaHangTienLoi.Data.Models
 {
-    public class BaseEntity
+    public interface BaseEntity
     {
-        public BaseEntity()
-        {
-            this.Id = ObjectId.NewObjectId();
-        }
-
-        [BsonId]
-        public ObjectId Id { get; set; }
+        Guid Id { get; }
     }
 }

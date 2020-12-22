@@ -1,6 +1,6 @@
 ﻿namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
-    partial class donhang
+    partial class DonHang
     {
         /// <summary>
         /// Required designer variable.
