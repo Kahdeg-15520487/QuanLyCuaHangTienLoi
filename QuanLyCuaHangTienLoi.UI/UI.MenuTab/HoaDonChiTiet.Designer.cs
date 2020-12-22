@@ -29,23 +29,13 @@
         private void InitializeComponent()
         {
             this.dataGridViewct = new System.Windows.Forms.DataGridView();
-            this.hdid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenKH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.masp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tensp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.loaisp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.slsp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dvsanpham = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DongiaSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.thanhtoan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hdtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sdt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.no = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nhanvientt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.textBoxttNo = new System.Windows.Forms.TextBox();
             this.btnthanhtoanno = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtBoxNo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewct)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,111 +44,20 @@
             this.dataGridViewct.AllowUserToAddRows = false;
             this.dataGridViewct.AllowUserToDeleteRows = false;
             this.dataGridViewct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewct.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.hdid,
-            this.TenKH,
-            this.masp,
-            this.tensp,
-            this.loaisp,
-            this.slsp,
-            this.dvsanpham,
-            this.DongiaSP,
-            this.thanhtoan,
-            this.hdtime,
-            this.sdt,
-            this.no,
-            this.nhanvientt});
-            this.dataGridViewct.Location = new System.Drawing.Point(23, 66);
+            this.dataGridViewct.Location = new System.Drawing.Point(27, 76);
+            this.dataGridViewct.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridViewct.Name = "dataGridViewct";
             this.dataGridViewct.ReadOnly = true;
             this.dataGridViewct.RowHeadersVisible = false;
-            this.dataGridViewct.Size = new System.Drawing.Size(835, 318);
+            this.dataGridViewct.Size = new System.Drawing.Size(974, 367);
             this.dataGridViewct.TabIndex = 1;
-            // 
-            // hdid
-            // 
-            this.hdid.HeaderText = "ID";
-            this.hdid.Name = "hdid";
-            this.hdid.ReadOnly = true;
-            this.hdid.Width = 50;
-            // 
-            // TenKH
-            // 
-            this.TenKH.HeaderText = "Tên khách hàng";
-            this.TenKH.Name = "TenKH";
-            this.TenKH.ReadOnly = true;
-            // 
-            // masp
-            // 
-            this.masp.HeaderText = "Mã sản phẩm";
-            this.masp.Name = "masp";
-            this.masp.ReadOnly = true;
-            // 
-            // tensp
-            // 
-            this.tensp.HeaderText = "Tên sản phẩm";
-            this.tensp.Name = "tensp";
-            this.tensp.ReadOnly = true;
-            // 
-            // loaisp
-            // 
-            this.loaisp.HeaderText = "Loại";
-            this.loaisp.Name = "loaisp";
-            this.loaisp.ReadOnly = true;
-            // 
-            // slsp
-            // 
-            this.slsp.HeaderText = "Số lượng";
-            this.slsp.Name = "slsp";
-            this.slsp.ReadOnly = true;
-            // 
-            // dvsanpham
-            // 
-            this.dvsanpham.HeaderText = "Đơn vị";
-            this.dvsanpham.Name = "dvsanpham";
-            this.dvsanpham.ReadOnly = true;
-            // 
-            // DongiaSP
-            // 
-            this.DongiaSP.HeaderText = "Đơn giá";
-            this.DongiaSP.Name = "DongiaSP";
-            this.DongiaSP.ReadOnly = true;
-            // 
-            // thanhtoan
-            // 
-            this.thanhtoan.HeaderText = "Thanh toán";
-            this.thanhtoan.Name = "thanhtoan";
-            this.thanhtoan.ReadOnly = true;
-            // 
-            // hdtime
-            // 
-            this.hdtime.HeaderText = "Thời gian";
-            this.hdtime.Name = "hdtime";
-            this.hdtime.ReadOnly = true;
-            // 
-            // sdt
-            // 
-            this.sdt.HeaderText = "SĐT";
-            this.sdt.Name = "sdt";
-            this.sdt.ReadOnly = true;
-            // 
-            // no
-            // 
-            this.no.HeaderText = "Nợ";
-            this.no.Name = "no";
-            this.no.ReadOnly = true;
-            // 
-            // nhanvientt
-            // 
-            this.nhanvientt.HeaderText = "Nhân viên thanh toán";
-            this.nhanvientt.Name = "nhanvientt";
-            this.nhanvientt.ReadOnly = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(702, 12);
+            this.button1.Location = new System.Drawing.Point(819, 14);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(156, 48);
+            this.button1.Size = new System.Drawing.Size(182, 55);
             this.button1.TabIndex = 2;
             this.button1.Text = "In hóa đơn";
             this.button1.UseVisualStyleBackColor = true;
@@ -166,9 +65,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(549, 12);
+            this.button3.Location = new System.Drawing.Point(640, 14);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(147, 48);
+            this.button3.Size = new System.Drawing.Size(172, 55);
             this.button3.TabIndex = 4;
             this.button3.Text = "Xuất file Excel";
             this.button3.UseVisualStyleBackColor = true;
@@ -176,31 +76,63 @@
             // 
             // textBoxttNo
             // 
-            this.textBoxttNo.Location = new System.Drawing.Point(23, 27);
+            this.textBoxttNo.Location = new System.Drawing.Point(226, 46);
+            this.textBoxttNo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxttNo.Name = "textBoxttNo";
-            this.textBoxttNo.Size = new System.Drawing.Size(204, 20);
+            this.textBoxttNo.Size = new System.Drawing.Size(219, 23);
             this.textBoxttNo.TabIndex = 5;
             // 
             // btnthanhtoanno
             // 
-            this.btnthanhtoanno.Location = new System.Drawing.Point(254, 12);
+            this.btnthanhtoanno.Location = new System.Drawing.Point(460, 15);
+            this.btnthanhtoanno.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnthanhtoanno.Name = "btnthanhtoanno";
-            this.btnthanhtoanno.Size = new System.Drawing.Size(147, 48);
+            this.btnthanhtoanno.Size = new System.Drawing.Size(172, 55);
             this.btnthanhtoanno.TabIndex = 6;
             this.btnthanhtoanno.Text = "Thanh toán";
             this.btnthanhtoanno.UseVisualStyleBackColor = true;
             this.btnthanhtoanno.Click += new System.EventHandler(this.btnthanhtoanno_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(226, 28);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 15);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Số tiền khách đưa";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(27, 28);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(95, 15);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Số tiền khách nợ";
+            // 
+            // txtBoxNo
+            // 
+            this.txtBoxNo.Location = new System.Drawing.Point(27, 47);
+            this.txtBoxNo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtBoxNo.Name = "txtBoxNo";
+            this.txtBoxNo.Size = new System.Drawing.Size(191, 23);
+            this.txtBoxNo.TabIndex = 9;
+            // 
             // HoaDonChiTiet
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 411);
+            this.ClientSize = new System.Drawing.Size(1031, 474);
+            this.Controls.Add(this.txtBoxNo);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnthanhtoanno);
             this.Controls.Add(this.textBoxttNo);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridViewct);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "HoaDonChiTiet";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hóa đơn chi tiết";
@@ -215,21 +147,11 @@
 
         private System.Windows.Forms.DataGridView dataGridViewct;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hdid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TenKH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn masp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tensp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn loaisp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn slsp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dvsanpham;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DongiaSP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn thanhtoan;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hdtime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sdt;
-        private System.Windows.Forms.DataGridViewTextBoxColumn no;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nhanvientt;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBoxttNo;
         private System.Windows.Forms.Button btnthanhtoanno;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtBoxNo;
     }
 }

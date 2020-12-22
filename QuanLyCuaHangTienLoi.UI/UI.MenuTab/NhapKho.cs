@@ -14,13 +14,13 @@ using System.Text.RegularExpressions;
 namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
 
-    public partial class SanPham : Form
+    public partial class NhapKho : Form
     {
         SqlConnection connect = ClassKetnoi.connect;
 
         SqlCommand command;
 
-        public SanPham()
+        public NhapKho()
         {
             InitializeComponent();
 

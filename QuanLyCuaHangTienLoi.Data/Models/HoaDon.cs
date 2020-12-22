@@ -14,6 +14,7 @@ namespace QuanLyCuaHangTienLoi.Data.Models
         public DateTime NgayLap { get; set; }
         public Guid NhanVienId { get; set; }
         public Guid KhachHangId { get; set; }
+        public double No { get; set; }
 
         public virtual NhanVien NhanVien { get; set; }
         public virtual KhachHang KhachHang { get; set; }

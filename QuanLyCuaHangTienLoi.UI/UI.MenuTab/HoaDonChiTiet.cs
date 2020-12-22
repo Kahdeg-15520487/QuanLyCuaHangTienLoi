@@ -1,4 +1,9 @@
-﻿using System;
+﻿using QuanLyCuaHangTienLoi.Data;
+using QuanLyCuaHangTienLoi.Data.Implementation;
+using QuanLyCuaHangTienLoi.Data.Models;
+using QuanLyCuaHangTienLoi.UI.DisplayObject;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,10 +20,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
     public partial class HoaDonChiTiet : Form
     {
-        SqlConnection connect = ClassKetnoi.connect;
-
-        SqlCommand cmd = new SqlCommand();
-        SqlDataReader rdr;
         Label lbtenshop = new Label();
         Label lbdiachi = new Label();
         Label lbSDT = new Label();
@@ -27,145 +28,33 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         public HoaDonChiTiet()
         {
             InitializeComponent();
-
-            try
-            {
-                //todo db thongtinshop
-                connect.Open();
-                cmd.CommandText = "select TenShop,Diachi,SDT,Loichao from ThongTinShop where ID='1'";
-                cmd.Connection = connect;
-                rdr = cmd.ExecuteReader();
-                bool temp = false;
-                while (rdr.Read())
-                {
-                    lbtenshop.Text = rdr.GetString(0);
-                    lbSDT.Text = rdr.GetString(2);
-                    lbdiachi.Text = rdr.GetString(1);
-                    lbLoichao.Text = rdr.GetString(3);
-                    temp = true;
-                }
-                if (temp == false)
-                    MessageBox.Show("not found");
-                connect.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         private void HoaDonChiTiet_Load(object sender, EventArgs e)
         {
-            string StringID = DonHang.hdid;
-            string StringMasp = DonHang.hdmasp;
-            string StringHDtensp = DonHang.hdtensp;
-            string StringHDsl = DonHang.hdsl;
-            string StringHDdongia = DonHang.hddongia;
-            string StringHDloai = DonHang.hdloai;
-            string StringHDdonvi = DonHang.hddonvi;
-            string StringHDthanhtoan = DonHang.hdthanhtoan;
-            string StringHDsdt = DonHang.sdt;
-            string StringHDtenKH = DonHang.tenkh;
-            string StringHDtime = DonHang.hdtime;
-            string StringHDno = DonHang.hdno;
-            string StringHDnvtt = DonHang.nvtt;
-
-            string[] item0 = StringID.Split(',');
-            string[] item1 = StringMasp.Split(',');
-            string[] item2 = StringHDtensp.Split(',');
-            string[] item3 = StringHDsl.Split(',');
-            string[] item4 = StringHDdongia.Split(',');
-            string[] item5 = StringHDloai.Split(',');
-            string[] item6 = StringHDdonvi.Split(',');
-            string[] item7 = StringHDthanhtoan.Split(',');
-            string[] item8 = StringHDsdt.Split(',');
-            string[] item9 = StringHDtenKH.Split(',');
-            string[] item10 = StringHDtime.Split(',');
-
-
-            //masp
-            foreach (string x1 in item1)
+            try
             {
-                int n = dataGridViewct.Rows.Add();
-                dataGridViewct.Rows[n].Cells[2].Value = x1;
-                //dataGridView1.Rows[index].Cells[1].Value = x1;
-                //index++;
-                //MessageBox.Show(x1);
-            }
-            // ID
-            dataGridViewct.Rows[0].Cells[0].Value = StringID;
-
-            //ten KH
-            dataGridViewct.Rows[0].Cells[1].Value = StringHDtenKH;
-
-            //ten sp
-            int index = 0;
-            foreach (string x3 in item2)
-            {
-                dataGridViewct.Rows[index].Cells[3].Value = x3;
-                index++;
-            }
-            // sl san pham
-            int index1 = 0;
-            foreach (string x4 in item3)
-            {
-                //  MessageBox.Show(x4);
-                dataGridViewct.Rows[index1].Cells[5].Value = x4;
-                index1++;
-            }
-            // don gia
-            int index2 = 0;
-            foreach (string x5 in item4)
-            {
-                dataGridViewct.Rows[index2].Cells[7].Value = x5;
-                index2++;
-            }
-            // tien thanh toan
-            dataGridViewct.Rows[0].Cells[8].Value = StringHDthanhtoan;
-
-            //thoi gian thanh toan
-            dataGridViewct.Rows[0].Cells[9].Value = StringHDtime;
-            // loai sp
-            int index3 = 0;
-            foreach (string x8 in item5)
-            {
-                dataGridViewct.Rows[index3].Cells[4].Value = x8;
-                index3++;
-            }
-            int index4 = 0;
-            // don vi sp
-            foreach (string x9 in item6)
-            {
-                dataGridViewct.Rows[index4].Cells[6].Value = x9;
-                index4++;
-            }
-            //sdt
-            dataGridViewct.Rows[0].Cells[10].Value = StringHDsdt;
-
-            dataGridViewct.Rows[0].Cells[11].Value = StringHDno;//no
-            dataGridViewct.Rows[0].Cells[12].Value = StringHDnvtt;//nhan vien thanh toan 
-
-            //thay the o trong trong datagridview = " "
-            foreach (DataGridViewRow item in dataGridViewct.Rows)
-            {
-                for (int i = 0; i < item.Cells.Count; i++)
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    if (item.Cells[i].Value == null || item.Cells[i].Value == DBNull.Value || String.IsNullOrWhiteSpace(item.Cells[i].Value.ToString()))
-                    {
-                        for (int n = 1; n < dataGridViewct.Rows.Count; n++)
-                        {
-                            dataGridViewct.Rows[n].Cells[i].Value = " ";
-                        }
-                    }
-                    else
-                    {
-                        ////    listBox1test.Items.Add(item.Cells[0].Value.ToString() + '/');
+                    Repository<HoaDon> hdRepo = new Repository<HoaDon>(dbCxt);
+                    Repository<ChiTietHoaDon> cthdRepo = new Repository<ChiTietHoaDon>(dbCxt);
 
-                    }
+                    var chitiethoadons = cthdRepo.Query(cthd => cthd.HoaDonId == DonHang.hdid).Select(cthd => new HienThiChiTietHoaDon
+                    {
+                        SanPhamId = cthd.LoSanPham.SanPhamId,
+                        TenSanPham = cthd.LoSanPham.SanPham.TenSanPham,
+                        SoLuong = cthd.SoLuong,
+                        DonGia = cthd.DonGia
+                    });
+                    dataGridViewct.DataSource = chitiethoadons.ToList().ToDataTable();
 
+                    var hoadon = hdRepo.Get(DonHang.hdid);
+                    txtBoxNo.Text = string.Format("{0:N2}", hoadon.No);
                 }
-                // listBoxHD2.Items.Add(item.Cells[0].Value.ToString() + '/' + item.Cells[1].Value.ToString() + '/' + item.Cells[2].Value.ToString() + '/' + item.Cells[3].Value.ToString() + '/' + item.Cells[4].Value.ToString() + '/' + item.Cells[5].Value.ToString() + '/' + item.Cells[6].Value.ToString() + '/' + item.Cells[7].Value.ToString() + '/' + item.Cells[8].Value.ToString() + '/' + item.Cells[9].Value.ToString() + '/' + item.Cells[10].Value.ToString() + '/' + item.Cells[11].Value.ToString() + '/' + item.Cells[12].Value.ToString());
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -307,10 +196,18 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void btnthanhtoanno_Click(object sender, EventArgs e)
         {
             string mahoadon = dataGridViewct.Rows[0].Cells[0].Value.ToString();
-            int tienno = Convert.ToInt32(dataGridViewct.Rows[0].Cells[11].Value);
-            int tientrano = Convert.ToInt32(textBoxttNo.Text);
-            int updatetienno;
-            int tienthoilai;
+            if (!double.TryParse(txtBoxNo.Text, out double tienno))
+            {
+                MessageBox.Show("Giá trị không hợp lệ.");
+                txtBoxNo.Focus();
+            }
+            if (!double.TryParse(textBoxttNo.Text, out double tientrano))
+            {
+                MessageBox.Show("Giá trị không hợp lệ.");
+                textBoxttNo.Focus();
+            }
+            double updatetienno;
+            double tienthoilai;
             //MessageBox.Show(tienno.ToString());
             //MessageBox.Show(tientrano.ToString());
 
@@ -320,7 +217,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 tienthoilai = tientrano - tienno;
                 updatetienno = 0;
-                dataGridViewct.Rows[0].Cells[11].Value = 0;
+
                 MessageBox.Show(tienthoilai.ToString());
             }
 
@@ -332,29 +229,25 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 try
                 {
-                    dataGridViewct.Rows[0].Cells[11].Value = updatetienno;
+                    txtBoxNo.Text = string.Format("{0:N2}", updatetienno);
                     //todo db hoadon
-                    using (var cmd = new SqlCommand("update HoaDon set HDno=@HDno,nvthanhtoan=@nvthanhtoan where IDhoadon=@IDhoadon"))
+                    using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                     {
-                        cmd.Connection = connect;
-                        cmd.Parameters.AddWithValue("@IDhoadon", mahoadon);
-                        cmd.Parameters.AddWithValue("@HDno", updatetienno);
-                        cmd.Parameters.AddWithValue("@nvthanhtoan", CuaSoChinh.tennv);
-                        connect.Open();
-                        if (cmd.ExecuteNonQuery() > 0)
+                        Repository<HoaDon> hdRepo = new Repository<HoaDon>(dbCxt);
+                        var hoadon = hdRepo.Query(hd => hd.Id == DonHang.hdid).FirstOrDefault();
+                        if (hoadon == null)
                         {
-                            MessageBox.Show("Đã lưu");
+                            MessageBox.Show("Hóa đơn không tồn tại");
+                            return;
                         }
-                        else
-                        {
-                            MessageBox.Show("Lưu không thành công!");
-                        }
-                        connect.Close();
+
+                        hoadon.No = updatetienno;
+                        hoadon.NhanVienId = CuaSoChinh.manv;
+                        hdRepo.Update(hoadon);
                     }
                 }
                 catch (Exception ex)
                 {
-                    connect.Close();
                     MessageBox.Show("Error during insert: " + ex.Message);
                 }
             }

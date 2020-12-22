@@ -147,7 +147,7 @@ namespace QuanLyCuaHangTienLoi.UI
         private void btnnhanvien_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
-            OpenChildForm(new MenuTab.SanPham());
+            OpenChildForm(new MenuTab.NhapKho());
         }
 
         private void btnluong_Click(object sender, EventArgs e)
@@ -217,8 +217,6 @@ namespace QuanLyCuaHangTienLoi.UI
             PanelDropDownSP.Height = 50;
             try
             {
-                //todo db nhan vien
-
                 using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
                     Repository<NhanVien> repo = new Repository<NhanVien>(dbCxt);

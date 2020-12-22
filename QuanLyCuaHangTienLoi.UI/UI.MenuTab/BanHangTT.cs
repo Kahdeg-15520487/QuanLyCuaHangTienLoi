@@ -18,18 +18,11 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
     public partial class BanHangTT : Form
     {
-        SqlConnection connect = ClassKetnoi.connect;
-
         ListBox listBox2 = new ListBox();
         public static string thoilai = "";
-        int TienOK; //textbox thanh toán
-        int txtno; // tien no neu co
-        int thanhtoanno; //set tiền thanh toán sql nếu có nợ
-        string makh = BanHang.TenKH;
+        double thanhtoanno; //set tiền thanh toán sql nếu có nợ
+        Guid makh = BanHang.MaKH;
         string tenkh = BanHang.SDT;
-
-        SqlCommand cmd = new SqlCommand();
-        SqlDataReader rdr;
 
         Label lbtenshop = new Label();
         Label lbdiachi = new Label();
@@ -48,25 +41,25 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void btn50k_Click(object sender, EventArgs e)
         {
             double tien50k = 50000;
-            txtTienKhachDua.Text = tien50k.ToString("###,###");
+            txtTienKhachDua.Text = string.Format("{0:N2}", tien50k);
         }
 
         private void btn100k_Click(object sender, EventArgs e)
         {
             double tien100k = 100000;
-            txtTienKhachDua.Text = tien100k.ToString("###,###");
+            txtTienKhachDua.Text = string.Format("{0:N2}", tien100k);
         }
 
         private void btn200k_Click(object sender, EventArgs e)
         {
             double tien200k = 200000;
-            txtTienKhachDua.Text = tien200k.ToString("###,###");
+            txtTienKhachDua.Text = string.Format("{0:N2}", tien200k);
         }
 
         private void btn500k_Click(object sender, EventArgs e)
         {
             double tien500k = 500000;
-            txtTienKhachDua.Text = tien500k.ToString("###,###");
+            txtTienKhachDua.Text = string.Format("{0:N2}", tien500k);
         }
 
         private void txtTienKhachDua_TextChanged(object sender, EventArgs e)
@@ -85,7 +78,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             }
             else
             {
-                txtTienThoiLai.Text = TienThoiLai.ToString("###,###");
+                txtTienThoiLai.Text = string.Format("{0:N2}", TienThoiLai);
             }
 
         }
@@ -95,7 +88,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             Close();
         }
 
-        private void InsertDatabase(Guid nhanVienId, Guid khachHangId)
+        private void InsertDatabase(Guid nhanVienId, Guid khachHangId, double no = 0)
         {
             using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
@@ -108,7 +101,8 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     Id = Guid.NewGuid(),
                     KhachHangId = khachHangId == Guid.Empty ? Guid.Parse("00000000-0000-0000-0000-000000000001") : khachHangId,
                     NhanVienId = nhanVienId,
-                    NgayLap = DateTime.Now
+                    NgayLap = DateTime.Now,
+                    No = no
                 };
 
                 var cthds = chiTietHoaDons.Select(cthd => new ChiTietHoaDon()
@@ -127,25 +121,30 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void btnOKTT_Click(object sender, EventArgs e)
         {
             // neu tiền thối lại âm thì sẽ tính là nợ
-            string txttienthoi = txtTienThoiLai.Text;
+            if (!double.TryParse(txtTienThoiLai.Text, out double tienNo))
+            {
+                MessageBox.Show("Giá trị không hợp lệ");
+                txtTienThoiLai.Focus();
+            }
+            if (!double.TryParse(txtTienKhachDua.Text, out double tienKhachDua))
+            {
+                MessageBox.Show("Giá trị không hợp lệ");
+                txtTienKhachDua.Focus();
+            }
             if (txtTienThoiLai.Text.StartsWith("-"))
             {
-                if (string.IsNullOrEmpty(makh) && string.IsNullOrEmpty(tenkh))
+                if (makh != Guid.Empty && string.IsNullOrEmpty(tenkh))
                 {
                     MessageBox.Show("Khách hàng chưa đăng kí không thể nợ");
                     Close();
                 }
                 else
                 {
-                    string RemovetxtTienthoi = Regex.Replace(txttienthoi, @"[^0-9a-zA-Z]+", "");
-                    MessageBox.Show(RemovetxtTienthoi);
-                    txtno = int.Parse(RemovetxtTienthoi);
-                    thanhtoanno = int.Parse(txtTienKhachDua.Text);//tien no trong sql
-                    TienOK = thanhtoanno; //tienthanhtoan trong sql = tiền khách đưa khi nợ
+                    thanhtoanno = tienKhachDua - tienNo;
 
                     try
                     {
-                        InsertDatabase(CuaSoChinh.manv, BanHang.MaKH);
+                        InsertDatabase(CuaSoChinh.manv, BanHang.MaKH, thanhtoanno);
                     }
                     catch (Exception ex)
                     {
@@ -157,12 +156,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             }
             else
             {
-                ////them vao sql khi khach không nợ
-                txtno = 0;
-                string tienthanhtoan = txtTTOK.Text;
-                string CutTien = Regex.Replace(tienthanhtoan, @"[^0-9a-zA-Z]+", "");
-                TienOK = int.Parse(CutTien);//tienthanhtoan trong sql = tiền thánh toán
-
                 try
                 {
                     InsertDatabase(CuaSoChinh.manv, BanHang.MaKH);

@@ -1,6 +1,6 @@
 ﻿namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
-    partial class SanPham
+    partial class NhapKho
     {
         /// <summary>
         /// Required designer variable.

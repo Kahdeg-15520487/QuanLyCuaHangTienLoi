@@ -1,4 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+
+using QuanLyCuaHangTienLoi.Data;
+using QuanLyCuaHangTienLoi.Data.Implementation;
+using QuanLyCuaHangTienLoi.Data.Models;
+using QuanLyCuaHangTienLoi.UI.DisplayObject;
+using QuanLyCuaHangTienLoi.UI.Utilities;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,20 +22,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
     public partial class DonHang : Form
     {
         SqlConnection connect = ClassKetnoi.connect;
-        //SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-A0E9NLI\MSSQLSERVER2019;Initial Catalog=doan-3;Integrated Security=True");
-        public static string hdid = "";
-        public static string hdmasp = "";
-        public static string hdtensp = "";
-        public static string hdsl = "";
-        public static string hddongia = "";
-        public static string hdloai = "";
-        public static string hddonvi = "";
-        public static string hdthanhtoan = "";
-        public static string sdt = "";
-        public static string tenkh = "";
-        public static string hdtime = "";
-        public static string hdno = "";
-        public static string nvtt = "";
+        public static Guid hdid = Guid.Empty;
 
         public DonHang()
         {
@@ -36,38 +31,32 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         }
         public void gridviewsp()
         {
-            //todo db hoadon sanpham
-            string querysp = @"select IDhoadon as 'Mã hóa đơn',HDmasp as 'Mã sản phẩm' , HDtensp as 'Tên sản phẩm', TenKH as 'Tên KH', HDsl as 'Số lượng',HDdongia as 'Đơn giá' ,HDthanhtoan as 'Thanh toán',HDtime as 'Thời gian', HDloai as 'Loại', HDdonvi as 'Đơn vị',SDT as 'SĐT',HDno as 'Nợ',nvthanhtoan as 'Nhân viên thanh toán' from HoaDon";
-            SqlDataAdapter sqldatasp = new SqlDataAdapter(querysp, connect);
-            DataTable datatbsp = new DataTable();
-            sqldatasp.Fill(datatbsp);
-            dataGridView1.DataSource = datatbsp;
-            connect.Close();
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<HoaDon> hdRepo = new Repository<HoaDon>(dbCxt);
+                Repository<ChiTietHoaDon> cthdRepo = new Repository<ChiTietHoaDon>(dbCxt);
+
+                var hoadons = hdRepo.GetAll().Select(hd => new HienThiHoaDon
+                {
+                    Id = hd.Id,
+                    NgayLap = hd.NgayLap,
+                    TenKhachHang = hd.KhachHang.TenKhachHang,
+                    TenNhanVien = hd.NhanVien.TenNhanVien,
+                    No = hd.No
+                });
+                dataGridView1.DataSource = hoadons.ToList().ToDataTable<HienThiHoaDon>();
+            }
         }
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.CurrentRow.Index != -1)
             {
-                hdid = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                hdmasp = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                hdtensp = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-                hdsl = dataGridView1.CurrentRow.Cells[4].Value.ToString();
-                hddongia = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-                hdloai = dataGridView1.CurrentRow.Cells[8].Value.ToString();
-                hddonvi = dataGridView1.CurrentRow.Cells[9].Value.ToString();
-                hdthanhtoan = dataGridView1.CurrentRow.Cells[6].Value.ToString();
-                sdt = dataGridView1.CurrentRow.Cells[10].Value.ToString();
-                tenkh = dataGridView1.CurrentRow.Cells[3].Value.ToString();
-                hdtime = dataGridView1.CurrentRow.Cells[7].Value.ToString();
-                hdno = dataGridView1.CurrentRow.Cells[11].Value.ToString();
-                nvtt = dataGridView1.CurrentRow.Cells[12].Value.ToString();
+                hdid = Guid.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
 
-                var childForm = new HoaDonChiTiet();
-                childForm.Show();
-            }
-            else
-            {
+                var chiTietHoaDon = new HoaDonChiTiet();
+                chiTietHoaDon.Show();
+                gridviewsp();
             }
         }
 
@@ -75,19 +64,25 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         {
             try
             {
-                if (connect.State != ConnectionState.Open)
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    connect.Open();
+                    Repository<HoaDon> hdRepo = new Repository<HoaDon>(dbCxt);
+                    Repository<ChiTietHoaDon> cthdRepo = new Repository<ChiTietHoaDon>(dbCxt);
+                    var searchText = textBoxSearch.Text;
+                    var hoadons = hdRepo.Query(hd =>
+                        hd.Id.ToString().Contains(searchText)
+                     || hd.KhachHang.SoDienThoai.Contains(searchText)
+                     || hd.KhachHang.TenKhachHang.Contains(searchText)
+                    ).Select(hd => new HienThiHoaDon
+                    {
+                        Id = hd.Id,
+                        NgayLap = hd.NgayLap,
+                        TenKhachHang = hd.KhachHang.TenKhachHang,
+                        TenNhanVien = hd.NhanVien.TenNhanVien
+                    });
+                    dataGridView1.DataSource = hoadons.ToList().ToDataTable<HienThiHoaDon>();
                 }
-                //todo db hoadon
-                using (SqlDataAdapter da = new SqlDataAdapter("select * from HoaDon where ( IDhoadon like '" + textBoxSearch.Text + "%' or HDthanhtoan like N'" + textBoxSearch.Text + "%' or SDT like '" + textBoxSearch.Text + "%' or TenKH like '" + textBoxSearch.Text + "%' or HDtime like '" + textBoxSearch.Text + "%'       )", connect))
-                {
-                    DataTable dtsearch = new DataTable("HoaDon");
-                    da.Fill(dtsearch);
-                    dataGridView1.DataSource = dtsearch;
 
-                }
-                connect.Close();
                 if (dataGridView1.Rows.Count > 0 && dataGridView1.Rows != null)
                 {
                     labelSearch.Text = "Đã tìm thấy";
@@ -99,8 +94,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
                 if (string.IsNullOrWhiteSpace(textBoxSearch.Text))
                 {
-                    labelSearch.Text = "Tìm kiếm theo: ID hóa đơn, Tổng tiền thanh toán, " +
-                        "SĐT khách hàng, Tên khách hàng.";
+                    labelSearch.Text = "Tìm kiếm theo: ID hóa đơn, SĐT khách hàng, Tên khách hàng";
                 }
             }
             catch (Exception ex)
@@ -112,20 +106,36 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            string getdate = dateTimePicker1.Value.Date.ToString("MM/dd/yyyy");
+            string getdate = dateTimePicker1.Value.Date.ToShortDateString();
             try
             {
-                if (connect.State != ConnectionState.Open)
-                    connect.Open();
-                //todo db hoadon
-                using (SqlDataAdapter da = new SqlDataAdapter("select * from HoaDon where cast ([HDtime] as date) = '" + getdate + "'      ", connect))
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    DataTable dtsearch = new DataTable("HoaDon");
-                    da.Fill(dtsearch);
-                    dataGridView1.DataSource = dtsearch;
-
+                    Repository<HoaDon> hdRepo = new Repository<HoaDon>(dbCxt);
+                    Repository<ChiTietHoaDon> cthdRepo = new Repository<ChiTietHoaDon>(dbCxt);
+                    var searchText = textBoxSearch.Text;
+                    var hoadons = hdRepo.GetAll()
+                        .Include(hd => hd.KhachHang).Include(hd => hd.NhanVien)
+                        .AsEnumerable().Where(hd => hd.NgayLap.ToShortDateString() == getdate)
+                        .Select(hd => new HienThiHoaDon
+                        {
+                            Id = hd.Id,
+                            NgayLap = hd.NgayLap,
+                            TenKhachHang = hd.KhachHang.TenKhachHang,
+                            TenNhanVien = hd.NhanVien.TenNhanVien
+                        });
+                    dataGridView1.DataSource = hoadons.ToList().ToDataTable<HienThiHoaDon>();
                 }
-                connect.Close();
+
+                //using (SqlDataAdapter da = new SqlDataAdapter("select * from HoaDon where cast ([HDtime] as date) = '" + getdate + "'      ", connect))
+                //{
+                //    DataTable dtsearch = new DataTable("HoaDon");
+                //    da.Fill(dtsearch);
+                //    dataGridView1.DataSource = dtsearch;
+
+                //}
+                //connect.Close();
+
                 if (dataGridView1.Rows.Count > 1 && dataGridView1.Rows != null)
                 {
                     // labelSearch.Text = "Đã tìm thấy";

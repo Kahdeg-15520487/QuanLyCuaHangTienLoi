@@ -142,6 +142,9 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                     b.Property<Guid>("NhanVienId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<double>("No")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.HasIndex("KhachHangId");
@@ -281,80 +284,80 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b7be68c6-42fa-4518-881d-d896de46e5d5"),
-                            NgayNhap = new DateTime(2020, 12, 20, 1, 13, 49, 578, DateTimeKind.Local).AddTicks(2434),
+                            Id = new Guid("5f6608ba-3b07-41d9-b25e-2d198baa13e5"),
+                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 110, DateTimeKind.Local).AddTicks(5268),
                             NhaCungCapId = new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"),
                             SanPhamId = new Guid("75fbb1ed-bdd0-403c-8d24-e85d74e11945"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("edf5e49f-53ac-4174-aedc-cd1de2255b3f"),
-                            NgayNhap = new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3837),
+                            Id = new Guid("e02542ad-a055-4129-a0a9-6bf0936411b9"),
+                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4907),
                             NhaCungCapId = new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"),
                             SanPhamId = new Guid("62e4e3d4-6534-4a95-b243-a81732f9a74e"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("dae7938b-ecb4-4db7-89af-f1627280a814"),
-                            NgayNhap = new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3943),
+                            Id = new Guid("8661f4ce-59c6-4e07-92da-4ac152a662b5"),
+                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4974),
                             NhaCungCapId = new Guid("02418cb3-ed16-469d-869b-37aead548c84"),
                             SanPhamId = new Guid("13e407fc-a55d-4c56-8f2a-85ea63a48523"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("f593cec4-78b2-4e0e-9a63-9b47a15949f2"),
-                            NgayNhap = new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3949),
+                            Id = new Guid("a927b3ee-1ed5-4960-bd81-0f0c6affd9c3"),
+                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4978),
                             NhaCungCapId = new Guid("02418cb3-ed16-469d-869b-37aead548c84"),
                             SanPhamId = new Guid("d2646916-48aa-4e65-9974-3c8356681d0d"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("c99af59c-49cd-4cbd-aedd-3292b2741ba0"),
-                            NgayNhap = new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3951),
+                            Id = new Guid("fd02e3d8-7353-46cd-8098-b946ee177023"),
+                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4981),
                             NhaCungCapId = new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"),
                             SanPhamId = new Guid("49edbe65-ddf6-44ad-8a62-78b45a530ee0"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("1001266c-87fe-4732-b70a-dc15ac8bbba5"),
-                            NgayNhap = new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3961),
+                            Id = new Guid("58f31b16-9a57-47c6-a352-c5243871f204"),
+                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4987),
                             NhaCungCapId = new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"),
                             SanPhamId = new Guid("0113a4dc-2390-4ad1-b909-66f89e2352fb"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("8b21c13c-f7c3-4674-86f3-40457dbd8073"),
-                            NgayNhap = new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3963),
+                            Id = new Guid("8eda83b7-8133-45e3-985b-c7a6b14f03d2"),
+                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4998),
                             NhaCungCapId = new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"),
                             SanPhamId = new Guid("ed6cb8d4-429a-4fb8-8291-4fc3fae8b74d"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("4db6517f-531c-45b7-8ab4-97fb6d67499c"),
-                            NgayNhap = new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3976),
+                            Id = new Guid("18bedd5c-26c1-411f-8a8a-c16466c3a928"),
+                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(5000),
                             NhaCungCapId = new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"),
                             SanPhamId = new Guid("8383c50d-9583-4d5b-a253-fe3f9199bf36"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("7e36f13a-9be0-4504-a2f7-ee3db818d48f"),
-                            NgayNhap = new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3979),
+                            Id = new Guid("742dd983-63fb-4d0f-8bcb-96963c8922b3"),
+                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(5041),
                             NhaCungCapId = new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"),
                             SanPhamId = new Guid("9fac33d0-dae0-4d88-84f7-ea5bca2254b3"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("8ebfc259-6d66-4c79-a632-a08de4a6c1ef"),
-                            NgayNhap = new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3983),
+                            Id = new Guid("6cf0dd05-ded9-4f8d-bcc9-0032f468b748"),
+                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(5044),
                             NhaCungCapId = new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"),
                             SanPhamId = new Guid("f57153a0-2f1f-4733-a332-97ee6961e4f3"),
                             SoLuong = 20

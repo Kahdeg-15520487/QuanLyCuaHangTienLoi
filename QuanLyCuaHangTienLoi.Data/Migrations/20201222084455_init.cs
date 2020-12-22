@@ -109,7 +109,8 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     NgayLap = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NhanVienId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    KhachHangId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    KhachHangId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    No = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -331,16 +332,16 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 columns: new[] { "Id", "NgayNhap", "NhaCungCapId", "SanPhamId", "SoLuong" },
                 values: new object[,]
                 {
-                    { new Guid("b7be68c6-42fa-4518-881d-d896de46e5d5"), new DateTime(2020, 12, 20, 1, 13, 49, 578, DateTimeKind.Local).AddTicks(2434), new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"), new Guid("75fbb1ed-bdd0-403c-8d24-e85d74e11945"), 20 },
-                    { new Guid("edf5e49f-53ac-4174-aedc-cd1de2255b3f"), new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3837), new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"), new Guid("62e4e3d4-6534-4a95-b243-a81732f9a74e"), 20 },
-                    { new Guid("dae7938b-ecb4-4db7-89af-f1627280a814"), new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3943), new Guid("02418cb3-ed16-469d-869b-37aead548c84"), new Guid("13e407fc-a55d-4c56-8f2a-85ea63a48523"), 20 },
-                    { new Guid("f593cec4-78b2-4e0e-9a63-9b47a15949f2"), new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3949), new Guid("02418cb3-ed16-469d-869b-37aead548c84"), new Guid("d2646916-48aa-4e65-9974-3c8356681d0d"), 20 },
-                    { new Guid("c99af59c-49cd-4cbd-aedd-3292b2741ba0"), new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3951), new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"), new Guid("49edbe65-ddf6-44ad-8a62-78b45a530ee0"), 20 },
-                    { new Guid("1001266c-87fe-4732-b70a-dc15ac8bbba5"), new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3961), new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"), new Guid("0113a4dc-2390-4ad1-b909-66f89e2352fb"), 20 },
-                    { new Guid("8b21c13c-f7c3-4674-86f3-40457dbd8073"), new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3963), new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"), new Guid("ed6cb8d4-429a-4fb8-8291-4fc3fae8b74d"), 20 },
-                    { new Guid("4db6517f-531c-45b7-8ab4-97fb6d67499c"), new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3976), new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"), new Guid("8383c50d-9583-4d5b-a253-fe3f9199bf36"), 20 },
-                    { new Guid("7e36f13a-9be0-4504-a2f7-ee3db818d48f"), new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3979), new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"), new Guid("9fac33d0-dae0-4d88-84f7-ea5bca2254b3"), 20 },
-                    { new Guid("8ebfc259-6d66-4c79-a632-a08de4a6c1ef"), new DateTime(2020, 12, 20, 1, 13, 49, 579, DateTimeKind.Local).AddTicks(3983), new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"), new Guid("f57153a0-2f1f-4733-a332-97ee6961e4f3"), 20 }
+                    { new Guid("5f6608ba-3b07-41d9-b25e-2d198baa13e5"), new DateTime(2020, 12, 20, 15, 44, 55, 110, DateTimeKind.Local).AddTicks(5268), new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"), new Guid("75fbb1ed-bdd0-403c-8d24-e85d74e11945"), 20 },
+                    { new Guid("e02542ad-a055-4129-a0a9-6bf0936411b9"), new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4907), new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"), new Guid("62e4e3d4-6534-4a95-b243-a81732f9a74e"), 20 },
+                    { new Guid("8661f4ce-59c6-4e07-92da-4ac152a662b5"), new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4974), new Guid("02418cb3-ed16-469d-869b-37aead548c84"), new Guid("13e407fc-a55d-4c56-8f2a-85ea63a48523"), 20 },
+                    { new Guid("a927b3ee-1ed5-4960-bd81-0f0c6affd9c3"), new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4978), new Guid("02418cb3-ed16-469d-869b-37aead548c84"), new Guid("d2646916-48aa-4e65-9974-3c8356681d0d"), 20 },
+                    { new Guid("fd02e3d8-7353-46cd-8098-b946ee177023"), new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4981), new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"), new Guid("49edbe65-ddf6-44ad-8a62-78b45a530ee0"), 20 },
+                    { new Guid("58f31b16-9a57-47c6-a352-c5243871f204"), new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4987), new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"), new Guid("0113a4dc-2390-4ad1-b909-66f89e2352fb"), 20 },
+                    { new Guid("8eda83b7-8133-45e3-985b-c7a6b14f03d2"), new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4998), new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"), new Guid("ed6cb8d4-429a-4fb8-8291-4fc3fae8b74d"), 20 },
+                    { new Guid("18bedd5c-26c1-411f-8a8a-c16466c3a928"), new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(5000), new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"), new Guid("8383c50d-9583-4d5b-a253-fe3f9199bf36"), 20 },
+                    { new Guid("742dd983-63fb-4d0f-8bcb-96963c8922b3"), new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(5041), new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"), new Guid("9fac33d0-dae0-4d88-84f7-ea5bca2254b3"), 20 },
+                    { new Guid("6cf0dd05-ded9-4f8d-bcc9-0032f468b748"), new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(5044), new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"), new Guid("f57153a0-2f1f-4733-a332-97ee6961e4f3"), 20 }
                 });
 
             migrationBuilder.CreateIndex(

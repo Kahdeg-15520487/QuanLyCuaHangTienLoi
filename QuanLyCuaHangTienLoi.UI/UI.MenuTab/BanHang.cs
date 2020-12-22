@@ -19,14 +19,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
     public partial class BanHang : Form
     {
         public static string thanhtoan = "";//nut Tính tiền chuyển tạm thời cho form TT
-        public static string IDhoadon = "";
-        public static string HDmasp = "";
-        public static string HDtensp = "";
-        public static string HDdongia = "";
-        public static string HDsl = "";
-        public static string HDloai = "";
-        //  public static string HDthanhtoan = "";
-        public static string HDdonvi = "";
         public static string SDT = "";
         public static Guid MaKH;
         public static string TenKH = "";
@@ -37,29 +29,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         int slspedit;
         string masp1;
         int slsp1;
-        string colmasp;
-        string coltensp;
-        string colslsp;
-        string colloaisp;
-        string coldvsp;
-        string coldongiasp;
-        private SqlConnection connect;
 
         public BanHang()
         {
             InitializeComponent();
-        }
-
-        private void autoidHD()
-        {
-            //todo db hoadon
-            //connect.Open();
-            //SqlCommand cmd = new SqlCommand("select count(IDhoadon) from HoaDon", connect);
-            //int i = Convert.ToInt32(cmd.ExecuteScalar());
-            //connect.Close();
-            //i++;
-            //txtsohd.Text = i.ToString();
-            //IDhoadon = txtsohd.Text; // luu cho form tt
         }
 
         public void clearsp()
@@ -99,6 +72,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void btnthem_Click(object sender, EventArgs e)
         {
             bool found = false;
+            if (string.IsNullOrWhiteSpace(txtmasp.Text))
+            {
+                return;
+            }
             if (dataGridView1.Rows.Count > 0)
             {
                 foreach (DataGridViewRow row in dataGridView1.Rows)
@@ -532,10 +509,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         {
             try
             {
-                autoidHD();
-                //todo db hoadon tonkho
-                //load auto complete for ten sanpham
-
                 using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
                     Repository<Data.Models.SanPham> repo = new Repository<Data.Models.SanPham>(dbCxt);
@@ -561,8 +534,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
             if (e.KeyCode == Keys.Enter)
             {
-                //todo db sanpham tonkho
-
                 using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
                     Repository<Data.Models.LoSanPham> lspRepo = new Repository<Data.Models.LoSanPham>(dbCxt);
@@ -669,7 +640,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void btnhuyHD_Click(object sender, EventArgs e)
         {
             huyhd();
-            autoidHD();
         }
 
         private void txtmasp_KeyDown(object sender, KeyEventArgs e)
