@@ -55,10 +55,10 @@ namespace QuanLyCuaHangTienLoi.Data
                 }
                 else
                 {
-                    connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=chtl;Integrated Security=True";
+                    connectionString = $"Data Source={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "chtl.db")}";
                 }
 
-                optionsBuilder.UseSqlServer(connectionString);
+                optionsBuilder.UseSqlite(connectionString);
             }
         }
 

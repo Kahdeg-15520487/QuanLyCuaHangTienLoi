@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLyCuaHangTienLoi.Data;
 
@@ -15,17 +14,15 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
             modelBuilder.Entity("NhaCungCapSanPham", b =>
                 {
                     b.Property<Guid>("NhaCungCapsId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("SanPhamsId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("NhaCungCapsId", "SanPhamsId");
 
@@ -38,19 +35,19 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("DonGia")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<Guid>("HoaDonId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("LoSanPhamId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("SoLuong")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -65,10 +62,10 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("TenDonViSanPham")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -106,19 +103,19 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("NgayBatDau")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("NgayKetThuc")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("PhanTramGiamGia")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid>("SanPhamId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -131,19 +128,19 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("KhachHangId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("NgayLap")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("NhanVienId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("No")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 
@@ -158,19 +155,19 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
-                    b.Property<long>("Cot")
-                        .HasColumnType("bigint");
+                    b.Property<uint>("Cot")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<long>("Hang")
-                        .HasColumnType("bigint");
+                    b.Property<uint>("Hang")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<long>("Ke")
-                        .HasColumnType("bigint");
+                    b.Property<uint>("Ke")
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid>("SanPhamId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -183,22 +180,22 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("DiaChi")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SoDienThoai")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("TenKhachHang")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -259,19 +256,19 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("NgayNhap")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("NhaCungCapId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("SanPhamId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("SoLuong")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -284,80 +281,80 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5f6608ba-3b07-41d9-b25e-2d198baa13e5"),
-                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 110, DateTimeKind.Local).AddTicks(5268),
+                            Id = new Guid("a43bfd4d-e02e-4e38-a89b-963bcae04371"),
+                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 415, DateTimeKind.Local).AddTicks(6237),
                             NhaCungCapId = new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"),
                             SanPhamId = new Guid("75fbb1ed-bdd0-403c-8d24-e85d74e11945"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("e02542ad-a055-4129-a0a9-6bf0936411b9"),
-                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4907),
+                            Id = new Guid("ac05a52c-2c47-4c53-ac34-852a935d4b58"),
+                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2048),
                             NhaCungCapId = new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"),
                             SanPhamId = new Guid("62e4e3d4-6534-4a95-b243-a81732f9a74e"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("8661f4ce-59c6-4e07-92da-4ac152a662b5"),
-                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4974),
+                            Id = new Guid("40d99a5d-be72-4ab2-ac20-99f49c885705"),
+                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2340),
                             NhaCungCapId = new Guid("02418cb3-ed16-469d-869b-37aead548c84"),
                             SanPhamId = new Guid("13e407fc-a55d-4c56-8f2a-85ea63a48523"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("a927b3ee-1ed5-4960-bd81-0f0c6affd9c3"),
-                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4978),
+                            Id = new Guid("fa9a2d01-894f-446b-800f-8c9b0b46faf5"),
+                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2346),
                             NhaCungCapId = new Guid("02418cb3-ed16-469d-869b-37aead548c84"),
                             SanPhamId = new Guid("d2646916-48aa-4e65-9974-3c8356681d0d"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("fd02e3d8-7353-46cd-8098-b946ee177023"),
-                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4981),
+                            Id = new Guid("a8aa9b84-f71a-43b7-879f-92b6b0bb9d7c"),
+                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2350),
                             NhaCungCapId = new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"),
                             SanPhamId = new Guid("49edbe65-ddf6-44ad-8a62-78b45a530ee0"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("58f31b16-9a57-47c6-a352-c5243871f204"),
-                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4987),
+                            Id = new Guid("ccba9652-4cd3-4fc7-9b87-26a4eb46f352"),
+                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2360),
                             NhaCungCapId = new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"),
                             SanPhamId = new Guid("0113a4dc-2390-4ad1-b909-66f89e2352fb"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("8eda83b7-8133-45e3-985b-c7a6b14f03d2"),
-                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(4998),
+                            Id = new Guid("b7509230-b40b-4f13-adf6-66ca52bb5775"),
+                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2364),
                             NhaCungCapId = new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"),
                             SanPhamId = new Guid("ed6cb8d4-429a-4fb8-8291-4fc3fae8b74d"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("18bedd5c-26c1-411f-8a8a-c16466c3a928"),
-                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(5000),
+                            Id = new Guid("07d42c39-5752-4f0b-89c9-aa8e5c64cdb9"),
+                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2381),
                             NhaCungCapId = new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"),
                             SanPhamId = new Guid("8383c50d-9583-4d5b-a253-fe3f9199bf36"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("742dd983-63fb-4d0f-8bcb-96963c8922b3"),
-                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(5041),
+                            Id = new Guid("8498fb2d-718f-4324-9385-30e7f94fe71d"),
+                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2384),
                             NhaCungCapId = new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"),
                             SanPhamId = new Guid("9fac33d0-dae0-4d88-84f7-ea5bca2254b3"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("6cf0dd05-ded9-4f8d-bcc9-0032f468b748"),
-                            NgayNhap = new DateTime(2020, 12, 20, 15, 44, 55, 111, DateTimeKind.Local).AddTicks(5044),
+                            Id = new Guid("a30c52a6-d5a1-4e88-8bd7-e272b6fde91c"),
+                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2389),
                             NhaCungCapId = new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"),
                             SanPhamId = new Guid("f57153a0-2f1f-4733-a332-97ee6961e4f3"),
                             SoLuong = 20
@@ -368,10 +365,10 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("TenLoaiSanPham")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -409,13 +406,13 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("TenNhaCungCap")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ThongTinLienHe")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -453,19 +450,19 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Matkhau")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("TenNhanVien")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -518,19 +515,19 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("DonViSanPhamId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("GiaTien")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<Guid>("LoaiSanPhamId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("TenSanPham")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
