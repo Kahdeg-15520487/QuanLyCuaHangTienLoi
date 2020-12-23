@@ -13,6 +13,7 @@ using QuanLyCuaHangTienLoi.Data;
 using QuanLyCuaHangTienLoi.Data.Implementation;
 using QuanLyCuaHangTienLoi.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using QuanLyCuaHangTienLoi.UI.Utilities;
 
 namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
@@ -20,7 +21,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
     {
         public static string thanhtoan = "";//nut Tính tiền chuyển tạm thời cho form TT
         public static string SDT = "";
-        public static Guid MaKH;
+        public static Guid MaKH = Constants.DefaultUser;
         public static string TenKH = "";
 
         int checkslsp;
@@ -50,8 +51,8 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         public void huyhd()
         {
-            txtmakh.Clear();
-            txttenkh.Clear();
+            txtsdhKh.Clear();
+            txtMakh.Clear();
             txtmasp.Clear();
             txttensp.Clear();
             txtsoluongsp.Clear();
@@ -69,6 +70,17 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             dataGridView1.Rows.Clear();
             dataGridView1.Refresh();
         }
+
+        private void UpdateSum()
+        {
+            double sum = 0;
+            for (int i = 0; i < dataGridView1.Rows.Count; ++i)
+            {
+                sum += Convert.ToDouble(dataGridView1.Rows[i].Cells[4].Value);
+            }
+            txttongcongtiensp.Text = string.Format("{0:N2}", sum);
+        }
+
         private void btnthem_Click(object sender, EventArgs e)
         {
             bool found = false;
@@ -110,12 +122,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             ////    dataGridView1.Rows[n].Cells[6].Value = txtgiamphantramsp.Text;
 
             //------------ tinh tong tien sp trong datagridview-------------///
-            double sum = 0;
-            for (int i = 0; i < dataGridView1.Rows.Count; ++i)
-            {
-                sum += Convert.ToDouble(dataGridView1.Rows[i].Cells[4].Value);
-            }
-            txttongcongtiensp.Text = string.Format("{0:N2}", sum);
+            UpdateSum();
             //------------------- update sql -----------------//
             try
             {
@@ -162,6 +169,8 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             newDataRow.Cells[4].Value = txttiensp.Text;
             newDataRow.Cells[5].Value = comboBoxdonvisp.Text;
             newDataRow.Cells[6].Value = comboBoxloaisp.Text;
+
+            UpdateSum();
 
 
             using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
@@ -490,28 +499,27 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtmakh.Text))
+                if (string.IsNullOrWhiteSpace(txtsdhKh.Text))
                 {
-                    txttenkh.Clear();
+                    txtMakh.Clear();
                 }
                 else
                 {
                     using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                     {
                         Repository<KhachHang> repo = new Repository<KhachHang>(dbCxt);
-                        var kh = repo.Get(Guid.Parse(txtmakh.Text));
+                        var kh = repo.Query(kh => kh.SoDienThoai.Contains(txtsdhKh.Text)).FirstOrDefault();
                         if (kh == null)
                         {
-                            MessageBox.Show("Không tìm thấy khách hàng");
                             return;
                         }
                         else
                         {
-                            txttenkh.Text = (kh.TenKhachHang);
+                            txtMakh.Text = (kh.TenKhachHang);
                             //luu tru cho form TT
-                            MaKH = kh.Id;
-                            TenKH = txttenkh.Text;
-                            SDT = txtmakh.Text;
+                            MaKH = kh.Id == Guid.Empty ? Constants.DefaultUser : kh.Id;
+                            TenKH = txtMakh.Text;
+                            SDT = txtsdhKh.Text;
                         }
                     }
                 }
@@ -554,7 +562,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
                     Repository<Data.Models.LoSanPham> lspRepo = new Repository<Data.Models.LoSanPham>(dbCxt);
-                    var loSanPham = lspRepo.Query(lsp => lsp.SanPham.TenSanPham == txttensp.Text)
+                    var loSanPham = lspRepo.Query(lsp => lsp.SanPham.TenSanPham == txttensp.Text && lsp.SoLuong > 0)
                         .Include(lsp => lsp.SanPham)
                         .ThenInclude(sp => sp.LoaiSanPham)
                         .Include(lsp => lsp.SanPham)
@@ -609,13 +617,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                         txttiensp.Text = string.Format("{0:N2}", thanhtiensp2);
 
                         //luu tru cho from  TT
-                        loaisp1 = comboBoxloaisp.Text;//
-                                                      //  HDmasp = txtmasp.Text;
-                                                      //  HDdongia = txtdongiasp.Text;
-                                                      //  HDsl = txtsoluongsp.Text;
-                                                      //  HDdonvi = comboBoxdonvisp.Text;
-                                                      //  HDtensp = txttensp.Text;
-                                                      //   HDloai = loaisp1;
+                        loaisp1 = comboBoxloaisp.Text;
                     }
 
                 }

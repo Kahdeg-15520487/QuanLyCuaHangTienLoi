@@ -42,6 +42,16 @@
             this.btn50k = new FontAwesome.Sharp.IconButton();
             this.btnTraDu = new FontAwesome.Sharp.IconButton();
             this.btnNo = new FontAwesome.Sharp.IconButton();
+            this.txtEmailKh = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtDiaChiKh = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtSdtKh = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtTenKh = new System.Windows.Forms.TextBox();
+            this.txtIdKh = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -233,11 +243,117 @@
             this.btnNo.UseVisualStyleBackColor = true;
             this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
             // 
+            // txtEmailKh
+            // 
+            this.txtEmailKh.Location = new System.Drawing.Point(632, 143);
+            this.txtEmailKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtEmailKh.Name = "txtEmailKh";
+            this.txtEmailKh.Size = new System.Drawing.Size(252, 23);
+            this.txtEmailKh.TabIndex = 23;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(562, 145);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 16);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Email";
+            // 
+            // txtDiaChiKh
+            // 
+            this.txtDiaChiKh.Location = new System.Drawing.Point(632, 114);
+            this.txtDiaChiKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtDiaChiKh.Name = "txtDiaChiKh";
+            this.txtDiaChiKh.Size = new System.Drawing.Size(252, 23);
+            this.txtDiaChiKh.TabIndex = 22;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(562, 116);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(47, 16);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "Địa chỉ";
+            // 
+            // txtSdtKh
+            // 
+            this.txtSdtKh.Location = new System.Drawing.Point(632, 85);
+            this.txtSdtKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtSdtKh.Name = "txtSdtKh";
+            this.txtSdtKh.Size = new System.Drawing.Size(252, 23);
+            this.txtSdtKh.TabIndex = 21;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(562, 87);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(34, 16);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "SĐT";
+            // 
+            // txtTenKh
+            // 
+            this.txtTenKh.Location = new System.Drawing.Point(632, 56);
+            this.txtTenKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtTenKh.Name = "txtTenKh";
+            this.txtTenKh.Size = new System.Drawing.Size(252, 23);
+            this.txtTenKh.TabIndex = 20;
+            // 
+            // txtIdKh
+            // 
+            this.txtIdKh.Location = new System.Drawing.Point(632, 27);
+            this.txtIdKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtIdKh.Name = "txtIdKh";
+            this.txtIdKh.ReadOnly = true;
+            this.txtIdKh.Size = new System.Drawing.Size(252, 23);
+            this.txtIdKh.TabIndex = 13;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(562, 29);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(47, 16);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Mã KH";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(562, 58);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 16);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "Tên KH";
+            // 
             // BanHangTT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 427);
+            this.ClientSize = new System.Drawing.Size(896, 427);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.txtIdKh);
+            this.Controls.Add(this.txtTenKh);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtSdtKh);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtDiaChiKh);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtEmailKh);
             this.Controls.Add(this.btnNo);
             this.Controls.Add(this.btnTraDu);
             this.Controls.Add(this.btnHuyTT);
@@ -278,5 +394,15 @@
         private FontAwesome.Sharp.IconButton btnHuyTT;
         private FontAwesome.Sharp.IconButton btnTraDu;
         private FontAwesome.Sharp.IconButton btnNo;
+        private System.Windows.Forms.TextBox txtEmailKh;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtDiaChiKh;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtSdtKh;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtTenKh;
+        private System.Windows.Forms.TextBox txtIdKh;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }

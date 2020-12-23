@@ -38,7 +38,6 @@
             this.txtSDT = new System.Windows.Forms.TextBox();
             this.txtTenShop = new System.Windows.Forms.TextBox();
             this.txtLoiChao = new System.Windows.Forms.TextBox();
-            this.BtnSaveThongtin = new FontAwesome.Sharp.IconButton();
             this.txtIdNV = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,6 +50,20 @@
             this.label11 = new System.Windows.Forms.Label();
             this.dataGridViewKH = new System.Windows.Forms.DataGridView();
             this.btnUpdateKH = new FontAwesome.Sharp.IconButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtIdKh = new System.Windows.Forms.TextBox();
+            this.txtTenKh = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtSdtKh = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtDiaChiKh = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtEmailKh = new System.Windows.Forms.TextBox();
+            this.btnAddKh = new FontAwesome.Sharp.IconButton();
+            this.btnEditKh = new FontAwesome.Sharp.IconButton();
+            this.btnDelKh = new FontAwesome.Sharp.IconButton();
+            this.btnClearInputKh = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKH)).BeginInit();
             this.SuspendLayout();
@@ -64,17 +77,17 @@
             this.dataGridViewNV.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridViewNV.Name = "dataGridViewNV";
             this.dataGridViewNV.ReadOnly = true;
-            this.dataGridViewNV.Size = new System.Drawing.Size(414, 336);
+            this.dataGridViewNV.Size = new System.Drawing.Size(414, 269);
             this.dataGridViewNV.TabIndex = 0;
             this.dataGridViewNV.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewNV_CellContentDoubleClick);
             // 
-            // txtNameNV
+            // txtTenNV
             // 
             this.txtTenNV.Location = new System.Drawing.Point(408, 74);
             this.txtTenNV.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtTenNV.Name = "txtNameNV";
+            this.txtTenNV.Name = "txtTenNV";
             this.txtTenNV.Size = new System.Drawing.Size(187, 23);
-            this.txtTenNV.TabIndex = 2;
+            this.txtTenNV.TabIndex = 1;
             // 
             // BtnThem
             // 
@@ -82,7 +95,7 @@
             this.BtnThem.IconChar = FontAwesome.Sharp.IconChar.None;
             this.BtnThem.IconColor = System.Drawing.Color.Black;
             this.BtnThem.IconSize = 16;
-            this.BtnThem.Location = new System.Drawing.Point(408, 180);
+            this.BtnThem.Location = new System.Drawing.Point(407, 113);
             this.BtnThem.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BtnThem.Name = "BtnThem";
             this.BtnThem.Rotation = 0D;
@@ -98,7 +111,7 @@
             this.BtnSua.IconChar = FontAwesome.Sharp.IconChar.None;
             this.BtnSua.IconColor = System.Drawing.Color.Black;
             this.BtnSua.IconSize = 16;
-            this.BtnSua.Location = new System.Drawing.Point(408, 232);
+            this.BtnSua.Location = new System.Drawing.Point(407, 165);
             this.BtnSua.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BtnSua.Name = "BtnSua";
             this.BtnSua.Rotation = 0D;
@@ -114,7 +127,7 @@
             this.BtnXoa.IconChar = FontAwesome.Sharp.IconChar.None;
             this.BtnXoa.IconColor = System.Drawing.Color.Black;
             this.BtnXoa.IconSize = 16;
-            this.BtnXoa.Location = new System.Drawing.Point(408, 284);
+            this.BtnXoa.Location = new System.Drawing.Point(407, 217);
             this.BtnXoa.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BtnXoa.Name = "BtnXoa";
             this.BtnXoa.Rotation = 0D;
@@ -130,13 +143,13 @@
             this.BtnHuy.IconChar = FontAwesome.Sharp.IconChar.None;
             this.BtnHuy.IconColor = System.Drawing.Color.Black;
             this.BtnHuy.IconSize = 16;
-            this.BtnHuy.Location = new System.Drawing.Point(408, 336);
+            this.BtnHuy.Location = new System.Drawing.Point(407, 269);
             this.BtnHuy.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BtnHuy.Name = "BtnHuy";
             this.BtnHuy.Rotation = 0D;
             this.BtnHuy.Size = new System.Drawing.Size(188, 45);
             this.BtnHuy.TabIndex = 7;
-            this.BtnHuy.Text = "Hủy";
+            this.BtnHuy.Text = "Nhập lại";
             this.BtnHuy.UseVisualStyleBackColor = true;
             this.BtnHuy.Click += new System.EventHandler(this.BtnHuy_Click);
             // 
@@ -145,6 +158,7 @@
             this.txtDiaChi.Location = new System.Drawing.Point(119, 105);
             this.txtDiaChi.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtDiaChi.Name = "txtDiaChi";
+            this.txtDiaChi.ReadOnly = true;
             this.txtDiaChi.Size = new System.Drawing.Size(187, 23);
             this.txtDiaChi.TabIndex = 10;
             // 
@@ -153,6 +167,7 @@
             this.txtSDT.Location = new System.Drawing.Point(119, 75);
             this.txtSDT.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSDT.Name = "txtSDT";
+            this.txtSDT.ReadOnly = true;
             this.txtSDT.Size = new System.Drawing.Size(187, 23);
             this.txtSDT.TabIndex = 9;
             // 
@@ -161,6 +176,7 @@
             this.txtTenShop.Location = new System.Drawing.Point(119, 45);
             this.txtTenShop.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtTenShop.Name = "txtTenShop";
+            this.txtTenShop.ReadOnly = true;
             this.txtTenShop.Size = new System.Drawing.Size(187, 23);
             this.txtTenShop.TabIndex = 8;
             // 
@@ -169,30 +185,15 @@
             this.txtLoiChao.Location = new System.Drawing.Point(119, 135);
             this.txtLoiChao.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtLoiChao.Name = "txtLoiChao";
+            this.txtLoiChao.ReadOnly = true;
             this.txtLoiChao.Size = new System.Drawing.Size(187, 23);
             this.txtLoiChao.TabIndex = 11;
             // 
-            // BtnSaveThongtin
-            // 
-            this.BtnSaveThongtin.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.BtnSaveThongtin.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.BtnSaveThongtin.IconColor = System.Drawing.Color.Black;
-            this.BtnSaveThongtin.IconSize = 16;
-            this.BtnSaveThongtin.Location = new System.Drawing.Point(119, 180);
-            this.BtnSaveThongtin.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.BtnSaveThongtin.Name = "BtnSaveThongtin";
-            this.BtnSaveThongtin.Rotation = 0D;
-            this.BtnSaveThongtin.Size = new System.Drawing.Size(188, 45);
-            this.BtnSaveThongtin.TabIndex = 12;
-            this.BtnSaveThongtin.Text = "Lưu";
-            this.BtnSaveThongtin.UseVisualStyleBackColor = true;
-            this.BtnSaveThongtin.Click += new System.EventHandler(this.BtnSaveThongtin_Click);
-            // 
-            // txtSttNV
+            // txtIdNV
             // 
             this.txtIdNV.Location = new System.Drawing.Point(408, 45);
             this.txtIdNV.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtIdNV.Name = "txtSttNV";
+            this.txtIdNV.Name = "txtIdNV";
             this.txtIdNV.ReadOnly = true;
             this.txtIdNV.Size = new System.Drawing.Size(187, 23);
             this.txtIdNV.TabIndex = 13;
@@ -245,12 +246,12 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(360, 50);
+            this.label5.Location = new System.Drawing.Point(341, 47);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 16);
+            this.label5.Size = new System.Drawing.Size(48, 16);
             this.label5.TabIndex = 18;
-            this.label5.Text = "STT";
+            this.label5.Text = "Mã NV";
             // 
             // label7
             // 
@@ -289,7 +290,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label11.Location = new System.Drawing.Point(31, 441);
+            this.label11.Location = new System.Drawing.Point(32, 343);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(198, 18);
@@ -299,11 +300,12 @@
             // dataGridViewKH
             // 
             this.dataGridViewKH.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewKH.Location = new System.Drawing.Point(364, 418);
+            this.dataGridViewKH.Location = new System.Drawing.Point(365, 320);
             this.dataGridViewKH.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridViewKH.Name = "dataGridViewKH";
-            this.dataGridViewKH.Size = new System.Drawing.Size(653, 175);
+            this.dataGridViewKH.Size = new System.Drawing.Size(653, 251);
             this.dataGridViewKH.TabIndex = 32;
+            this.dataGridViewKH.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewKH_CellContentDoubleClick);
             // 
             // btnUpdateKH
             // 
@@ -311,21 +313,195 @@
             this.btnUpdateKH.IconChar = FontAwesome.Sharp.IconChar.None;
             this.btnUpdateKH.IconColor = System.Drawing.Color.Black;
             this.btnUpdateKH.IconSize = 16;
-            this.btnUpdateKH.Location = new System.Drawing.Point(14, 511);
+            this.btnUpdateKH.Location = new System.Drawing.Point(254, 320);
             this.btnUpdateKH.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnUpdateKH.Name = "btnUpdateKH";
             this.btnUpdateKH.Rotation = 0D;
-            this.btnUpdateKH.Size = new System.Drawing.Size(306, 82);
+            this.btnUpdateKH.Size = new System.Drawing.Size(103, 43);
             this.btnUpdateKH.TabIndex = 33;
             this.btnUpdateKH.Text = "Cập nhật thông tin";
             this.btnUpdateKH.UseVisualStyleBackColor = true;
             this.btnUpdateKH.Click += new System.EventHandler(this.btnUpdateKH_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(35, 426);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 16);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Tên KH";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(35, 397);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(47, 16);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Mã KH";
+            // 
+            // txtIdKh
+            // 
+            this.txtIdKh.Location = new System.Drawing.Point(105, 395);
+            this.txtIdKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtIdKh.Name = "txtIdKh";
+            this.txtIdKh.ReadOnly = true;
+            this.txtIdKh.Size = new System.Drawing.Size(252, 23);
+            this.txtIdKh.TabIndex = 13;
+            // 
+            // txtTenKh
+            // 
+            this.txtTenKh.Location = new System.Drawing.Point(105, 424);
+            this.txtTenKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtTenKh.Name = "txtTenKh";
+            this.txtTenKh.Size = new System.Drawing.Size(252, 23);
+            this.txtTenKh.TabIndex = 20;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label12.Location = new System.Drawing.Point(35, 455);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(34, 16);
+            this.label12.TabIndex = 20;
+            this.label12.Text = "SĐT";
+            // 
+            // txtSdtKh
+            // 
+            this.txtSdtKh.Location = new System.Drawing.Point(105, 453);
+            this.txtSdtKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtSdtKh.Name = "txtSdtKh";
+            this.txtSdtKh.Size = new System.Drawing.Size(252, 23);
+            this.txtSdtKh.TabIndex = 21;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label13.Location = new System.Drawing.Point(35, 484);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(47, 16);
+            this.label13.TabIndex = 20;
+            this.label13.Text = "Địa chỉ";
+            // 
+            // txtDiaChiKh
+            // 
+            this.txtDiaChiKh.Location = new System.Drawing.Point(105, 482);
+            this.txtDiaChiKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtDiaChiKh.Name = "txtDiaChiKh";
+            this.txtDiaChiKh.Size = new System.Drawing.Size(252, 23);
+            this.txtDiaChiKh.TabIndex = 22;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label14.Location = new System.Drawing.Point(35, 513);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(41, 16);
+            this.label14.TabIndex = 20;
+            this.label14.Text = "Email";
+            // 
+            // txtEmailKh
+            // 
+            this.txtEmailKh.Location = new System.Drawing.Point(105, 511);
+            this.txtEmailKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtEmailKh.Name = "txtEmailKh";
+            this.txtEmailKh.Size = new System.Drawing.Size(252, 23);
+            this.txtEmailKh.TabIndex = 23;
+            // 
+            // btnAddKh
+            // 
+            this.btnAddKh.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnAddKh.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnAddKh.IconColor = System.Drawing.Color.Black;
+            this.btnAddKh.IconSize = 16;
+            this.btnAddKh.Location = new System.Drawing.Point(13, 540);
+            this.btnAddKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnAddKh.Name = "btnAddKh";
+            this.btnAddKh.Rotation = 0D;
+            this.btnAddKh.Size = new System.Drawing.Size(80, 45);
+            this.btnAddKh.TabIndex = 24;
+            this.btnAddKh.Text = "Thêm";
+            this.btnAddKh.UseVisualStyleBackColor = true;
+            this.btnAddKh.Click += new System.EventHandler(this.btnAddKh_Click);
+            // 
+            // btnEditKh
+            // 
+            this.btnEditKh.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnEditKh.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnEditKh.IconColor = System.Drawing.Color.Black;
+            this.btnEditKh.IconSize = 16;
+            this.btnEditKh.Location = new System.Drawing.Point(101, 540);
+            this.btnEditKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnEditKh.Name = "btnEditKh";
+            this.btnEditKh.Rotation = 0D;
+            this.btnEditKh.Size = new System.Drawing.Size(80, 45);
+            this.btnEditKh.TabIndex = 25;
+            this.btnEditKh.Text = "Sửa";
+            this.btnEditKh.UseVisualStyleBackColor = true;
+            this.btnEditKh.Click += new System.EventHandler(this.btnEditKh_Click);
+            // 
+            // btnDelKh
+            // 
+            this.btnDelKh.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnDelKh.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnDelKh.IconColor = System.Drawing.Color.Black;
+            this.btnDelKh.IconSize = 16;
+            this.btnDelKh.Location = new System.Drawing.Point(189, 540);
+            this.btnDelKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnDelKh.Name = "btnDelKh";
+            this.btnDelKh.Rotation = 0D;
+            this.btnDelKh.Size = new System.Drawing.Size(80, 45);
+            this.btnDelKh.TabIndex = 26;
+            this.btnDelKh.Text = "Xoá";
+            this.btnDelKh.UseVisualStyleBackColor = true;
+            this.btnDelKh.Click += new System.EventHandler(this.btnDelKh_Click);
+            // 
+            // btnClearInputKh
+            // 
+            this.btnClearInputKh.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnClearInputKh.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnClearInputKh.IconColor = System.Drawing.Color.Black;
+            this.btnClearInputKh.IconSize = 16;
+            this.btnClearInputKh.Location = new System.Drawing.Point(277, 540);
+            this.btnClearInputKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnClearInputKh.Name = "btnClearInputKh";
+            this.btnClearInputKh.Rotation = 0D;
+            this.btnClearInputKh.Size = new System.Drawing.Size(80, 45);
+            this.btnClearInputKh.TabIndex = 27;
+            this.btnClearInputKh.Text = "Nhập lại";
+            this.btnClearInputKh.UseVisualStyleBackColor = true;
+            this.btnClearInputKh.Click += new System.EventHandler(this.btnClearInputKh_Click);
+            // 
             // Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1031, 607);
+            this.ClientSize = new System.Drawing.Size(1031, 681);
+            this.Controls.Add(this.btnClearInputKh);
+            this.Controls.Add(this.btnDelKh);
+            this.Controls.Add(this.btnEditKh);
+            this.Controls.Add(this.btnAddKh);
+            this.Controls.Add(this.txtEmailKh);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.txtDiaChiKh);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.txtSdtKh);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.txtTenKh);
+            this.Controls.Add(this.txtIdKh);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnUpdateKH);
             this.Controls.Add(this.dataGridViewKH);
             this.Controls.Add(this.label11);
@@ -338,7 +514,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtIdNV);
-            this.Controls.Add(this.BtnSaveThongtin);
             this.Controls.Add(this.txtLoiChao);
             this.Controls.Add(this.txtDiaChi);
             this.Controls.Add(this.txtSDT);
@@ -372,7 +547,6 @@
         private System.Windows.Forms.TextBox txtSDT;
         private System.Windows.Forms.TextBox txtTenShop;
         private System.Windows.Forms.TextBox txtLoiChao;
-        private FontAwesome.Sharp.IconButton BtnSaveThongtin;
         private System.Windows.Forms.TextBox txtIdNV;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -385,5 +559,19 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DataGridView dataGridViewKH;
         private FontAwesome.Sharp.IconButton btnUpdateKH;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtIdKh;
+        private System.Windows.Forms.TextBox txtTenKh;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtSdtKh;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtDiaChiKh;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtEmailKh;
+        private FontAwesome.Sharp.IconButton btnAddKh;
+        private FontAwesome.Sharp.IconButton btnEditKh;
+        private FontAwesome.Sharp.IconButton btnDelKh;
+        private FontAwesome.Sharp.IconButton btnClearInputKh;
     }
 }

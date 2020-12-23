@@ -13,6 +13,8 @@ using System.Drawing.Printing;
 using QuanLyCuaHangTienLoi.Data;
 using QuanLyCuaHangTienLoi.Data.Models;
 using QuanLyCuaHangTienLoi.Data.Implementation;
+using QuanLyCuaHangTienLoi.UI.Utilities;
+using System.Diagnostics;
 
 namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
@@ -36,6 +38,23 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             txtTTOK.Text = BanHang.thanhtoan;
             listBox2.Items.AddRange(Items);
             this.chiTietHoaDons = chiTietHoaDons;
+
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            {
+                Repository<KhachHang> khRepo = new Repository<KhachHang>(dbCxt);
+                var kh = khRepo.Get(BanHang.MaKH);
+                if (kh == null)
+                {
+                    MessageBox.Show("Lỗi dữ liệu: Khách hàng không tồn tại.");
+                    Close();
+                }
+
+                txtIdKh.Text = kh.Id.ToString();
+                txtTenKh.Text = kh.TenKhachHang;
+                txtSdtKh.Text = kh.SoDienThoai;
+                txtDiaChiKh.Text = kh.DiaChi;
+                txtEmailKh.Text = kh.Email;
+            }
         }
 
         private void btn50k_Click(object sender, EventArgs e)
@@ -99,7 +118,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 HoaDon hoaDon = new HoaDon()
                 {
                     Id = Guid.NewGuid(),
-                    KhachHangId = khachHangId == Guid.Empty ? Guid.Parse("00000000-0000-0000-0000-000000000001") : khachHangId,
+                    KhachHangId = khachHangId == Guid.Empty ? Constants.DefaultUser : khachHangId,
                     NhanVienId = nhanVienId,
                     NgayLap = DateTime.Now,
                     No = no
@@ -123,13 +142,14 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             // neu tiền thối lại âm thì sẽ tính là nợ
             if (!double.TryParse(txtTienThoiLai.Text, out double tienNo))
             {
-                MessageBox.Show("Giá trị không hợp lệ");
                 txtTienThoiLai.Focus();
+                return;
             }
             if (!double.TryParse(txtTienKhachDua.Text, out double tienKhachDua))
             {
-                MessageBox.Show("Giá trị không hợp lệ");
+                MessageBox.Show("Xin nhập tiền khách đưa");
                 txtTienKhachDua.Focus();
+                return;
             }
             if (txtTienThoiLai.Text.StartsWith("-"))
             {
@@ -145,32 +165,30 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     try
                     {
                         InsertDatabase(CuaSoChinh.manv, BanHang.MaKH, thanhtoanno);
+                        CreateReceipt();
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Error during insert: " + ex.Message);
                     }
                 }
-
-
             }
             else
             {
                 try
                 {
                     InsertDatabase(CuaSoChinh.manv, BanHang.MaKH);
+                    CreateReceipt();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error during insert: " + ex.Message);
                 }
             }
-
-
             Close();
         }
 
-        public void CreateReceipt(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        public void CreateReceipt()
         {
             //--------------------------------------------//
             int total = 0;
@@ -178,8 +196,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             float change = 0f;
 
             //this prints the reciept
-
-            Graphics graphic = e.Graphics;
+            Bitmap bmp = new Bitmap(400, 1000);
+            //Graphics graphic = e.Graphics;
+            Graphics graphic = Graphics.FromImage(bmp);
+            graphic.Clear(Color.White);
 
             Font font = new Font("Courier New", 12); //must use a mono spaced font as the spaces need to line up
 
@@ -227,8 +247,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 graphic.DrawString(slsp, font, new SolidBrush(Color.Black), 230, startY + offset);
                 graphic.DrawString(dongia, font, new SolidBrush(Color.Black), 320, startY + offset);
                 offset = offset + (int)fontHeight + 5; //make the spacing consistent
-
-
             }
 
             change = float.Parse(txtTienThoiLai.Text);
@@ -246,6 +264,17 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             offset = offset + 30; //make some room so that the total stands out.
             graphic.DrawString(lbLoichao.Text, font, new SolidBrush(Color.Black), startX, startY + offset);
             offset = offset + 15;
+
+            var receiptPath = $"{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}_{txtTenKh.Text}_{makh}.png";
+            bmp.Save(receiptPath);
+            new Process
+            {
+                StartInfo = new ProcessStartInfo(receiptPath)
+                {
+                    UseShellExecute = true
+                }
+            }.Start();
+            graphic.Dispose();
         }
 
         private void BanHangTT_Load(object dataSource, EventArgs e)
