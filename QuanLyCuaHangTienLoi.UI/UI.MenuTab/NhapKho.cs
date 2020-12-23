@@ -84,6 +84,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         public void clearsp()
         {
             txtid.Clear();
+            txtlspId.Clear();
             txttensp.Clear();
             txtsl.Clear();
             txtgiaban.Clear();
