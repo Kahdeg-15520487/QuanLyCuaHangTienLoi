@@ -279,9 +279,9 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void BanHangTT_Load(object dataSource, EventArgs e)
         {
-            lbtenshop.Text = "Loki";
+            lbtenshop.Text = "Khang Chi";
             lbSDT.Text = "0907033339";
-            lbdiachi.Text = "135 Nguyễn Văn Cừ, TPCT";
+            lbdiachi.Text = "Bình phước";
             lbLoichao.Text = "Hẹn gặp lại bạn trong lần tới!";
         }
 

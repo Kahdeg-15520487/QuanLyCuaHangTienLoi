@@ -28,16 +28,20 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void ChartMoneydaybydate()
         {
-            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            try
             {
-                Repository<HoaDon> hoadonRepo = new Repository<HoaDon>(dbCxt);
-                var hoadonThangNay = hoadonRepo.Query(hd => hd.NgayLap.Month == DateTime.Now.Month).OrderBy(hd => hd.NgayLap).Include(hd => hd.ChiTietHoaDon).ToList();
-                double[] dataX = hoadonThangNay.Select(hd => hd.NgayLap.ToOADate()).ToArray();
-                double[] dataY = hoadonThangNay.Select(hd => hd.ChiTietHoaDon.Sum(cthd => cthd.DonGia * cthd.SoLuong)).ToArray();
-                formsPlot1.plt.PlotScatter(dataX, dataY);
-                formsPlot1.plt.Ticks(dateTimeX: true);
-                formsPlot1.Render();
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+                {
+                    Repository<HoaDon> hoadonRepo = new Repository<HoaDon>(dbCxt);
+                    var hoadonThangNay = hoadonRepo.Query(hd => hd.NgayLap.Month == DateTime.Now.Month).OrderBy(hd => hd.NgayLap).Include(hd => hd.ChiTietHoaDon).ToList();
+                    double[] dataX = hoadonThangNay.Select(hd => hd.NgayLap.ToOADate()).ToArray();
+                    double[] dataY = hoadonThangNay.Select(hd => hd.ChiTietHoaDon.Sum(cthd => cthd.DonGia * cthd.SoLuong)).ToArray();
+                    formsPlot1.plt.PlotScatter(dataX, dataY);
+                    formsPlot1.plt.Ticks(dateTimeX: true);
+                    formsPlot1.Render();
+                }
             }
+            catch (Exception) { }
         }
     }
 }

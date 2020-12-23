@@ -27,32 +27,36 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         }
         private void ChartSLSPdaybydate()
         {
-            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            try
             {
-                Repository<SanPham> sanphamRepo = new Repository<SanPham>(dbCxt);
-                Repository<LoSanPham> losanphamRepo = new Repository<LoSanPham>(dbCxt);
-                var sanphams = sanphamRepo.GetAll().ToList();
-                foreach (var sp in sanphams)
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    var sanphamThangNay = losanphamRepo.Query(lsp => lsp.NgayNhap.Month == DateTime.Now.Month).OrderBy(hd => hd.NgayNhap).ToList().GroupBy(hd => hd.NgayNhap.ToShortDateString()).ToList();
-                    if (sanphamThangNay.Count == 0)
+                    Repository<SanPham> sanphamRepo = new Repository<SanPham>(dbCxt);
+                    Repository<LoSanPham> losanphamRepo = new Repository<LoSanPham>(dbCxt);
+                    var sanphams = sanphamRepo.GetAll().ToList();
+                    foreach (var sp in sanphams)
                     {
-                        continue;
+                        var sanphamThangNay = losanphamRepo.Query(lsp => lsp.NgayNhap.Month == DateTime.Now.Month).OrderBy(hd => hd.NgayNhap).ToList().GroupBy(hd => hd.NgayNhap.ToShortDateString()).ToList();
+                        if (sanphamThangNay.Count == 0)
+                        {
+                            continue;
+                        }
+
+                        var query = sanphamThangNay.Select((grp) => new
+                        {
+                            ngay = DateTime.Parse(grp.Key).ToOADate(),
+                            sl = grp.Sum(lsp => (double)lsp.SoLuong)
+                        });
+
+                        double[] dataX = query.Select(q => q.ngay).ToArray();
+                        double[] dataY = query.Select(q => q.sl).ToArray();
+                        formsPlot1.plt.PlotScatter(dataX, dataY);
+                        formsPlot1.plt.Ticks(dateTimeX: true);
                     }
-
-                    var query = sanphamThangNay.Select((grp) => new
-                    {
-                        ngay = DateTime.Parse(grp.Key).ToOADate(),
-                        sl = grp.Sum(lsp => (double)lsp.SoLuong)
-                    });
-
-                    double[] dataX = query.Select(q => q.ngay).ToArray();
-                    double[] dataY = query.Select(q => q.sl).ToArray();
-                    formsPlot1.plt.PlotScatter(dataX, dataY);
-                    formsPlot1.plt.Ticks(dateTimeX: true);
+                    formsPlot1.Render();
                 }
-                formsPlot1.Render();
             }
+            catch (Exception) { }
         }
     }
 }

@@ -182,9 +182,9 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         }
         private void Setting_Load(object sender, EventArgs e)
         {
-            txtTenShop.Text = "Loki";
+            txtTenShop.Text = "Khang Chi";
             txtSDT.Text = "0907033339";
-            txtDiaChi.Text = "135 Nguyễn Văn Cừ, TPCT";
+            txtDiaChi.Text = "Bình Phước";
             txtLoiChao.Text = "Hẹn gặp lại bạn trong lần tới!";
         }
 
