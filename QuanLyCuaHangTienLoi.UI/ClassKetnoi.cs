@@ -11,24 +11,25 @@ namespace QuanLyCuaHangTienLoi.UI
     {
         public static void GetConnectionString()
         {
+            string cs = null;
             try
             {
-                var cs = File.ReadAllText("cs.config");
-                if (!string.IsNullOrWhiteSpace(cs))
+                cs = File.ReadAllText("cs.config");
+                if (string.IsNullOrWhiteSpace(cs))
                 {
-                    contextOptions = new DbContextOptionsBuilder<CuaHangTienLoiDbContext>().UseSqlServer(cs).Options;
-                }
-                else
-                {
-                    contextOptions = new DbContextOptionsBuilder<CuaHangTienLoiDbContext>().UseSqlServer(DefaultConnectionString).Options;
+                    cs = DefaultConnectionString;
                 }
             }
             catch (Exception)
             {
-                contextOptions = new DbContextOptionsBuilder<CuaHangTienLoiDbContext>().UseSqlServer(DefaultConnectionString).Options;
+                cs = DefaultConnectionString;
             }
+
+
+            contextOptions = new DbContextOptionsBuilder<CuaHangTienLoiDbContext>().UseSqlite(cs).Options;
         }
-        public static readonly string DefaultConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=chtl;Integrated Security=True";
+        //public static readonly string DefaultConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=chtl;Integrated Security=True";
+        public static readonly string DefaultConnectionString = $"Data Source={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "chtl.db")}";
         public static DbContextOptions<CuaHangTienLoiDbContext> contextOptions = null;
     }
 }
