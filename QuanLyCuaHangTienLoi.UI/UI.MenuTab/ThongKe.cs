@@ -21,8 +21,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
     public partial class ThongKe : Form
     {
-        SqlConnection connect = ClassKetnoi.connect;
-
         private Form currentchildform;
         string CurrentMonth = DateTime.Now.ToString("MM");
         public ThongKe()

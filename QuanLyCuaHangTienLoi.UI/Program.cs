@@ -14,6 +14,8 @@ namespace QuanLyCuaHangTienLoi.UI
         [STAThread]
         static void Main()
         {
+            ClassKetnoi.GetConnectionString();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new DangNhap());

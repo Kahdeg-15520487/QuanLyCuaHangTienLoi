@@ -21,7 +21,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
     public partial class DonHang : Form
     {
-        SqlConnection connect = ClassKetnoi.connect;
         public static Guid hdid = Guid.Empty;
 
         public DonHang()
@@ -99,7 +98,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             }
             catch (Exception ex)
             {
-                connect.Close();
                 MessageBox.Show(ex.Message);
             }
         }
@@ -147,7 +145,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             }
             catch (Exception ex)
             {
-                connect.Close();
                 MessageBox.Show(ex.Message);
             }
         }

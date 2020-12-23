@@ -6,6 +6,7 @@ using QuanLyCuaHangTienLoi.Data.Models;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using static System.Configuration.ConfigurationManager;
@@ -47,6 +48,10 @@ namespace QuanLyCuaHangTienLoi.Data
                 if (AppSettings.AllKeys.Contains("ConnStr"))
                 {
                     connectionString = AppSettings["ConnStr"];
+                }
+                else if (File.Exists("cs.config"))
+                {
+                    connectionString = File.ReadAllText("cs.config");
                 }
                 else
                 {
