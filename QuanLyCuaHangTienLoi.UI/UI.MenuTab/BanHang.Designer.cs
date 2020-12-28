@@ -30,15 +30,6 @@
         {
             this.txtsdhKh = new System.Windows.Forms.TextBox();
             this.txtMakh = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.masp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tensp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.soluongsp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dongiasp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.thanhtiensp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dvsanpham = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.loaisp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.giamgiasp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txttongcongtiensp = new System.Windows.Forms.TextBox();
             this.txtgiamtientong = new System.Windows.Forms.TextBox();
             this.txtgiamphantramtong = new System.Windows.Forms.TextBox();
@@ -80,6 +71,16 @@
             this.label8 = new System.Windows.Forms.Label();
             this.comboBoxloaisp = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.masp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tensp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.soluongsp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dongiasp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.thanhtiensp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dvsanpham = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.loaisp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.giamgiasp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.malsp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,76 +101,6 @@
             this.txtMakh.ReadOnly = true;
             this.txtMakh.Size = new System.Drawing.Size(234, 23);
             this.txtMakh.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.masp,
-            this.tensp,
-            this.soluongsp,
-            this.dongiasp,
-            this.thanhtiensp,
-            this.dvsanpham,
-            this.loaisp,
-            this.giamgiasp});
-            this.dataGridView1.Location = new System.Drawing.Point(14, 78);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(606, 313);
-            this.dataGridView1.TabIndex = 2;
-            this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
-            // 
-            // masp
-            // 
-            this.masp.HeaderText = "Mã hàng";
-            this.masp.Name = "masp";
-            this.masp.ReadOnly = true;
-            // 
-            // tensp
-            // 
-            this.tensp.HeaderText = "Tên hàng";
-            this.tensp.Name = "tensp";
-            this.tensp.ReadOnly = true;
-            // 
-            // soluongsp
-            // 
-            this.soluongsp.HeaderText = "SL";
-            this.soluongsp.Name = "soluongsp";
-            this.soluongsp.ReadOnly = true;
-            // 
-            // dongiasp
-            // 
-            this.dongiasp.HeaderText = "Đơn giá";
-            this.dongiasp.Name = "dongiasp";
-            this.dongiasp.ReadOnly = true;
-            // 
-            // thanhtiensp
-            // 
-            this.thanhtiensp.HeaderText = "Thành tiền";
-            this.thanhtiensp.Name = "thanhtiensp";
-            this.thanhtiensp.ReadOnly = true;
-            // 
-            // dvsanpham
-            // 
-            this.dvsanpham.HeaderText = "Đơn vị";
-            this.dvsanpham.Name = "dvsanpham";
-            this.dvsanpham.ReadOnly = true;
-            // 
-            // loaisp
-            // 
-            this.loaisp.HeaderText = "Loại";
-            this.loaisp.Name = "loaisp";
-            this.loaisp.ReadOnly = true;
-            // 
-            // giamgiasp
-            // 
-            this.giamgiasp.HeaderText = "Giảm giá";
-            this.giamgiasp.Name = "giamgiasp";
-            this.giamgiasp.ReadOnly = true;
             // 
             // txttongcongtiensp
             // 
@@ -632,11 +563,96 @@
             this.label19.TabIndex = 27;
             this.label19.Text = "Tên khách hàng";
             // 
+            // masp
+            // 
+            this.masp.HeaderText = "Mã hàng";
+            this.masp.Name = "masp";
+            this.masp.ReadOnly = true;
+            this.masp.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // tensp
+            // 
+            this.tensp.HeaderText = "Tên hàng";
+            this.tensp.Name = "tensp";
+            this.tensp.ReadOnly = true;
+            this.tensp.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // soluongsp
+            // 
+            this.soluongsp.HeaderText = "SL";
+            this.soluongsp.Name = "soluongsp";
+            this.soluongsp.ReadOnly = true;
+            this.soluongsp.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // dongiasp
+            // 
+            this.dongiasp.HeaderText = "Đơn giá";
+            this.dongiasp.Name = "dongiasp";
+            this.dongiasp.ReadOnly = true;
+            this.dongiasp.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // thanhtiensp
+            // 
+            this.thanhtiensp.HeaderText = "Thành tiền";
+            this.thanhtiensp.Name = "thanhtiensp";
+            this.thanhtiensp.ReadOnly = true;
+            this.thanhtiensp.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // dvsanpham
+            // 
+            this.dvsanpham.HeaderText = "Đơn vị";
+            this.dvsanpham.Name = "dvsanpham";
+            this.dvsanpham.ReadOnly = true;
+            this.dvsanpham.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // loaisp
+            // 
+            this.loaisp.HeaderText = "Loại";
+            this.loaisp.Name = "loaisp";
+            this.loaisp.ReadOnly = true;
+            this.loaisp.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // giamgiasp
+            // 
+            this.giamgiasp.HeaderText = "Giảm giá";
+            this.giamgiasp.Name = "giamgiasp";
+            this.giamgiasp.ReadOnly = true;
+            this.giamgiasp.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // malsp
+            // 
+            this.malsp.HeaderText = "Mã lô sản phẩm";
+            this.malsp.Name = "malsp";
+            this.malsp.ReadOnly = true;
+            // 
             // BanHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1037, 567);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.masp,
+            this.tensp,
+            this.soluongsp,
+            this.dongiasp,
+            this.thanhtiensp,
+            this.dvsanpham,
+            this.loaisp,
+            this.giamgiasp,
+            this.malsp});
+            this.dataGridView1.Location = new System.Drawing.Point(14, 78);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(606, 313);
+            this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.comboBoxloaisp);
             this.Controls.Add(this.label8);
@@ -736,6 +752,7 @@
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ComboBox comboBoxloaisp;
+        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.DataGridViewTextBoxColumn masp;
         private System.Windows.Forms.DataGridViewTextBoxColumn tensp;
         private System.Windows.Forms.DataGridViewTextBoxColumn soluongsp;
@@ -744,6 +761,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dvsanpham;
         private System.Windows.Forms.DataGridViewTextBoxColumn loaisp;
         private System.Windows.Forms.DataGridViewTextBoxColumn giamgiasp;
-        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.DataGridViewTextBoxColumn malsp;
     }
 }

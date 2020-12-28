@@ -124,9 +124,17 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     No = no
                 };
 
+                var thayDoiSoLuongSanPhams = chiTietHoaDons.ToDictionary(cthd => cthd.LoSanPhamId, cthd => cthd.SoLuong);
+                var lspCanThayDois = lspRepo.GetAll().ToList().Where(lsp => thayDoiSoLuongSanPhams.ContainsKey(lsp.Id)).ToList();
+                foreach (var lsp in lspCanThayDois)
+                {
+                    lsp.SoLuong -= thayDoiSoLuongSanPhams[lsp.Id];
+                    lspRepo.Update(lsp);
+                }
+
                 var cthds = chiTietHoaDons.Select(cthd => new ChiTietHoaDon()
                 {
-                    LoSanPhamId = lspRepo.Query(lsp => lsp.SanPhamId == cthd.LoSanPhamId).FirstOrDefault().Id,
+                    LoSanPhamId = cthd.LoSanPhamId,
                     HoaDonId = hoaDon.Id,
                     SoLuong = cthd.SoLuong,
                     DonGia = cthd.DonGia

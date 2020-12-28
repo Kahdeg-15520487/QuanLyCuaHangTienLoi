@@ -88,61 +88,44 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 return;
             }
-            if (dataGridView1.Rows.Count > 0)
+
+            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
-                foreach (DataGridViewRow row in dataGridView1.Rows)
+                Repository<LoSanPham> repo = new Repository<LoSanPham>(dbCxt);
+                LoSanPham lsp = repo.Query(lsp => lsp.SanPhamId == Guid.Parse(txtmasp.Text) && lsp.SoLuong > 0).FirstOrDefault();
+                if (lsp == null)
                 {
-                    if (Convert.ToString(row.Cells[0].Value) == txtmasp.Text)
+                    MessageBox.Show("Sản phẩm không tồn tại hoặc đã hết hàng.");
+                    return;
+                }
+
+
+                if (dataGridView1.Rows.Count > 0)
+                {
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
                     {
-                        //neu them san pham giong nhau se cộng dồn số lượng và tiền vào ô
-                        row.Cells[2].Value = (int.Parse(txtsoluongsp.Text) + Convert.ToInt16(row.Cells[2].Value.ToString()));
-                        row.Cells[4].Value = (double.Parse(txttiensp.Text) + Convert.ToDouble(row.Cells[4].Value.ToString()));
-                        found = true;
-                        /////////////////////
+                        if (Convert.ToString(row.Cells[0].Value) == txtmasp.Text)
+                        {
+                            //neu them san pham giong nhau se cộng dồn số lượng và tiền vào ô
+                            row.Cells[2].Value = (int.Parse(txtsoluongsp.Text) + Convert.ToInt16(row.Cells[2].Value.ToString()));
+                            row.Cells[4].Value = (double.Parse(txttiensp.Text) + Convert.ToDouble(row.Cells[4].Value.ToString()));
+                            found = true;
+                            /////////////////////
+                        }
+                    }
+                    if (!found)
+                    {
+                        dataGridView1.Rows.Add(txtmasp.Text, txttensp.Text, txtsoluongsp.Text, txtdongiasp.Text, txttiensp.Text, comboBoxdonvisp.Text, comboBoxloaisp.Text, txtgiamphantramsp.Text, lsp.Id);
                     }
                 }
-                if (!found)
+                else
                 {
-                    dataGridView1.Rows.Add(txtmasp.Text, txttensp.Text, txtsoluongsp.Text, txtdongiasp.Text, txttiensp.Text, comboBoxdonvisp.Text, comboBoxloaisp.Text, txtgiamphantramsp.Text);
+                    var ii = dataGridView1.Rows.Add(txtmasp.Text, txttensp.Text, txtsoluongsp.Text, txtdongiasp.Text, txttiensp.Text, comboBoxdonvisp.Text, comboBoxloaisp.Text, txtgiamphantramsp.Text, lsp.Id);
+                    var tt = dataGridView1.Rows[ii];
                 }
             }
-            else
-            {
-                var ii = dataGridView1.Rows.Add(txtmasp.Text, txttensp.Text, txtsoluongsp.Text, txtdongiasp.Text, txttiensp.Text, comboBoxdonvisp.Text, comboBoxloaisp.Text, txtgiamphantramsp.Text);
-                var tt = dataGridView1.Rows[ii];
-            }
-            /////////////////////
-            //int n = dataGridView1.Rows.Add();
-            //dataGridView1.Rows[n].Cells[0].Value = txtmasp.Text;
-            //dataGridView1.Rows[n].Cells[1].Value = txttensp.Text;
-            //dataGridView1.Rows[n].Cells[2].Value = txtsoluongsp.Text;
-            //dataGridView1.Rows[n].Cells[3].Value = txtdongiasp.Text;
-            //dataGridView1.Rows[n].Cells[4].Value = txttiensp.Text;
-            //dataGridView1.Rows[n].Cells[5].Value = comboBoxdonvisp.Text;
-            ////    dataGridView1.Rows[n].Cells[6].Value = txtgiamphantramsp.Text;
 
-            //------------ tinh tong tien sp trong datagridview-------------///
             UpdateSum();
-            //------------------- update sql -----------------//
-            try
-            {
-                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
-                {
-                    Repository<LoSanPham> repo = new Repository<LoSanPham>(dbCxt);
-                    var lsp = repo.Query(lsp => lsp.SanPhamId == Guid.Parse(txtmasp.Text)).FirstOrDefault();
-                    if (lsp == null)
-                    {
-                        MessageBox.Show("Sản phẩm không tồn tại.");
-                    }
-                    lsp.SoLuong = Math.Clamp(lsp.SoLuong - int.Parse(txtsoluongsp.Text), 0, lsp.SoLuong);
-                    repo.Update(lsp);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi update tồn kho" + ex.Message);
-            }
             clearsp();
         }
 
@@ -151,41 +134,34 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
             {
                 Repository<LoSanPham> repo = new Repository<LoSanPham>(dbCxt);
-                var lsp = repo.Query(lsp => lsp.SanPhamId == Guid.Parse(maspedit)).FirstOrDefault();
-                if (lsp == null)
+                if (!Guid.TryParse(txtmasp.Text, out Guid masp))
                 {
-                    MessageBox.Show("Sản phẩm không tồn tại.");
                     return;
                 }
-                lsp.SoLuong = lsp.SoLuong + slspedit;
-                repo.Update(lsp);
+                LoSanPham lsp = repo.Query(lsp => lsp.SanPhamId == masp && lsp.SoLuong > 0).FirstOrDefault();
+                if (lsp == null)
+                {
+                    MessageBox.Show("Sản phẩm không tồn tại hoặc đã hết hàng.");
+                    return;
+                }
+
+
+                if (dataGridView1.Rows.Count == 0)
+                {
+                    return;
+                }
+
+                DataGridViewRow newDataRow = dataGridView1.Rows[indexRow];
+                newDataRow.Cells[0].Value = txtmasp.Text;
+                newDataRow.Cells[1].Value = txttensp.Text;
+                newDataRow.Cells[2].Value = txtsoluongsp.Text;
+                newDataRow.Cells[3].Value = txtdongiasp.Text;
+                newDataRow.Cells[4].Value = txttiensp.Text;
+                newDataRow.Cells[5].Value = comboBoxdonvisp.Text;
+                newDataRow.Cells[6].Value = comboBoxloaisp.Text;
+                newDataRow.Cells[8].Value = lsp.Id;
             }
-
-            DataGridViewRow newDataRow = dataGridView1.Rows[indexRow];
-            newDataRow.Cells[0].Value = txtmasp.Text;
-            newDataRow.Cells[1].Value = txttensp.Text;
-            newDataRow.Cells[2].Value = txtsoluongsp.Text;
-            newDataRow.Cells[3].Value = txtdongiasp.Text;
-            newDataRow.Cells[4].Value = txttiensp.Text;
-            newDataRow.Cells[5].Value = comboBoxdonvisp.Text;
-            newDataRow.Cells[6].Value = comboBoxloaisp.Text;
-
             UpdateSum();
-
-
-            using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
-            {
-                Repository<LoSanPham> repo = new Repository<LoSanPham>(dbCxt);
-                var lsp = repo.Query(lsp => lsp.SanPhamId == Guid.Parse(txtmasp.Text)).FirstOrDefault();
-                if (lsp == null)
-                {
-                    MessageBox.Show("Sản phẩm không tồn tại.");
-                    return;
-                }
-                lsp.SoLuong = Math.Clamp(lsp.SoLuong - int.Parse(txtsoluongsp.Text), 0, lsp.SoLuong);
-                repo.Update(lsp);
-            }
-
             clearsp();
         }
 
@@ -232,27 +208,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 DataGridViewRow row = dataGridView1.Rows[rowIndex];
                 masp1 = row.Cells[0].Value.ToString();
                 dataGridView1.Rows.RemoveAt(rowIndex); //remove row in datagridview
-            }
-
-            //------------- tra lai soluong sp database -----------------//
-            try
-            {
-                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
-                {
-                    Repository<LoSanPham> repo = new Repository<LoSanPham>(dbCxt);
-                    var lsp = repo.Query(lsp => lsp.SanPhamId == Guid.Parse(masp1)).FirstOrDefault();
-                    if (lsp == null)
-                    {
-                        MessageBox.Show("Sản phẩm không tồn tại.");
-                        return;
-                    }
-                    lsp.SoLuong = lsp.SoLuong + slsp1;
-                    repo.Update(lsp);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("loi update ne" + ex.Message);
             }
         }
 
@@ -481,9 +436,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 var masp = item.Cells[0].Value.ToString();
                 var slsp = item.Cells[2].Value.ToString();
                 var dongia = item.Cells[3].Value.ToString();
+                var malsp = item.Cells[8].Value.ToString();
                 chiTietHoaDons.Add(new ChiTietHoaDon()
                 {
-                    LoSanPhamId = Guid.Parse(masp),
+                    LoSanPhamId = Guid.Parse(malsp),
                     SoLuong = int.Parse(slsp),
                     DonGia = double.Parse(dongia)
                 });
