@@ -39,6 +39,15 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 {
                     comboBox_loaisp.Items.Add(loaiSp);
                 }
+
+                Repository<Data.Models.SanPham> repo = new Repository<Data.Models.SanPham>(dbCxt);
+                var sp = repo.GetAll().Select(s => s.TenSanPham).ToList();
+
+                AutoCompleteStringCollection autotensp = new AutoCompleteStringCollection();
+                sp.ForEach(tsp => autotensp.Add(tsp));
+                txt_tensp.AutoCompleteMode = AutoCompleteMode.Suggest;
+                txt_tensp.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txt_tensp.AutoCompleteCustomSource = autotensp;
             }
         }
 
@@ -272,6 +281,29 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void comboBox_loaisp_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshGridViewSanPham();
+        }
+
+        private void txt_tensp_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+                {
+                    Repository<SanPham> spRepo = new Repository<SanPham>(dbCxt);
+                    SanPham sanpham = spRepo.Query(sp => sp.TenSanPham == txt_tensp.Text).Include(sp => sp.LoaiSanPham).FirstOrDefault();
+
+                    if (sanpham == null)
+                    {
+                        MessageBox.Show("Sản phẩm ko tồn tại");
+                    }
+
+                    txt_id_sp.Text = sanpham.Id.ToString();
+                    txt_tensp.Text = sanpham.TenSanPham;
+                    txt_giasp.Text = sanpham.GiaTien.ToString();
+                    txt_giasp_giam.Text = CalculateGiamGia(sanpham.GiaTien, numericUpDown_phantramgiam.Value).ToString();
+                    comboBox_loaisp.Text = sanpham.LoaiSanPham.TenLoaiSanPham;
+                }
+            }
         }
     }
 }

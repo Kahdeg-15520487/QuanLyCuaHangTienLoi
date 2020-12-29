@@ -93,6 +93,7 @@
             this.txtTTOK.Location = new System.Drawing.Point(162, 27);
             this.txtTTOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtTTOK.Name = "txtTTOK";
+            this.txtTTOK.ReadOnly = true;
             this.txtTTOK.Size = new System.Drawing.Size(389, 44);
             this.txtTTOK.TabIndex = 3;
             // 
@@ -102,6 +103,7 @@
             this.txtTienThoiLai.Location = new System.Drawing.Point(162, 283);
             this.txtTienThoiLai.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtTienThoiLai.Name = "txtTienThoiLai";
+            this.txtTienThoiLai.ReadOnly = true;
             this.txtTienThoiLai.Size = new System.Drawing.Size(389, 44);
             this.txtTienThoiLai.TabIndex = 4;
             // 
@@ -248,6 +250,7 @@
             this.txtEmailKh.Location = new System.Drawing.Point(632, 143);
             this.txtEmailKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEmailKh.Name = "txtEmailKh";
+            this.txtEmailKh.ReadOnly = true;
             this.txtEmailKh.Size = new System.Drawing.Size(252, 23);
             this.txtEmailKh.TabIndex = 23;
             // 
@@ -267,6 +270,7 @@
             this.txtDiaChiKh.Location = new System.Drawing.Point(632, 114);
             this.txtDiaChiKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtDiaChiKh.Name = "txtDiaChiKh";
+            this.txtDiaChiKh.ReadOnly = true;
             this.txtDiaChiKh.Size = new System.Drawing.Size(252, 23);
             this.txtDiaChiKh.TabIndex = 22;
             // 
@@ -286,6 +290,7 @@
             this.txtSdtKh.Location = new System.Drawing.Point(632, 85);
             this.txtSdtKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSdtKh.Name = "txtSdtKh";
+            this.txtSdtKh.ReadOnly = true;
             this.txtSdtKh.Size = new System.Drawing.Size(252, 23);
             this.txtSdtKh.TabIndex = 21;
             // 
@@ -305,6 +310,7 @@
             this.txtTenKh.Location = new System.Drawing.Point(632, 56);
             this.txtTenKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtTenKh.Name = "txtTenKh";
+            this.txtTenKh.ReadOnly = true;
             this.txtTenKh.Size = new System.Drawing.Size(252, 23);
             this.txtTenKh.TabIndex = 20;
             // 

@@ -99,7 +99,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     return;
                 }
 
-
                 if (dataGridView1.Rows.Count > 0)
                 {
                     foreach (DataGridViewRow row in dataGridView1.Rows)

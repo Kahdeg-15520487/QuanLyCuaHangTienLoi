@@ -21,6 +21,8 @@ namespace QuanLyCuaHangTienLoi.Data.Models
         public virtual ICollection<NhaCungCap> NhaCungCaps { get; set; }
         [JsonIgnore]
         public virtual ICollection<LoSanPham> LoSanPhams { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<GiamGia> GiamGias { get; set; }
 
         public override string ToString() => TenSanPham;
     }

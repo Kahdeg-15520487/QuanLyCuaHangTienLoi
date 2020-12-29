@@ -211,6 +211,7 @@
             this.txtgiamphantramsp.Location = new System.Drawing.Point(735, 212);
             this.txtgiamphantramsp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtgiamphantramsp.Name = "txtgiamphantramsp";
+            this.txtgiamphantramsp.ReadOnly = true;
             this.txtgiamphantramsp.Size = new System.Drawing.Size(164, 23);
             this.txtgiamphantramsp.TabIndex = 15;
             // 
@@ -625,12 +626,6 @@
             this.malsp.Name = "malsp";
             this.malsp.ReadOnly = true;
             // 
-            // BanHang
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1037, 567);
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -653,6 +648,12 @@
             this.dataGridView1.Size = new System.Drawing.Size(606, 313);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
+            // 
+            // BanHang
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1037, 567);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.comboBoxloaisp);
             this.Controls.Add(this.label8);
