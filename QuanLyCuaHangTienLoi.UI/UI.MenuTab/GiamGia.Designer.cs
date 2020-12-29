@@ -211,6 +211,7 @@
             this.txt_tensp.Name = "txt_tensp";
             this.txt_tensp.Size = new System.Drawing.Size(174, 23);
             this.txt_tensp.TabIndex = 2;
+            this.txt_tensp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_tensp_KeyDown);
             // 
             // label7
             // 

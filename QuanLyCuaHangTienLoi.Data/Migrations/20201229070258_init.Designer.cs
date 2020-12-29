@@ -9,7 +9,7 @@ using QuanLyCuaHangTienLoi.Data;
 namespace QuanLyCuaHangTienLoi.Data.Migrations
 {
     [DbContext(typeof(CuaHangTienLoiDbContext))]
-    [Migration("20201223082003_init")]
+    [Migration("20201229070258_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -283,80 +283,80 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a43bfd4d-e02e-4e38-a89b-963bcae04371"),
-                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 415, DateTimeKind.Local).AddTicks(6237),
+                            Id = new Guid("5a4095f3-412c-4b7e-b587-0d03fe954ea6"),
+                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 945, DateTimeKind.Local).AddTicks(306),
                             NhaCungCapId = new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"),
                             SanPhamId = new Guid("75fbb1ed-bdd0-403c-8d24-e85d74e11945"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("ac05a52c-2c47-4c53-ac34-852a935d4b58"),
-                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2048),
+                            Id = new Guid("c51d32c9-7dcc-4a28-9a65-2602c22974be"),
+                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2183),
                             NhaCungCapId = new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"),
                             SanPhamId = new Guid("62e4e3d4-6534-4a95-b243-a81732f9a74e"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("40d99a5d-be72-4ab2-ac20-99f49c885705"),
-                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2340),
+                            Id = new Guid("a9ce0c9d-6da8-43ed-9588-04e872ad2425"),
+                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2264),
                             NhaCungCapId = new Guid("02418cb3-ed16-469d-869b-37aead548c84"),
                             SanPhamId = new Guid("13e407fc-a55d-4c56-8f2a-85ea63a48523"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("fa9a2d01-894f-446b-800f-8c9b0b46faf5"),
-                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2346),
+                            Id = new Guid("cccf979c-09dc-4128-9c30-7f13a27b5236"),
+                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2268),
                             NhaCungCapId = new Guid("02418cb3-ed16-469d-869b-37aead548c84"),
                             SanPhamId = new Guid("d2646916-48aa-4e65-9974-3c8356681d0d"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("a8aa9b84-f71a-43b7-879f-92b6b0bb9d7c"),
-                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2350),
+                            Id = new Guid("071f7866-5bb4-451b-aa01-3dd75e914dc1"),
+                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2271),
                             NhaCungCapId = new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"),
                             SanPhamId = new Guid("49edbe65-ddf6-44ad-8a62-78b45a530ee0"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("ccba9652-4cd3-4fc7-9b87-26a4eb46f352"),
-                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2360),
+                            Id = new Guid("0e7fd30f-7095-484e-9b5e-ca1a673a3d14"),
+                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2278),
                             NhaCungCapId = new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"),
                             SanPhamId = new Guid("0113a4dc-2390-4ad1-b909-66f89e2352fb"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("b7509230-b40b-4f13-adf6-66ca52bb5775"),
-                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2364),
+                            Id = new Guid("3025d854-7f97-483b-a209-e5405c0f3055"),
+                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2281),
                             NhaCungCapId = new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"),
                             SanPhamId = new Guid("ed6cb8d4-429a-4fb8-8291-4fc3fae8b74d"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("07d42c39-5752-4f0b-89c9-aa8e5c64cdb9"),
-                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2381),
+                            Id = new Guid("b003639d-feb6-4da8-a775-7cdd68687883"),
+                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2299),
                             NhaCungCapId = new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"),
                             SanPhamId = new Guid("8383c50d-9583-4d5b-a253-fe3f9199bf36"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("8498fb2d-718f-4324-9385-30e7f94fe71d"),
-                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2384),
+                            Id = new Guid("f9f6a4d6-393d-4b92-bc02-a2462ef86fe0"),
+                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2302),
                             NhaCungCapId = new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"),
                             SanPhamId = new Guid("9fac33d0-dae0-4d88-84f7-ea5bca2254b3"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("a30c52a6-d5a1-4e88-8bd7-e272b6fde91c"),
-                            NgayNhap = new DateTime(2020, 12, 21, 15, 20, 2, 417, DateTimeKind.Local).AddTicks(2389),
+                            Id = new Guid("a97ded23-5481-4cf7-9ede-c88b90c46935"),
+                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2305),
                             NhaCungCapId = new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"),
                             SanPhamId = new Guid("f57153a0-2f1f-4733-a332-97ee6961e4f3"),
                             SoLuong = 20
@@ -659,7 +659,7 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
             modelBuilder.Entity("QuanLyCuaHangTienLoi.Data.Models.GiamGia", b =>
                 {
                     b.HasOne("QuanLyCuaHangTienLoi.Data.Models.SanPham", "SanPham")
-                        .WithMany()
+                        .WithMany("GiamGias")
                         .HasForeignKey("SanPhamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -767,6 +767,8 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
 
             modelBuilder.Entity("QuanLyCuaHangTienLoi.Data.Models.SanPham", b =>
                 {
+                    b.Navigation("GiamGias");
+
                     b.Navigation("LoSanPhams");
                 });
 #pragma warning restore 612, 618
