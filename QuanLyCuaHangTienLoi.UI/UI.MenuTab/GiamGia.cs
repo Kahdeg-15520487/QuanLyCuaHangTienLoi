@@ -87,7 +87,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     DataTable dt = spRepo.GetAll().Select(sp => new HienThiSanPhamGiamGia
                     {
                         Id = sp.Id,
-                        TenSanPham = Guid.NewGuid().ToString(),
+                        TenSanPham = sp.TenSanPham,
                         GiaTien = sp.GiaTien,
                         LoaiSanPham = sp.LoaiSanPham,
                     }).ToDataTable();
