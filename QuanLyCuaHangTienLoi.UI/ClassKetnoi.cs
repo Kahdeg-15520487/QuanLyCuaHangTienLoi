@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using QuanLyCuaHangTienLoi.Data;
+
 using System;
 using System.Data.SqlClient;
 using System.IO;
@@ -24,7 +25,6 @@ namespace QuanLyCuaHangTienLoi.UI
             {
                 cs = DefaultConnectionString;
             }
-
 
             contextOptions = new DbContextOptionsBuilder<CuaHangTienLoiDbContext>().UseSqlite(cs).Options;
         }
