@@ -160,6 +160,12 @@ namespace QuanLyCuaHangTienLoi.UI
             OpenChildForm(new tonkho());
         }
 
+        private void btngiamgia_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color3);
+            OpenChildForm(new GiamGiaForm());
+        }
+
         private void btnlogout_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color7);
