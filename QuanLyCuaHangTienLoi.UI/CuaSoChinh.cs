@@ -22,7 +22,7 @@ namespace QuanLyCuaHangTienLoi.UI
     {
         private IconButton currentbtn;
         private Panel lefborderbtn;
-        private Form currentchildform;
+        public static Form currentchildform;
 
         public static Guid manv = Guid.Empty;
         public static string tennv = "";

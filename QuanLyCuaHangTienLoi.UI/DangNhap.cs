@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using QuanLyCuaHangTienLoi.Data;
 using QuanLyCuaHangTienLoi.Data.Implementation;
 using QuanLyCuaHangTienLoi.Data.Models;
+using QuanLyCuaHangTienLoi.UI.MenuTab;
 
 namespace QuanLyCuaHangTienLoi.UI
 {
@@ -22,6 +23,8 @@ namespace QuanLyCuaHangTienLoi.UI
         public DangNhap()
         {
             InitializeComponent();
+            this.FormClosing += this.DangNhap_FormClosing;
+
             // txtuser.SelectionStart = 0;
 
             //dump database
@@ -70,8 +73,18 @@ namespace QuanLyCuaHangTienLoi.UI
             //Console.WriteLine();
         }
 
+        private void DangNhap_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BanHang.client.CloseConnection();
+            Application.Exit();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            Task.Run(() =>
+            {
+                new BanHang().InitWebsocket();
+            }).ConfigureAwait(false);
             //try
             //{
             //    SqlCommand command;
@@ -160,5 +173,7 @@ namespace QuanLyCuaHangTienLoi.UI
                 MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
             }
         }
+
+
     }
 }

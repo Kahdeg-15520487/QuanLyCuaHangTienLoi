@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuanLyCuaHangTienLoi.Logic.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testconsole", "Dev\testconsole\testconsole.csproj", "{43BD8E7C-FC53-4205-BFB9-516999087DD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLyCuaHangTienLoi.Data", "QuanLyCuaHangTienLoi.Data\QuanLyCuaHangTienLoi.Data.csproj", "{87924427-4744-489B-8107-69923895F438}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuanLyCuaHangTienLoi.Data", "QuanLyCuaHangTienLoi.Data\QuanLyCuaHangTienLoi.Data.csproj", "{87924427-4744-489B-8107-69923895F438}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvancedSockets", "..\AdvancedSockets\AdvancedSockets.csproj", "{3FFC31C6-3D05-49D6-B3AC-A5FE12ED2740}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{87924427-4744-489B-8107-69923895F438}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87924427-4744-489B-8107-69923895F438}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87924427-4744-489B-8107-69923895F438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FFC31C6-3D05-49D6-B3AC-A5FE12ED2740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FFC31C6-3D05-49D6-B3AC-A5FE12ED2740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FFC31C6-3D05-49D6-B3AC-A5FE12ED2740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FFC31C6-3D05-49D6-B3AC-A5FE12ED2740}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

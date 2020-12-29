@@ -19,6 +19,7 @@ namespace QuanLyCuaHangTienLoi.UI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new DangNhap());
+            Environment.Exit(0);
         }
     }
 }
