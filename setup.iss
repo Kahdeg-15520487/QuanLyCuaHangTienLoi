@@ -38,6 +38,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "bin\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "bin\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "bin\chtl.db"; DestDir: "{%USERPROFILE}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

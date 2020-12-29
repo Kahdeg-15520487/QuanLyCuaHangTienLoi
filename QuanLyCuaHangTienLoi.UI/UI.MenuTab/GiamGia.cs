@@ -22,6 +22,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
     {
         public GiamGiaForm()
         {
+            InitializeComponent();
             dataGridView_sp.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_gg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             RefreshGridViewGiamGia();
