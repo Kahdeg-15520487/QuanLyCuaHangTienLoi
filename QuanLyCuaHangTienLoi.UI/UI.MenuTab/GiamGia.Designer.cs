@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView_sp = new System.Windows.Forms.DataGridView();
             this.txt_id_giamgia = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -54,23 +53,11 @@
             this.label11 = new System.Windows.Forms.Label();
             this.numericUpDown_phantramgiam = new System.Windows.Forms.NumericUpDown();
             this.btnXoa = new FontAwesome.Sharp.IconButton();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_sp)).BeginInit();
+            this.dataGridView_sp = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_gg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_phantramgiam)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_sp)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dataGridView_sp
-            // 
-            this.dataGridView_sp.AllowUserToAddRows = false;
-            this.dataGridView_sp.AllowUserToDeleteRows = false;
-            this.dataGridView_sp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_sp.Location = new System.Drawing.Point(650, 12);
-            this.dataGridView_sp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.dataGridView_sp.Name = "dataGridView_sp";
-            this.dataGridView_sp.ReadOnly = true;
-            this.dataGridView_sp.Size = new System.Drawing.Size(374, 245);
-            this.dataGridView_sp.TabIndex = 0;
-            this.dataGridView_sp.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSp_CellContentDoubleClick);
             // 
             // txt_id_giamgia
             // 
@@ -149,7 +136,6 @@
             this.btnHuy.TabIndex = 8;
             this.btnHuy.Text = "Hủy";
             this.btnHuy.UseVisualStyleBackColor = true;
-            this.btnHuy.Click += new System.EventHandler(this.iconButton4_Click);
             // 
             // label3
             // 
@@ -350,6 +336,19 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1037, 567);
+            // 
+            // dataGridView_sp
+            // 
+            this.dataGridView_sp.AllowUserToAddRows = false;
+            this.dataGridView_sp.AllowUserToDeleteRows = false;
+            this.dataGridView_sp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_sp.Location = new System.Drawing.Point(650, 12);
+            this.dataGridView_sp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dataGridView_sp.Name = "dataGridView_sp";
+            this.dataGridView_sp.ReadOnly = true;
+            this.dataGridView_sp.Size = new System.Drawing.Size(374, 245);
+            this.dataGridView_sp.TabIndex = 0;
+            this.dataGridView_sp.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSp_CellContentDoubleClick);
             this.Controls.Add(this.btnXoa);
             this.Controls.Add(this.numericUpDown_phantramgiam);
             this.Controls.Add(this.label11);
@@ -380,9 +379,9 @@
             this.Name = "GiamGiaForm";
             this.Text = "Loại sản phẩm";
             this.Load += new System.EventHandler(this.LoaiSP_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_sp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_gg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_phantramgiam)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_sp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

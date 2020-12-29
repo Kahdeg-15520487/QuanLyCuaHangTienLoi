@@ -77,6 +77,7 @@
             this.txttensp.Location = new System.Drawing.Point(133, 45);
             this.txttensp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txttensp.Name = "txttensp";
+            this.txttensp.ReadOnly = true;
             this.txttensp.Size = new System.Drawing.Size(209, 23);
             this.txttensp.TabIndex = 2;
             // 
@@ -85,6 +86,7 @@
             this.txtsl.Location = new System.Drawing.Point(133, 77);
             this.txtsl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtsl.Name = "txtsl";
+            this.txtsl.ReadOnly = true;
             this.txtsl.Size = new System.Drawing.Size(209, 23);
             this.txtsl.TabIndex = 3;
             // 
@@ -148,6 +150,7 @@
             this.txtgiaban.Location = new System.Drawing.Point(133, 106);
             this.txtgiaban.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtgiaban.Name = "txtgiaban";
+            this.txtgiaban.ReadOnly = true;
             this.txtgiaban.Size = new System.Drawing.Size(209, 23);
             this.txtgiaban.TabIndex = 12;
             // 
@@ -174,6 +177,7 @@
             // 
             // comboloai
             // 
+            this.comboloai.Enabled = false;
             this.comboloai.FormattingEnabled = true;
             this.comboloai.Items.AddRange(new object[] {
             "Nước ngọt",
@@ -190,6 +194,7 @@
             // 
             // combodonvi
             // 
+            this.combodonvi.Enabled = false;
             this.combodonvi.FormattingEnabled = true;
             this.combodonvi.Items.AddRange(new object[] {
             "Chai",

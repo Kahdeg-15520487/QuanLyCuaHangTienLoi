@@ -1,0 +1,26 @@
+[
+    {
+        "Id": "347d242a-7028-4b64-9165-7fa0334050a9",
+        "TenLoaiSanPham": "Nước ngọt"
+    },
+    {
+        "Id": "4f8976b6-770f-4c92-84aa-730d013ac187",
+        "TenLoaiSanPham": "Bánh kẹo"
+    },
+    {
+        "Id": "f378b558-0e08-4db4-9d44-fd7efebc849e",
+        "TenLoaiSanPham": "Rau quả"
+    },
+    {
+        "Id": "3482ac8c-9dea-4727-aa16-2ad90182457d",
+        "TenLoaiSanPham": "Thịt"
+    },
+    {
+        "Id": "530293c4-bca8-4429-9df4-d0827c3a83b7",
+        "TenLoaiSanPham": "Sữa"
+    },
+    {
+        "Id": "c02ac222-1ff5-42e0-8f7c-ae55e5bf8835",
+        "TenLoaiSanPham": "Đồ dùng gia dụng"
+    }
+]

@@ -1,0 +1,22 @@
+[
+    {
+        "Id": "592657c2-c52f-4014-a671-e6483232de44",
+        "TenDonViSanPham": "Hộp"
+    },
+    {
+        "Id": "e56b3513-7b1d-4951-867b-8c7532390a7b",
+        "TenDonViSanPham": "Chai"
+    },
+    {
+        "Id": "25e5bb3a-0bc8-4ec1-b0f2-388a69ae5b33",
+        "TenDonViSanPham": "Cái"
+    },
+    {
+        "Id": "3433f265-232d-4e0c-bcdd-91d4de6454ed",
+        "TenDonViSanPham": "Lạng"
+    },
+    {
+        "Id": "65e8e640-bee2-4772-9eec-811132d09c62",
+        "TenDonViSanPham": "Gói"
+    }
+]

@@ -1,0 +1,72 @@
+﻿[
+    {
+        "Id": "75fbb1ed-bdd0-403c-8d24-e85d74e11945",
+        "TenSanPham": "Đậu xanh",
+        "GiaTien": 10000,
+        "LoaiSanPhamId": "f378b558-0e08-4db4-9d44-fd7efebc849e",
+        "DonViSanPhamId": "65e8e640-bee2-4772-9eec-811132d09c62"
+    },
+    {
+        "Id": "62e4e3d4-6534-4a95-b243-a81732f9a74e",
+        "TenSanPham": "Cà rốt",
+        "GiaTien": 13000,
+        "LoaiSanPhamId": "f378b558-0e08-4db4-9d44-fd7efebc849e",
+        "DonViSanPhamId": "3433f265-232d-4e0c-bcdd-91d4de6454ed"
+    },
+    {
+        "Id": "13e407fc-a55d-4c56-8f2a-85ea63a48523",
+        "TenSanPham": "Thịt bằm",
+        "GiaTien": 55000,
+        "LoaiSanPhamId": "3482ac8c-9dea-4727-aa16-2ad90182457d",
+        "DonViSanPhamId": "3433f265-232d-4e0c-bcdd-91d4de6454ed"
+    },
+    {
+        "Id": "d2646916-48aa-4e65-9974-3c8356681d0d",
+        "TenSanPham": "Đùi gà góc tư",
+        "GiaTien": 40000,
+        "LoaiSanPhamId": "3482ac8c-9dea-4727-aa16-2ad90182457d",
+        "DonViSanPhamId": "3433f265-232d-4e0c-bcdd-91d4de6454ed"
+    },
+    {
+        "Id": "49edbe65-ddf6-44ad-8a62-78b45a530ee0",
+        "TenSanPham": "Cocacola 1.5l",
+        "GiaTien": 20000,
+        "LoaiSanPhamId": "347d242a-7028-4b64-9165-7fa0334050a9",
+        "DonViSanPhamId": "e56b3513-7b1d-4951-867b-8c7532390a7b"
+    },
+    {
+        "Id": "0113a4dc-2390-4ad1-b909-66f89e2352fb",
+        "TenSanPham": "7Up 1.5l",
+        "GiaTien": 19000,
+        "LoaiSanPhamId": "347d242a-7028-4b64-9165-7fa0334050a9",
+        "DonViSanPhamId": "e56b3513-7b1d-4951-867b-8c7532390a7b"
+    },
+    {
+        "Id": "ed6cb8d4-429a-4fb8-8291-4fc3fae8b74d",
+        "TenSanPham": "Vinamilk 1l",
+        "GiaTien": 24000,
+        "LoaiSanPhamId": "530293c4-bca8-4429-9df4-d0827c3a83b7",
+        "DonViSanPhamId": "e56b3513-7b1d-4951-867b-8c7532390a7b"
+    },
+    {
+        "Id": "8383c50d-9583-4d5b-a253-fe3f9199bf36",
+        "TenSanPham": "Bánh quy Danissa",
+        "GiaTien": 80000,
+        "LoaiSanPhamId": "4f8976b6-770f-4c92-84aa-730d013ac187",
+        "DonViSanPhamId": "592657c2-c52f-4014-a671-e6483232de44"
+    },
+    {
+        "Id": "9fac33d0-dae0-4d88-84f7-ea5bca2254b3",
+        "TenSanPham": "Dao",
+        "GiaTien": 45000,
+        "LoaiSanPhamId": "c02ac222-1ff5-42e0-8f7c-ae55e5bf8835",
+        "DonViSanPhamId": "25e5bb3a-0bc8-4ec1-b0f2-388a69ae5b33"
+    },
+    {
+        "Id": "f57153a0-2f1f-4733-a332-97ee6961e4f3",
+        "TenSanPham": "Túi lọc nước",
+        "GiaTien": 47000,
+        "LoaiSanPhamId": "c02ac222-1ff5-42e0-8f7c-ae55e5bf8835",
+        "DonViSanPhamId": "65e8e640-bee2-4772-9eec-811132d09c62"
+    }
+]

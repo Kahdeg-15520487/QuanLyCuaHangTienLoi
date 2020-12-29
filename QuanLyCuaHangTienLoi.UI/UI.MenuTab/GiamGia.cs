@@ -22,18 +22,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
     {
         public GiamGiaForm()
         {
-            if (CuaSoChinh.tennv.ToLower() == "admin")
-            {
-                InitializeComponent();
-            }
-            else
-            {
-                MessageBox.Show("Chỉ có admin mới có thể truy cập chức năng này!");
-                this.DialogResult = DialogResult.OK;
-            }
-
-            InitializeComponent();
-
             dataGridView_sp.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_gg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             RefreshGridViewGiamGia();
@@ -49,6 +37,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 {
                     comboBox_loaisp.Items.Add(loaiSp);
                 }
+                comboBox_loaisp.Refresh();
 
                 Repository<Data.Models.SanPham> repo = new Repository<Data.Models.SanPham>(dbCxt);
                 var sp = repo.GetAll().Select(s => s.TenSanPham).ToList();
@@ -97,7 +86,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     DataTable dt = spRepo.GetAll().Select(sp => new HienThiSanPhamGiamGia
                     {
                         Id = sp.Id,
-                        TenSanPham = sp.TenSanPham,
+                        TenSanPham = Guid.NewGuid().ToString(),
                         GiaTien = sp.GiaTien,
                         LoaiSanPham = sp.LoaiSanPham,
                     }).ToDataTable();
@@ -115,11 +104,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     dataGridView_sp.DataSource = dt;
                 }
             }
-        }
-
-        private void iconButton4_Click(object sender, EventArgs e)
-        {
-            clear();
         }
 
         private double CalculateGiamGia(double giaGoc, decimal phanTram)

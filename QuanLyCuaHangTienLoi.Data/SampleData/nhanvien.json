@@ -1,0 +1,14 @@
+﻿[
+    {
+        "Id": "7b5c2d90-7798-4227-9f1c-637bb3a19bda",
+        "TenNhanVien": "admin",
+        "UserName": "admin",
+        "MatKhau": "admin"
+    },
+    {
+        "Id": "741faa63-e6ac-4cce-b0c9-4676ba4d78fe",
+        "TenNhanVien": "Đặng Quang Khải",
+        "UserName": "qkhai",
+        "MatKhau": "123456"
+    }
+]

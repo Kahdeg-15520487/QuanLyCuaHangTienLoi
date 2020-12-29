@@ -85,12 +85,12 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                         new
                         {
                             Id = new Guid("25e5bb3a-0bc8-4ec1-b0f2-388a69ae5b33"),
-                            TenDonViSanPham = "Lon"
+                            TenDonViSanPham = "Cái"
                         },
                         new
                         {
                             Id = new Guid("3433f265-232d-4e0c-bcdd-91d4de6454ed"),
-                            TenDonViSanPham = "Thùng"
+                            TenDonViSanPham = "Lạng"
                         },
                         new
                         {
@@ -213,42 +213,42 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                         new
                         {
                             Id = new Guid("7e3a16bf-ff86-4569-9f85-ae74990635de"),
-                            Email = "buddblackston@email.com",
+                            Email = "klinh@email.com",
                             IsActive = false,
-                            SoDienThoai = "450-52-6781",
-                            TenKhachHang = "Budd Blackston"
+                            SoDienThoai = "450526781",
+                            TenKhachHang = "Nguyễn Khánh Linh"
                         },
                         new
                         {
                             Id = new Guid("8b702d4f-a0b5-4615-a3a6-df2ddeeba7f7"),
-                            Email = "alidasommerled@email.com",
+                            Email = "ttan@email.com",
                             IsActive = false,
-                            SoDienThoai = "798-91-4772",
-                            TenKhachHang = "Alida Sommerled"
+                            SoDienThoai = "798914772",
+                            TenKhachHang = "Hoàng Thanh Tân"
                         },
                         new
                         {
                             Id = new Guid("1c2df9bb-1133-44a4-9e85-781032e8e43e"),
-                            Email = "georascraggs@email.com",
+                            Email = "mhoang@email.com",
                             IsActive = false,
-                            SoDienThoai = "455-12-4139",
-                            TenKhachHang = "Georas Craggs"
+                            SoDienThoai = "455124139",
+                            TenKhachHang = "Nguyễn Minh Hoàng"
                         },
                         new
                         {
                             Id = new Guid("668fed87-4abd-49c9-a414-78194421e705"),
-                            Email = "aguistinstembridge@email.com",
+                            Email = "lminh@email.com",
                             IsActive = false,
-                            SoDienThoai = "162-12-4841",
-                            TenKhachHang = "Aguistin Stembridge"
+                            SoDienThoai = "162124841",
+                            TenKhachHang = "Nguyễn Lê Minh"
                         },
                         new
                         {
                             Id = new Guid("4e463bff-8b71-4af9-97bb-f4b4af591632"),
-                            Email = "demottenevold@email.com",
+                            Email = "ttin@email.com",
                             IsActive = false,
                             SoDienThoai = "737-02-8831",
-                            TenKhachHang = "Demott Enevold"
+                            TenKhachHang = "Nguyễn Trọng Tin"
                         });
                 });
 
@@ -281,80 +281,80 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5a4095f3-412c-4b7e-b587-0d03fe954ea6"),
-                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 945, DateTimeKind.Local).AddTicks(306),
+                            Id = new Guid("bb7d6840-6114-4268-a675-84c7d226b804"),
+                            NgayNhap = new DateTime(2020, 12, 27, 21, 47, 59, 195, DateTimeKind.Local).AddTicks(9081),
                             NhaCungCapId = new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"),
                             SanPhamId = new Guid("75fbb1ed-bdd0-403c-8d24-e85d74e11945"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("c51d32c9-7dcc-4a28-9a65-2602c22974be"),
-                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2183),
+                            Id = new Guid("26e82286-7bae-43ae-bb3c-dd65c01e25a0"),
+                            NgayNhap = new DateTime(2020, 12, 27, 21, 47, 59, 196, DateTimeKind.Local).AddTicks(9641),
                             NhaCungCapId = new Guid("0ec1ab8f-8d70-409b-9b11-efb27284c4a0"),
                             SanPhamId = new Guid("62e4e3d4-6534-4a95-b243-a81732f9a74e"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("a9ce0c9d-6da8-43ed-9588-04e872ad2425"),
-                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2264),
+                            Id = new Guid("c12662ef-3752-44a1-ae48-1e0fc6902c3f"),
+                            NgayNhap = new DateTime(2020, 12, 27, 21, 47, 59, 196, DateTimeKind.Local).AddTicks(9716),
                             NhaCungCapId = new Guid("02418cb3-ed16-469d-869b-37aead548c84"),
                             SanPhamId = new Guid("13e407fc-a55d-4c56-8f2a-85ea63a48523"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("cccf979c-09dc-4128-9c30-7f13a27b5236"),
-                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2268),
+                            Id = new Guid("1a34815d-63b7-4679-824e-981eaa3720e7"),
+                            NgayNhap = new DateTime(2020, 12, 27, 21, 47, 59, 196, DateTimeKind.Local).AddTicks(9721),
                             NhaCungCapId = new Guid("02418cb3-ed16-469d-869b-37aead548c84"),
                             SanPhamId = new Guid("d2646916-48aa-4e65-9974-3c8356681d0d"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("071f7866-5bb4-451b-aa01-3dd75e914dc1"),
-                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2271),
+                            Id = new Guid("e117ab27-0991-47fa-8b2d-e273a80bcefa"),
+                            NgayNhap = new DateTime(2020, 12, 27, 21, 47, 59, 196, DateTimeKind.Local).AddTicks(9725),
                             NhaCungCapId = new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"),
                             SanPhamId = new Guid("49edbe65-ddf6-44ad-8a62-78b45a530ee0"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("0e7fd30f-7095-484e-9b5e-ca1a673a3d14"),
-                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2278),
+                            Id = new Guid("ba933db5-5a7e-4f72-b5f9-c6ab4f0da73e"),
+                            NgayNhap = new DateTime(2020, 12, 27, 21, 47, 59, 196, DateTimeKind.Local).AddTicks(9743),
                             NhaCungCapId = new Guid("fbc4aff7-1b71-4f29-9d04-6e5a2030cdc9"),
                             SanPhamId = new Guid("0113a4dc-2390-4ad1-b909-66f89e2352fb"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("3025d854-7f97-483b-a209-e5405c0f3055"),
-                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2281),
+                            Id = new Guid("5e516ffc-4763-4f0d-817d-5b1bf17dc433"),
+                            NgayNhap = new DateTime(2020, 12, 27, 21, 47, 59, 196, DateTimeKind.Local).AddTicks(9746),
                             NhaCungCapId = new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"),
                             SanPhamId = new Guid("ed6cb8d4-429a-4fb8-8291-4fc3fae8b74d"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("b003639d-feb6-4da8-a775-7cdd68687883"),
-                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2299),
+                            Id = new Guid("45745215-a79b-4b62-bf43-b79ffaac3cd8"),
+                            NgayNhap = new DateTime(2020, 12, 27, 21, 47, 59, 196, DateTimeKind.Local).AddTicks(9749),
                             NhaCungCapId = new Guid("03a9cf4f-6efa-480e-b3c8-c298298df715"),
                             SanPhamId = new Guid("8383c50d-9583-4d5b-a253-fe3f9199bf36"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("f9f6a4d6-393d-4b92-bc02-a2462ef86fe0"),
-                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2302),
+                            Id = new Guid("297ba37c-db72-4c3a-9796-b84b6d575c5d"),
+                            NgayNhap = new DateTime(2020, 12, 27, 21, 47, 59, 196, DateTimeKind.Local).AddTicks(9752),
                             NhaCungCapId = new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"),
                             SanPhamId = new Guid("9fac33d0-dae0-4d88-84f7-ea5bca2254b3"),
                             SoLuong = 20
                         },
                         new
                         {
-                            Id = new Guid("a97ded23-5481-4cf7-9ede-c88b90c46935"),
-                            NgayNhap = new DateTime(2020, 12, 27, 14, 2, 57, 946, DateTimeKind.Local).AddTicks(2305),
+                            Id = new Guid("00f44079-c173-40d3-a416-4a6dd86ed05a"),
+                            NgayNhap = new DateTime(2020, 12, 27, 21, 47, 59, 196, DateTimeKind.Local).AddTicks(9755),
                             NhaCungCapId = new Guid("ae5fc190-a606-4e3d-a96e-2c6dd22dacc1"),
                             SanPhamId = new Guid("f57153a0-2f1f-4733-a332-97ee6961e4f3"),
                             SoLuong = 20
@@ -398,7 +398,12 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                         new
                         {
                             Id = new Guid("530293c4-bca8-4429-9df4-d0827c3a83b7"),
-                            TenLoaiSanPham = "Đồ sữa"
+                            TenLoaiSanPham = "Sữa"
+                        },
+                        new
+                        {
+                            Id = new Guid("c02ac222-1ff5-42e0-8f7c-ae55e5bf8835"),
+                            TenLoaiSanPham = "Đồ dùng gia dụng"
                         });
                 });
 
@@ -473,7 +478,7 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                         {
                             Id = new Guid("7b5c2d90-7798-4227-9f1c-637bb3a19bda"),
                             IsActive = false,
-                            Matkhau = "1a2eb4b4",
+                            Matkhau = "admin",
                             TenNhanVien = "admin",
                             Username = "admin"
                         },
@@ -481,33 +486,9 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                         {
                             Id = new Guid("741faa63-e6ac-4cce-b0c9-4676ba4d78fe"),
                             IsActive = false,
-                            Matkhau = "14165849",
-                            TenNhanVien = "Minette Eallis",
-                            Username = "minetteeallis"
-                        },
-                        new
-                        {
-                            Id = new Guid("879603fe-211d-41f4-b877-78795c40d423"),
-                            IsActive = false,
-                            Matkhau = "83b3acf6",
-                            TenNhanVien = "Kacie Phettis",
-                            Username = "kaciephettis"
-                        },
-                        new
-                        {
-                            Id = new Guid("af251ac8-a93b-4e7f-aef3-900d8298fc2e"),
-                            IsActive = false,
-                            Matkhau = "fc4fb722",
-                            TenNhanVien = "Erinn King",
-                            Username = "erinnking"
-                        },
-                        new
-                        {
-                            Id = new Guid("527f86c2-520f-4a0c-803f-6dc9a68438a8"),
-                            IsActive = false,
-                            Matkhau = "6aaac2a0",
-                            TenNhanVien = "Nanci Pain",
-                            Username = "nancipain"
+                            Matkhau = "123456",
+                            TenNhanVien = "Đặng Quang Khải",
+                            Username = "qkhai"
                         });
                 });
 
@@ -541,82 +522,82 @@ namespace QuanLyCuaHangTienLoi.Data.Migrations
                         new
                         {
                             Id = new Guid("75fbb1ed-bdd0-403c-8d24-e85d74e11945"),
-                            DonViSanPhamId = new Guid("592657c2-c52f-4014-a671-e6483232de44"),
-                            GiaTien = 37000.0,
-                            LoaiSanPhamId = new Guid("347d242a-7028-4b64-9165-7fa0334050a9"),
-                            TenSanPham = "Beans - Wax"
+                            DonViSanPhamId = new Guid("65e8e640-bee2-4772-9eec-811132d09c62"),
+                            GiaTien = 10000.0,
+                            LoaiSanPhamId = new Guid("f378b558-0e08-4db4-9d44-fd7efebc849e"),
+                            TenSanPham = "Đậu xanh"
                         },
                         new
                         {
                             Id = new Guid("62e4e3d4-6534-4a95-b243-a81732f9a74e"),
-                            DonViSanPhamId = new Guid("592657c2-c52f-4014-a671-e6483232de44"),
+                            DonViSanPhamId = new Guid("3433f265-232d-4e0c-bcdd-91d4de6454ed"),
                             GiaTien = 13000.0,
-                            LoaiSanPhamId = new Guid("347d242a-7028-4b64-9165-7fa0334050a9"),
-                            TenSanPham = "Swordfish Loin Portions"
+                            LoaiSanPhamId = new Guid("f378b558-0e08-4db4-9d44-fd7efebc849e"),
+                            TenSanPham = "Cà rốt"
                         },
                         new
                         {
                             Id = new Guid("13e407fc-a55d-4c56-8f2a-85ea63a48523"),
-                            DonViSanPhamId = new Guid("e56b3513-7b1d-4951-867b-8c7532390a7b"),
-                            GiaTien = 11000.0,
-                            LoaiSanPhamId = new Guid("4f8976b6-770f-4c92-84aa-730d013ac187"),
-                            TenSanPham = "Bagels Poppyseed"
+                            DonViSanPhamId = new Guid("3433f265-232d-4e0c-bcdd-91d4de6454ed"),
+                            GiaTien = 55000.0,
+                            LoaiSanPhamId = new Guid("3482ac8c-9dea-4727-aa16-2ad90182457d"),
+                            TenSanPham = "Thịt bằm"
                         },
                         new
                         {
                             Id = new Guid("d2646916-48aa-4e65-9974-3c8356681d0d"),
-                            DonViSanPhamId = new Guid("e56b3513-7b1d-4951-867b-8c7532390a7b"),
-                            GiaTien = 38000.0,
-                            LoaiSanPhamId = new Guid("4f8976b6-770f-4c92-84aa-730d013ac187"),
-                            TenSanPham = "Tofu - Firm"
+                            DonViSanPhamId = new Guid("3433f265-232d-4e0c-bcdd-91d4de6454ed"),
+                            GiaTien = 40000.0,
+                            LoaiSanPhamId = new Guid("3482ac8c-9dea-4727-aa16-2ad90182457d"),
+                            TenSanPham = "Đùi gà góc tư"
                         },
                         new
                         {
                             Id = new Guid("49edbe65-ddf6-44ad-8a62-78b45a530ee0"),
-                            DonViSanPhamId = new Guid("25e5bb3a-0bc8-4ec1-b0f2-388a69ae5b33"),
-                            GiaTien = 25000.0,
-                            LoaiSanPhamId = new Guid("f378b558-0e08-4db4-9d44-fd7efebc849e"),
-                            TenSanPham = "Wine - Jaboulet Cotes Du Rhone"
+                            DonViSanPhamId = new Guid("e56b3513-7b1d-4951-867b-8c7532390a7b"),
+                            GiaTien = 20000.0,
+                            LoaiSanPhamId = new Guid("347d242a-7028-4b64-9165-7fa0334050a9"),
+                            TenSanPham = "Cocacola 1.5l"
                         },
                         new
                         {
                             Id = new Guid("0113a4dc-2390-4ad1-b909-66f89e2352fb"),
-                            DonViSanPhamId = new Guid("25e5bb3a-0bc8-4ec1-b0f2-388a69ae5b33"),
-                            GiaTien = 33000.0,
-                            LoaiSanPhamId = new Guid("f378b558-0e08-4db4-9d44-fd7efebc849e"),
-                            TenSanPham = "Spice - Onion Powder Granulated"
+                            DonViSanPhamId = new Guid("e56b3513-7b1d-4951-867b-8c7532390a7b"),
+                            GiaTien = 19000.0,
+                            LoaiSanPhamId = new Guid("347d242a-7028-4b64-9165-7fa0334050a9"),
+                            TenSanPham = "7Up 1.5l"
                         },
                         new
                         {
                             Id = new Guid("ed6cb8d4-429a-4fb8-8291-4fc3fae8b74d"),
-                            DonViSanPhamId = new Guid("3433f265-232d-4e0c-bcdd-91d4de6454ed"),
-                            GiaTien = 31000.0,
-                            LoaiSanPhamId = new Guid("3482ac8c-9dea-4727-aa16-2ad90182457d"),
-                            TenSanPham = "Evaporated Milk - Skim"
+                            DonViSanPhamId = new Guid("e56b3513-7b1d-4951-867b-8c7532390a7b"),
+                            GiaTien = 24000.0,
+                            LoaiSanPhamId = new Guid("530293c4-bca8-4429-9df4-d0827c3a83b7"),
+                            TenSanPham = "Vinamilk 1l"
                         },
                         new
                         {
                             Id = new Guid("8383c50d-9583-4d5b-a253-fe3f9199bf36"),
-                            DonViSanPhamId = new Guid("3433f265-232d-4e0c-bcdd-91d4de6454ed"),
-                            GiaTien = 13000.0,
-                            LoaiSanPhamId = new Guid("3482ac8c-9dea-4727-aa16-2ad90182457d"),
-                            TenSanPham = "Squash - Guords"
+                            DonViSanPhamId = new Guid("592657c2-c52f-4014-a671-e6483232de44"),
+                            GiaTien = 80000.0,
+                            LoaiSanPhamId = new Guid("4f8976b6-770f-4c92-84aa-730d013ac187"),
+                            TenSanPham = "Bánh quy Danissa"
                         },
                         new
                         {
                             Id = new Guid("9fac33d0-dae0-4d88-84f7-ea5bca2254b3"),
-                            DonViSanPhamId = new Guid("65e8e640-bee2-4772-9eec-811132d09c62"),
+                            DonViSanPhamId = new Guid("25e5bb3a-0bc8-4ec1-b0f2-388a69ae5b33"),
                             GiaTien = 45000.0,
-                            LoaiSanPhamId = new Guid("530293c4-bca8-4429-9df4-d0827c3a83b7"),
-                            TenSanPham = "Filter - Coffee"
+                            LoaiSanPhamId = new Guid("c02ac222-1ff5-42e0-8f7c-ae55e5bf8835"),
+                            TenSanPham = "Dao"
                         },
                         new
                         {
                             Id = new Guid("f57153a0-2f1f-4733-a332-97ee6961e4f3"),
                             DonViSanPhamId = new Guid("65e8e640-bee2-4772-9eec-811132d09c62"),
                             GiaTien = 47000.0,
-                            LoaiSanPhamId = new Guid("530293c4-bca8-4429-9df4-d0827c3a83b7"),
-                            TenSanPham = "Beer - Paulaner Hefeweisse"
+                            LoaiSanPhamId = new Guid("c02ac222-1ff5-42e0-8f7c-ae55e5bf8835"),
+                            TenSanPham = "Túi lọc nước"
                         });
                 });
 

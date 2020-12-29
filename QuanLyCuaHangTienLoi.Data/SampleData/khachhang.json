@@ -1,0 +1,38 @@
+﻿[
+    {
+        "Id": "00000000-0000-0000-0000-000000000001",
+        "TenKhachHang": "Ko co khach hang",
+        "SoDienThoai": "",
+        "Email": ""
+    },
+    {
+        "Id": "7e3a16bf-ff86-4569-9f85-ae74990635de",
+        "TenKhachHang": "Nguyễn Khánh Linh",
+        "SoDienThoai": "450526781",
+        "Email": "klinh@email.com"
+    },
+    {
+        "Id": "8b702d4f-a0b5-4615-a3a6-df2ddeeba7f7",
+        "TenKhachHang": "Hoàng Thanh Tân",
+        "SoDienThoai": "798914772",
+        "Email": "ttan@email.com"
+    },
+    {
+        "Id": "1c2df9bb-1133-44a4-9e85-781032e8e43e",
+        "TenKhachHang": "Nguyễn Minh Hoàng",
+        "SoDienThoai": "455124139",
+        "Email": "mhoang@email.com"
+    },
+    {
+        "Id": "668fed87-4abd-49c9-a414-78194421e705",
+        "TenKhachHang": "Nguyễn Lê Minh",
+        "SoDienThoai": "162124841",
+        "Email": "lminh@email.com"
+    },
+    {
+        "Id": "4e463bff-8b71-4af9-97bb-f4b4af591632",
+        "TenKhachHang": "Nguyễn Trọng Tin",
+        "SoDienThoai": "737-02-8831",
+        "Email": "ttin@email.com"
+    }
+]
