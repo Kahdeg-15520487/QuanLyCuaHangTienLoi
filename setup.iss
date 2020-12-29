@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "QuanLiCuaHangTienLoi"
-#define MyAppVersion "1.1"
+#define MyAppVersion "1.2"
 #define MyAppPublisher "Nhom 15"
 #define MyAppURL "https://github.com/Kahdeg-15520487/QuanLyCuaHangTienLoi"
 #define MyAppExeName "QuanLyCuaHangTienLoi.exe"
@@ -24,7 +24,7 @@ DisableProgramGroupPage=yes
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=Installer
-OutputBaseFilename=0.7
+OutputBaseFilename=0.8
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
