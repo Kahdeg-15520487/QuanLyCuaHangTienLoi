@@ -2,11 +2,16 @@
 
 using Newtonsoft.Json;
 
+using QRCoder;
+
 using QuanLyCuaHangTienLoi.Data;
 using QuanLyCuaHangTienLoi.Data.Implementation;
 using QuanLyCuaHangTienLoi.Data.Models;
 
 using System;
+using System.Drawing;
+using System.IO;
+using System.Linq;
 
 namespace testconsole
 {
@@ -14,15 +19,20 @@ namespace testconsole
     {
         static void Main(string[] args)
         {
-            var contextOptions = new DbContextOptionsBuilder<CuaHangTienLoiDbContext>()
-                .UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=chtl;Integrated Security=True")
-                .Options;
-
             CuaHangTienLoiDbContext context = new CuaHangTienLoiDbContext();
 
             Repository<SanPham> spRepo = new Repository<SanPham>(context);
 
-            Console.WriteLine(JsonConvert.SerializeObject(spRepo.GetAll().Include(sp => sp.LoaiSanPham), Formatting.Indented));
+            var sps = spRepo.GetAll();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            foreach (var sp in sps)
+            {
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(sp.Id.ToString(), QRCodeGenerator.ECCLevel.Q);
+                QRCode qrCode = new QRCode(qrCodeData);
+                Bitmap qrCodeImage = qrCode.GetGraphic(4);
+                qrCodeImage.Save(sp.TenSanPham + ".png");
+            }
 
             Console.ReadLine();
         }

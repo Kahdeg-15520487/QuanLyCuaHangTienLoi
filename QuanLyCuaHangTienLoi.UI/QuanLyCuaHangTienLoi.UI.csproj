@@ -46,6 +46,7 @@
     <Content Include="IMG\xucxich-bit1.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AdvancedSockets" Version="1.1.4" />
     <PackageReference Include="FontAwesome.Sharp" Version="5.13.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -53,6 +54,7 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="System.Windows.Controls.DataVisualization.Toolkit" Version="4.0.0" />
+    <PackageReference Include="Websocket.Client" Version="4.3.21" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuanLyCuaHangTienLoi.Data\QuanLyCuaHangTienLoi.Data.csproj" />

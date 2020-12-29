@@ -15,6 +15,9 @@ using QuanLyCuaHangTienLoi.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using QuanLyCuaHangTienLoi.UI.Utilities;
 
+using AdvancedSockets.WebSockets;
+using Newtonsoft.Json;
+
 namespace QuanLyCuaHangTienLoi.UI.MenuTab
 {
     public partial class BanHang : Form
@@ -30,10 +33,124 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         int slspedit;
         string masp1;
         int slsp1;
+        WebSocketClient client;
 
         public BanHang()
         {
             InitializeComponent();
+            InitWebsocket().Wait();
+        }
+
+        private async Task InitWebsocket()
+        {
+            var url = new Uri("ws://localhost:5000/push");
+
+            client = new WebSocketClient();
+            client.OnConnect += Client_OnConnect;
+            client.OnDisconnect += Client_OnDisconnect;
+            client.OnMessage += Client_OnMessage;
+            client.OnError += Client_OnError;
+            client.Connect(url);
+        }
+        private void Client_OnConnect()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Connected");
+
+            client.Send(Encoding.ASCII.GetBytes("2"));
+        }
+
+        private void Client_OnDisconnect()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Disconnected");
+        }
+
+        private void Client_OnMessage(byte[] message)
+        {
+            var raw = Encoding.ASCII.GetString(message);
+            Console.WriteLine(raw);
+            var task = JsonConvert.DeserializeObject<MqMsg>(raw);
+            Guid.TryParse(task.TaskData, out Guid scannedId);
+
+            this.Invoke(new MethodInvoker(delegate ()
+            {
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+                {
+                    Repository<Data.Models.LoSanPham> lspRepo = new Repository<Data.Models.LoSanPham>(dbCxt);
+                    var loSanPham = lspRepo.Query(lsp => lsp.SanPhamId == scannedId && lsp.SoLuong > 0)
+                        .Include(lsp => lsp.SanPham)
+                        .ThenInclude(sp => sp.LoaiSanPham)
+                        .Include(lsp => lsp.SanPham)
+                        .ThenInclude(sp => sp.DonViSanPham)
+                        .FirstOrDefault();
+
+                    if (loSanPham == null)
+                    {
+                        MessageBox.Show("Sản phẩm ko có trong kho");
+                        return;
+                    }
+
+                    Repository<GiamGia> ggRepo = new Repository<GiamGia>(dbCxt);
+                    var gg = ggRepo.Query(gg => gg.SanPhamId == loSanPham.SanPhamId && gg.NgayBatDau < DateTime.Now && gg.NgayKetThuc > DateTime.Now).FirstOrDefault();
+                    int phanTramGiamGia = 0;
+                    if (gg == null)
+                    {
+                        phanTramGiamGia = 0;
+                    }
+                    else
+                    {
+                        phanTramGiamGia = gg.PhanTramGiamGia;
+                    }
+
+                    checkslsp = loSanPham.SoLuong;
+                    if (checkslsp < 1)
+                    {
+                        MessageBox.Show("het hang");
+                    }
+                    else
+                    {
+                        bool isSame = txtmasp.Text == loSanPham.SanPhamId.ToString();
+
+                        txtmasp.Text = loSanPham.SanPhamId.ToString();
+                        txttensp.Text = loSanPham.SanPham.TenSanPham;
+                        txtdongiasp.Text = loSanPham.SanPham.GiaTien.ToString();
+                        txtsoluongsp.Text = (isSame ? int.Parse(txtsoluongsp.Text) + 1 : 1).ToString();
+                        txtgiamphantramsp.Text = phanTramGiamGia.ToString();
+                        comboBoxdonvisp.Text = loSanPham.SanPham.LoaiSanPham.TenLoaiSanPham.ToString();
+                        comboBoxloaisp.Text = loSanPham.SanPham.DonViSanPham.TenDonViSanPham.ToString();
+                        //thanhtiensp = soluong * don gia
+                        double slsp;
+                        double dongiasp;
+                        double thanhtiensp;
+                        double thanhtiensp2;
+                        slsp = double.Parse(txtsoluongsp.Text);
+                        dongiasp = double.Parse(txtdongiasp.Text);
+
+                        thanhtiensp = slsp * dongiasp;
+                        //tien giam gia cua san pham
+                        double giamgiaPhantram = double.Parse(txtgiamphantramsp.Text);
+                        double giamgiasp = (giamgiaPhantram * thanhtiensp) / 100;
+                        //tien san pham = (so luong * don gia ) - giam gia
+                        thanhtiensp2 = thanhtiensp - giamgiasp;
+
+                        txttiensp.Text = string.Format("{0:N2}", thanhtiensp2);
+                    }
+                }
+            }));
+        }
+
+
+        private void Client_OnError(string error, Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(error);
+
+            if (ex != null)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+            }
         }
 
         public void clearsp()
@@ -537,6 +654,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     if (loSanPham == null)
                     {
                         MessageBox.Show("Sản phẩm ko có trong kho");
+                        return;
                     }
 
                     Repository<GiamGia> ggRepo = new Repository<GiamGia>(dbCxt);
@@ -584,7 +702,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                         //luu tru cho from  TT
                         loaisp1 = comboBoxloaisp.Text;
                     }
-
                 }
             }
         }
