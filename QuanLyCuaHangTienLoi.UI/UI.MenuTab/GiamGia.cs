@@ -22,6 +22,16 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
     {
         public GiamGiaForm()
         {
+            if (CuaSoChinh.tennv.ToLower() == "admin")
+            {
+                InitializeComponent();
+            }
+            else
+            {
+                MessageBox.Show("Chỉ có admin mới có thể truy cập chức năng này!");
+                this.DialogResult = DialogResult.OK;
+            }
+
             InitializeComponent();
 
             dataGridView_sp.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;

@@ -13,5 +13,7 @@ namespace QuanLyCuaHangTienLoi.UI.DisplayObject
         public Guid Id { get; set; }
         [CollumName("Tên nhân viên")]
         public string TenNhanVien { get; set; }
+        [CollumName("Tên đăng nhập")]
+        public string UserName { get; set; }
     }
 }

@@ -64,6 +64,10 @@
             this.btnEditKh = new FontAwesome.Sharp.IconButton();
             this.btnDelKh = new FontAwesome.Sharp.IconButton();
             this.btnClearInputKh = new FontAwesome.Sharp.IconButton();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtTenDangNhap = new System.Windows.Forms.TextBox();
+            this.txtMk = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKH)).BeginInit();
             this.SuspendLayout();
@@ -77,7 +81,7 @@
             this.dataGridViewNV.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridViewNV.Name = "dataGridViewNV";
             this.dataGridViewNV.ReadOnly = true;
-            this.dataGridViewNV.Size = new System.Drawing.Size(414, 269);
+            this.dataGridViewNV.Size = new System.Drawing.Size(414, 307);
             this.dataGridViewNV.TabIndex = 0;
             this.dataGridViewNV.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewNV_CellContentDoubleClick);
             // 
@@ -95,11 +99,11 @@
             this.BtnThem.IconChar = FontAwesome.Sharp.IconChar.None;
             this.BtnThem.IconColor = System.Drawing.Color.Black;
             this.BtnThem.IconSize = 16;
-            this.BtnThem.Location = new System.Drawing.Point(407, 113);
+            this.BtnThem.Location = new System.Drawing.Point(408, 190);
             this.BtnThem.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BtnThem.Name = "BtnThem";
             this.BtnThem.Rotation = 0D;
-            this.BtnThem.Size = new System.Drawing.Size(188, 45);
+            this.BtnThem.Size = new System.Drawing.Size(188, 36);
             this.BtnThem.TabIndex = 4;
             this.BtnThem.Text = "Thêm";
             this.BtnThem.UseVisualStyleBackColor = true;
@@ -111,11 +115,11 @@
             this.BtnSua.IconChar = FontAwesome.Sharp.IconChar.None;
             this.BtnSua.IconColor = System.Drawing.Color.Black;
             this.BtnSua.IconSize = 16;
-            this.BtnSua.Location = new System.Drawing.Point(407, 165);
+            this.BtnSua.Location = new System.Drawing.Point(408, 232);
             this.BtnSua.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BtnSua.Name = "BtnSua";
             this.BtnSua.Rotation = 0D;
-            this.BtnSua.Size = new System.Drawing.Size(188, 45);
+            this.BtnSua.Size = new System.Drawing.Size(188, 36);
             this.BtnSua.TabIndex = 5;
             this.BtnSua.Text = "Sửa";
             this.BtnSua.UseVisualStyleBackColor = true;
@@ -127,11 +131,11 @@
             this.BtnXoa.IconChar = FontAwesome.Sharp.IconChar.None;
             this.BtnXoa.IconColor = System.Drawing.Color.Black;
             this.BtnXoa.IconSize = 16;
-            this.BtnXoa.Location = new System.Drawing.Point(407, 217);
+            this.BtnXoa.Location = new System.Drawing.Point(407, 274);
             this.BtnXoa.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BtnXoa.Name = "BtnXoa";
             this.BtnXoa.Rotation = 0D;
-            this.BtnXoa.Size = new System.Drawing.Size(188, 45);
+            this.BtnXoa.Size = new System.Drawing.Size(188, 36);
             this.BtnXoa.TabIndex = 6;
             this.BtnXoa.Text = "Xóa";
             this.BtnXoa.UseVisualStyleBackColor = true;
@@ -143,11 +147,11 @@
             this.BtnHuy.IconChar = FontAwesome.Sharp.IconChar.None;
             this.BtnHuy.IconColor = System.Drawing.Color.Black;
             this.BtnHuy.IconSize = 16;
-            this.BtnHuy.Location = new System.Drawing.Point(407, 269);
+            this.BtnHuy.Location = new System.Drawing.Point(407, 316);
             this.BtnHuy.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BtnHuy.Name = "BtnHuy";
             this.BtnHuy.Rotation = 0D;
-            this.BtnHuy.Size = new System.Drawing.Size(188, 45);
+            this.BtnHuy.Size = new System.Drawing.Size(188, 36);
             this.BtnHuy.TabIndex = 7;
             this.BtnHuy.Text = "Nhập lại";
             this.BtnHuy.UseVisualStyleBackColor = true;
@@ -290,7 +294,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label11.Location = new System.Drawing.Point(32, 343);
+            this.label11.Location = new System.Drawing.Point(31, 381);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(198, 18);
@@ -300,7 +304,7 @@
             // dataGridViewKH
             // 
             this.dataGridViewKH.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewKH.Location = new System.Drawing.Point(365, 320);
+            this.dataGridViewKH.Location = new System.Drawing.Point(364, 358);
             this.dataGridViewKH.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridViewKH.Name = "dataGridViewKH";
             this.dataGridViewKH.Size = new System.Drawing.Size(653, 251);
@@ -313,7 +317,7 @@
             this.btnUpdateKH.IconChar = FontAwesome.Sharp.IconChar.None;
             this.btnUpdateKH.IconColor = System.Drawing.Color.Black;
             this.btnUpdateKH.IconSize = 16;
-            this.btnUpdateKH.Location = new System.Drawing.Point(254, 320);
+            this.btnUpdateKH.Location = new System.Drawing.Point(253, 358);
             this.btnUpdateKH.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnUpdateKH.Name = "btnUpdateKH";
             this.btnUpdateKH.Rotation = 0D;
@@ -327,7 +331,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(35, 426);
+            this.label6.Location = new System.Drawing.Point(34, 464);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(52, 16);
@@ -338,7 +342,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(35, 397);
+            this.label8.Location = new System.Drawing.Point(34, 435);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(47, 16);
@@ -347,7 +351,7 @@
             // 
             // txtIdKh
             // 
-            this.txtIdKh.Location = new System.Drawing.Point(105, 395);
+            this.txtIdKh.Location = new System.Drawing.Point(104, 433);
             this.txtIdKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtIdKh.Name = "txtIdKh";
             this.txtIdKh.ReadOnly = true;
@@ -356,7 +360,7 @@
             // 
             // txtTenKh
             // 
-            this.txtTenKh.Location = new System.Drawing.Point(105, 424);
+            this.txtTenKh.Location = new System.Drawing.Point(104, 462);
             this.txtTenKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtTenKh.Name = "txtTenKh";
             this.txtTenKh.Size = new System.Drawing.Size(252, 23);
@@ -366,7 +370,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label12.Location = new System.Drawing.Point(35, 455);
+            this.label12.Location = new System.Drawing.Point(34, 493);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(34, 16);
@@ -375,7 +379,7 @@
             // 
             // txtSdtKh
             // 
-            this.txtSdtKh.Location = new System.Drawing.Point(105, 453);
+            this.txtSdtKh.Location = new System.Drawing.Point(104, 491);
             this.txtSdtKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSdtKh.Name = "txtSdtKh";
             this.txtSdtKh.Size = new System.Drawing.Size(252, 23);
@@ -385,7 +389,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label13.Location = new System.Drawing.Point(35, 484);
+            this.label13.Location = new System.Drawing.Point(34, 522);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(47, 16);
@@ -394,7 +398,7 @@
             // 
             // txtDiaChiKh
             // 
-            this.txtDiaChiKh.Location = new System.Drawing.Point(105, 482);
+            this.txtDiaChiKh.Location = new System.Drawing.Point(104, 520);
             this.txtDiaChiKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtDiaChiKh.Name = "txtDiaChiKh";
             this.txtDiaChiKh.Size = new System.Drawing.Size(252, 23);
@@ -404,7 +408,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label14.Location = new System.Drawing.Point(35, 513);
+            this.label14.Location = new System.Drawing.Point(34, 551);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(41, 16);
@@ -413,7 +417,7 @@
             // 
             // txtEmailKh
             // 
-            this.txtEmailKh.Location = new System.Drawing.Point(105, 511);
+            this.txtEmailKh.Location = new System.Drawing.Point(104, 549);
             this.txtEmailKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEmailKh.Name = "txtEmailKh";
             this.txtEmailKh.Size = new System.Drawing.Size(252, 23);
@@ -425,7 +429,7 @@
             this.btnAddKh.IconChar = FontAwesome.Sharp.IconChar.None;
             this.btnAddKh.IconColor = System.Drawing.Color.Black;
             this.btnAddKh.IconSize = 16;
-            this.btnAddKh.Location = new System.Drawing.Point(13, 540);
+            this.btnAddKh.Location = new System.Drawing.Point(12, 578);
             this.btnAddKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddKh.Name = "btnAddKh";
             this.btnAddKh.Rotation = 0D;
@@ -441,7 +445,7 @@
             this.btnEditKh.IconChar = FontAwesome.Sharp.IconChar.None;
             this.btnEditKh.IconColor = System.Drawing.Color.Black;
             this.btnEditKh.IconSize = 16;
-            this.btnEditKh.Location = new System.Drawing.Point(101, 540);
+            this.btnEditKh.Location = new System.Drawing.Point(100, 578);
             this.btnEditKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnEditKh.Name = "btnEditKh";
             this.btnEditKh.Rotation = 0D;
@@ -457,7 +461,7 @@
             this.btnDelKh.IconChar = FontAwesome.Sharp.IconChar.None;
             this.btnDelKh.IconColor = System.Drawing.Color.Black;
             this.btnDelKh.IconSize = 16;
-            this.btnDelKh.Location = new System.Drawing.Point(189, 540);
+            this.btnDelKh.Location = new System.Drawing.Point(188, 578);
             this.btnDelKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnDelKh.Name = "btnDelKh";
             this.btnDelKh.Rotation = 0D;
@@ -473,7 +477,7 @@
             this.btnClearInputKh.IconChar = FontAwesome.Sharp.IconChar.None;
             this.btnClearInputKh.IconColor = System.Drawing.Color.Black;
             this.btnClearInputKh.IconSize = 16;
-            this.btnClearInputKh.Location = new System.Drawing.Point(277, 540);
+            this.btnClearInputKh.Location = new System.Drawing.Point(276, 578);
             this.btnClearInputKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnClearInputKh.Name = "btnClearInputKh";
             this.btnClearInputKh.Rotation = 0D;
@@ -483,11 +487,54 @@
             this.btnClearInputKh.UseVisualStyleBackColor = true;
             this.btnClearInputKh.Click += new System.EventHandler(this.btnClearInputKh_Click);
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label15.Location = new System.Drawing.Point(341, 105);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(53, 16);
+            this.label15.TabIndex = 20;
+            this.label15.Text = "Tên ĐN";
+            // 
+            // txtTenDangNhap
+            // 
+            this.txtTenDangNhap.Location = new System.Drawing.Point(408, 103);
+            this.txtTenDangNhap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtTenDangNhap.Name = "txtTenDangNhap";
+            this.txtTenDangNhap.Size = new System.Drawing.Size(187, 23);
+            this.txtTenDangNhap.TabIndex = 2;
+            // 
+            // txtMk
+            // 
+            this.txtMk.Location = new System.Drawing.Point(408, 132);
+            this.txtMk.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtMk.Name = "txtMk";
+            this.txtMk.PasswordChar = '*';
+            this.txtMk.Size = new System.Drawing.Size(187, 23);
+            this.txtMk.TabIndex = 3;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label16.Location = new System.Drawing.Point(341, 134);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(26, 16);
+            this.label16.TabIndex = 20;
+            this.label16.Text = "MK";
+            // 
             // Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1031, 681);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.txtMk);
+            this.Controls.Add(this.txtTenDangNhap);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.btnClearInputKh);
             this.Controls.Add(this.btnDelKh);
             this.Controls.Add(this.btnEditKh);
@@ -573,5 +620,9 @@
         private FontAwesome.Sharp.IconButton btnEditKh;
         private FontAwesome.Sharp.IconButton btnDelKh;
         private FontAwesome.Sharp.IconButton btnClearInputKh;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtTenDangNhap;
+        private System.Windows.Forms.TextBox txtMk;
+        private System.Windows.Forms.Label label16;
     }
 }

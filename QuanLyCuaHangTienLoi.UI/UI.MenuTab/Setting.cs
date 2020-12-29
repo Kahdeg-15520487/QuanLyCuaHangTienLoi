@@ -21,16 +21,9 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
     {
         public Setting()
         {
-            if (CuaSoChinh.tennv.ToLower() == "admin")
-            {
-                InitializeComponent();
-                gridviewNhanVien();
-                gridviewKhachHang();
-            }
-            else
-            {
-                MessageBox.Show("Chỉ có admin mới có thể truy cập chức năng này!");
-            }
+            InitializeComponent();
+            gridviewNhanVien();
+            gridviewKhachHang();
         }
 
         public void gridviewNhanVien()
@@ -42,7 +35,8 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 DataTable datatbnv = nvRepo.GetAll().Select(nv => new HienThiNhanVien
                 {
                     Id = nv.Id,
-                    TenNhanVien = nv.TenNhanVien
+                    TenNhanVien = nv.TenNhanVien,
+                    UserName = nv.Username
                 }).ToDataTable();
 
                 dataGridViewNV.DataSource = datatbnv;
@@ -72,6 +66,8 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         {
             txtIdNV.Clear();
             txtTenNV.Clear();
+            txtTenDangNhap.Clear();
+            txtMk.Clear();
         }
 
         public void clearkh()
@@ -93,7 +89,18 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
             if (string.IsNullOrWhiteSpace(txtTenNV.Text))
             {
+                MessageBox.Show("Xin nhập tên nhân viên");
                 txtTenNV.Select();
+            }
+            else if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text))
+            {
+                MessageBox.Show("Xin nhập tên đăng nhập của nhân viên");
+                txtTenDangNhap.Select();
+            }
+            else if (string.IsNullOrWhiteSpace(txtMk.Text))
+            {
+                MessageBox.Show("Xin nhập mật khẩu đăng nhập nhân viên");
+                txtMk.Select();
             }
             else
             {
@@ -101,12 +108,19 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 {
                     Repository<NhanVien> nvRepo = new Repository<NhanVien>(dbCxt);
 
+                    if (nvRepo.Query(nv => nv.Username == txtTenDangNhap.Text).Any())
+                    {
+                        MessageBox.Show("Trùng tên đăng nhập!");
+                        txtTenDangNhap.Select();
+                        return;
+                    }
+
                     var nvMoi = new NhanVien
                     {
                         Id = Guid.NewGuid(),
                         TenNhanVien = txtTenNV.Text,
-                        Username = txtTenNV.Text.Replace(" ", "").ToLower(),
-                        Matkhau = "123456"
+                        Username = txtTenDangNhap.Text,
+                        Matkhau = txtMk.Text
                     };
                     nvRepo.Insert(nvMoi);
 
@@ -129,14 +143,33 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 MessageBox.Show("Xin nhập tên nhân viên");
                 txtTenNV.Select();
             }
+            else if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text))
+            {
+                MessageBox.Show("Xin nhập tên đăng nhập của nhân viên");
+                txtTenDangNhap.Select();
+            }
+            else if (string.IsNullOrWhiteSpace(txtMk.Text))
+            {
+                MessageBox.Show("Xin nhập mật khẩu đăng nhập nhân viên");
+                txtMk.Select();
+            }
             else
             {
                 using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
                     Repository<NhanVien> nvRepo = new Repository<NhanVien>(dbCxt);
+
+                    if (nvRepo.Query(nv => nv.Username == txtTenDangNhap.Text).Any())
+                    {
+                        MessageBox.Show("Trùng tên đăng nhập!");
+                        txtTenDangNhap.Select();
+                        return;
+                    }
+
                     var nv = nvRepo.Get(Guid.Parse(txtIdNV.Text));
                     nv.TenNhanVien = txtTenNV.Text;
-                    nv.Username = txtTenNV.Text.Replace(" ", "").ToLower();
+                    nv.Username = txtTenDangNhap.Text;
+                    nv.Matkhau = txtMk.Text;
                     nvRepo.Update(nv);
 
                     MessageBox.Show("Đã sửa nhân viên" + Environment.NewLine + "Tên đăng nhập mới:" + nv.Username);
@@ -188,36 +221,22 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             txtLoiChao.Text = "Hẹn gặp lại bạn trong lần tới!";
         }
 
-        private void BtnSaveThongtin_Click(object sender, EventArgs e)
-        {
-            //if (string.IsNullOrWhiteSpace(txtTenShop.Text))
-            //{
-            //    MessageBox.Show("Trống!");
-            //    txtTenShop.Select();
-            //}
-            //else if (string.IsNullOrWhiteSpace(txtSDT.Text))
-            //{
-            //    txtSDT.Select();
-            //}
-            //else if (string.IsNullOrWhiteSpace(txtDiaChi.Text))
-            //{
-            //    txtDiaChi.Select();
-            //}
-            //else if (string.IsNullOrWhiteSpace(txtLoiChao.Text))
-            //{
-            //    txtLoiChao.Select();
-            //}
-            //else
-            //{
-            //}
-        }
-
         private void dataGridViewNV_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridViewNV.CurrentRow.Index != -1)
             {
                 txtIdNV.Text = dataGridViewNV.CurrentRow.Cells[0].Value.ToString();
                 txtTenNV.Text = dataGridViewNV.CurrentRow.Cells[1].Value.ToString();
+
+
+                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+                {
+                    Repository<NhanVien> nvRepo = new Repository<NhanVien>(dbCxt);
+                    var nv = nvRepo.Get(Guid.Parse(txtIdNV.Text));
+
+                    txtTenDangNhap.Text = nv.Username;
+                    txtMk.Text = nv.Matkhau;
+                }
             }
         }
 

@@ -145,7 +145,6 @@ namespace QuanLyCuaHangTienLoi.UI
         {
             ActivateButton(sender, RGBColors.color4);
             OpenChildForm(new ThongKe());
-            //MessageBox.Show("Chức năng này chưa được hoàn thành!");
         }
 
         private void btnnhanvien_Click(object sender, EventArgs e)
@@ -162,8 +161,16 @@ namespace QuanLyCuaHangTienLoi.UI
 
         private void btngiamgia_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, RGBColors.color3);
-            OpenChildForm(new GiamGiaForm());
+
+            if (CuaSoChinh.tennv.ToLower() == "admin")
+            {
+                ActivateButton(sender, RGBColors.color3);
+                OpenChildForm(new GiamGiaForm());
+            }
+            else
+            {
+                MessageBox.Show("Chỉ có admin mới có thể truy cập chức năng này!");
+            }
         }
 
         private void btnlogout_Click(object sender, EventArgs e)
@@ -278,7 +285,14 @@ namespace QuanLyCuaHangTienLoi.UI
 
         private void btnsetting_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Setting());
+            if (CuaSoChinh.tennv.ToLower() == "admin")
+            {
+                OpenChildForm(new Setting());
+            }
+            else
+            {
+                MessageBox.Show("Chỉ có admin mới có thể truy cập chức năng này!");
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
