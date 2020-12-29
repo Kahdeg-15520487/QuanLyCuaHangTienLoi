@@ -52,7 +52,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         public void huyhd()
         {
             txtsdhKh.Clear();
-            txtMakh.Clear();
+            txtTenKh.Clear();
             txtmasp.Clear();
             txttensp.Clear();
             txtsoluongsp.Clear();
@@ -164,6 +164,31 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             clearsp();
         }
 
+        private void btnxoa_Click(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow item in this.dataGridView1.SelectedRows)
+            {
+                DataGridViewRow row = dataGridView1.Rows[item.Index];
+                masp1 = row.Cells[0].Value.ToString();
+                slsp1 = Convert.ToInt32(row.Cells[2].Value.ToString());
+                dataGridView1.Rows.RemoveAt(item.Index); //remove row in datagridview
+            }
+
+            for (int i = 0; i < dataGridView1.SelectedCells.Count; i++)
+            {
+                int rowIndex = dataGridView1.SelectedCells[i].RowIndex;
+                DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                masp1 = row.Cells[0].Value.ToString();
+                dataGridView1.Rows.RemoveAt(rowIndex); //remove row in datagridview
+            }
+        }
+
+        private void btnhuy_Click(object sender, EventArgs e)
+        {
+            clearsp();
+        }
+
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow.Index != -1)
@@ -188,31 +213,6 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 MessageBox.Show("No data!");
             }
-        }
-
-        private void btnxoa_Click(object sender, EventArgs e)
-        {
-
-            foreach (DataGridViewRow item in this.dataGridView1.SelectedRows)
-            {
-                DataGridViewRow row = dataGridView1.Rows[item.Index];
-                masp1 = row.Cells[0].Value.ToString();
-                slsp1 = Convert.ToInt32(row.Cells[2].Value.ToString());
-                dataGridView1.Rows.RemoveAt(item.Index); //remove row in datagridview
-            }
-
-            for (int i = 0; i < dataGridView1.SelectedCells.Count; i++)
-            {
-                int rowIndex = dataGridView1.SelectedCells[i].RowIndex;
-                DataGridViewRow row = dataGridView1.Rows[rowIndex];
-                masp1 = row.Cells[0].Value.ToString();
-                dataGridView1.Rows.RemoveAt(rowIndex); //remove row in datagridview
-            }
-        }
-
-        private void btnhuy_Click(object sender, EventArgs e)
-        {
-            clearsp();
         }
 
         private void txttongcongtiensp_TextChanged(object sender, EventArgs e)
@@ -456,7 +456,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 if (string.IsNullOrWhiteSpace(txtsdhKh.Text))
                 {
-                    txtMakh.Clear();
+                    txtTenKh.Clear();
                 }
                 else
                 {
@@ -470,10 +470,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                         }
                         else
                         {
-                            txtMakh.Text = (kh.TenKhachHang);
+                            txtTenKh.Text = (kh.TenKhachHang);
                             //luu tru cho form TT
                             MaKH = kh.Id == Guid.Empty ? Constants.DefaultUser : kh.Id;
-                            TenKH = txtMakh.Text;
+                            TenKH = txtTenKh.Text;
                             SDT = txtsdhKh.Text;
                         }
                     }
@@ -491,14 +491,24 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             {
                 using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
                 {
-                    Repository<Data.Models.SanPham> repo = new Repository<Data.Models.SanPham>(dbCxt);
-                    var sp = repo.GetAll().Select(s => s.TenSanPham).ToList();
+                    Repository<Data.Models.SanPham> spRepo = new Repository<Data.Models.SanPham>(dbCxt);
+                    var sps = spRepo.GetAll().Select(s => s.TenSanPham).ToList();
 
                     AutoCompleteStringCollection autotensp = new AutoCompleteStringCollection();
-                    sp.ForEach(tsp => autotensp.Add(tsp));
+                    sps.ForEach(tsp => autotensp.Add(tsp));
                     txttensp.AutoCompleteMode = AutoCompleteMode.Suggest;
                     txttensp.AutoCompleteSource = AutoCompleteSource.CustomSource;
                     txttensp.AutoCompleteCustomSource = autotensp;
+
+
+                    Repository<Data.Models.KhachHang> khRepo = new Repository<Data.Models.KhachHang>(dbCxt);
+                    var khs = khRepo.GetAll().Select(kh => kh.TenKhachHang).ToList();
+
+                    AutoCompleteStringCollection autotenkh = new AutoCompleteStringCollection();
+                    khs.ForEach(tkh => autotenkh.Add(tkh));
+                    txtTenKh.AutoCompleteMode = AutoCompleteMode.Suggest;
+                    txtTenKh.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                    txtTenKh.AutoCompleteCustomSource = autotenkh;
                 }
             }
             catch (Exception ex)
@@ -618,60 +628,59 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void txtmasp_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                double giamgiaTextbox;
-                using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
-                {
-                    Repository<Data.Models.LoSanPham> lspRepo = new Repository<Data.Models.LoSanPham>(dbCxt);
-                    var loSanPham = lspRepo.Query(lsp => lsp.SanPham.TenSanPham == txttensp.Text)
-                        .Include(lsp => lsp.SanPham)
-                        .ThenInclude(sp => sp.LoaiSanPham)
-                        .Include(lsp => lsp.SanPham)
-                        .ThenInclude(sp => sp.DonViSanPham)
-                        .FirstOrDefault();
+            //using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
+            //{
+            //    Repository<Data.Models.LoSanPham> lspRepo = new Repository<Data.Models.LoSanPham>(dbCxt);
+            //    var searchText = txtmasp.Text;
+            //    var loSanPham = lspRepo.GetAll()
+            //        .Include(lsp => lsp.SanPham)
+            //        .ThenInclude(sp => sp.LoaiSanPham)
+            //        .Include(lsp => lsp.SanPham)
+            //        .ThenInclude(sp => sp.DonViSanPham)
+            //        .ToList()
+            //        .Where(lsp => lsp.SanPham.Id.ToString().Contains(searchText))
+            //        .FirstOrDefault();
 
-                    if (loSanPham == null)
-                    {
-                        MessageBox.Show("Sản phẩm ko có trong kho");
-                    }
+            //    if (loSanPham == null)
+            //    {
+            //        return;
+            //    }
 
-                    Repository<GiamGia> ggRepo = new Repository<GiamGia>(dbCxt);
-                    var gg = ggRepo.Query(gg => gg.SanPhamId == loSanPham.SanPhamId && gg.NgayBatDau < DateTime.Now && gg.NgayKetThuc > DateTime.Now).FirstOrDefault();
-                    int phanTramGiamGia = 0;
-                    if (gg == null)
-                    {
-                        phanTramGiamGia = 0;
-                    }
-                    else
-                    {
-                        phanTramGiamGia = gg.PhanTramGiamGia;
-                    }
+            //    Repository<GiamGia> ggRepo = new Repository<GiamGia>(dbCxt);
+            //    var gg = ggRepo.Query(gg => gg.SanPhamId == loSanPham.SanPhamId && gg.NgayBatDau < DateTime.Now && gg.NgayKetThuc > DateTime.Now).FirstOrDefault();
+            //    int phanTramGiamGia = 0;
+            //    if (gg == null)
+            //    {
+            //        phanTramGiamGia = 0;
+            //    }
+            //    else
+            //    {
+            //        phanTramGiamGia = gg.PhanTramGiamGia;
+            //    }
 
-                    txtmasp.Text = (loSanPham.SanPham.Id.ToString());
-                    txttensp.Text = (loSanPham.SanPham.TenSanPham.ToString());
-                    txtdongiasp.Text = (loSanPham.SanPham.GiaTien.ToString());
-                    txtsoluongsp.Text = "1";
-                    txtgiamphantramsp.Text = (phanTramGiamGia.ToString());
-                    comboBoxdonvisp.Text = (loSanPham.SanPham.DonViSanPham.TenDonViSanPham.ToString());
-                    comboBoxloaisp.Text = (loSanPham.SanPham.LoaiSanPham.TenLoaiSanPham.ToString());
-                    //thanhtiensp = soluong * don gia
-                    double slsp;
-                    double dongiasp;
-                    double thanhtiensp;
-                    double thanhtiensp2;
-                    slsp = double.Parse(txtsoluongsp.Text);
-                    dongiasp = double.Parse(txtdongiasp.Text);
-                    thanhtiensp = slsp * dongiasp;
-                    //tien giam gia cua san pham
-                    giamgiaTextbox = double.Parse(txtgiamphantramsp.Text);
-                    double giamgiasp = (giamgiaTextbox * thanhtiensp) / 100;
-                    //tien san pham = (so luong * don gia ) - giam gia
-                    thanhtiensp2 = thanhtiensp - giamgiasp;
+            //    txtmasp.Text = (loSanPham.SanPham.Id.ToString());
+            //    txttensp.Text = (loSanPham.SanPham.TenSanPham.ToString());
+            //    txtdongiasp.Text = (loSanPham.SanPham.GiaTien.ToString());
+            //    txtsoluongsp.Text = "1";
+            //    txtgiamphantramsp.Text = (phanTramGiamGia.ToString());
+            //    comboBoxdonvisp.Text = (loSanPham.SanPham.DonViSanPham.TenDonViSanPham.ToString());
+            //    comboBoxloaisp.Text = (loSanPham.SanPham.LoaiSanPham.TenLoaiSanPham.ToString());
+            //    //thanhtiensp = soluong * don gia
+            //    double slsp;
+            //    double dongiasp;
+            //    double thanhtiensp;
+            //    double thanhtiensp2;
+            //    slsp = double.Parse(txtsoluongsp.Text);
+            //    dongiasp = double.Parse(txtdongiasp.Text);
+            //    thanhtiensp = slsp * dongiasp;
+            //    //tien giam gia cua san pham
+            //    double giamgiaPhantram = double.Parse(txtgiamphantramsp.Text);
+            //    double giamgiasp = (giamgiaPhantram * thanhtiensp) / 100;
+            //    //tien san pham = (so luong * don gia ) - giam gia
+            //    thanhtiensp2 = thanhtiensp - giamgiasp;
 
-                    txttiensp.Text = string.Format("{0:N2}", thanhtiensp2);
-                }
-            }
+            //    txttiensp.Text = string.Format("{0:N2}", thanhtiensp2);
+            //}
         }
 
         private void txtsoluongsp_KeyPress(object sender, KeyPressEventArgs e)

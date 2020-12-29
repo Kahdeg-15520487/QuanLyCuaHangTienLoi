@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.txtsdhKh = new System.Windows.Forms.TextBox();
-            this.txtMakh = new System.Windows.Forms.TextBox();
+            this.txtTenKh = new System.Windows.Forms.TextBox();
             this.txttongcongtiensp = new System.Windows.Forms.TextBox();
             this.txtgiamtientong = new System.Windows.Forms.TextBox();
             this.txtgiamphantramtong = new System.Windows.Forms.TextBox();
@@ -93,20 +93,20 @@
             this.txtsdhKh.TabIndex = 0;
             this.txtsdhKh.TextChanged += new System.EventHandler(this.txtmakh_TextChanged);
             // 
-            // txtMakh
+            // txtTenKh
             // 
-            this.txtMakh.Location = new System.Drawing.Point(354, 27);
-            this.txtMakh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtMakh.Name = "txtMakh";
-            this.txtMakh.ReadOnly = true;
-            this.txtMakh.Size = new System.Drawing.Size(234, 23);
-            this.txtMakh.TabIndex = 1;
+            this.txtTenKh.Location = new System.Drawing.Point(354, 27);
+            this.txtTenKh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtTenKh.Name = "txtTenKh";
+            this.txtTenKh.Size = new System.Drawing.Size(234, 23);
+            this.txtTenKh.TabIndex = 1;
             // 
             // txttongcongtiensp
             // 
             this.txttongcongtiensp.Location = new System.Drawing.Point(133, 412);
             this.txttongcongtiensp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txttongcongtiensp.Name = "txttongcongtiensp";
+            this.txttongcongtiensp.ReadOnly = true;
             this.txttongcongtiensp.Size = new System.Drawing.Size(164, 23);
             this.txttongcongtiensp.TabIndex = 3;
             this.txttongcongtiensp.TextChanged += new System.EventHandler(this.txttongcongtiensp_TextChanged);
@@ -156,6 +156,7 @@
             this.txtthanhtoan.Location = new System.Drawing.Point(133, 531);
             this.txtthanhtoan.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtthanhtoan.Name = "txtthanhtoan";
+            this.txtthanhtoan.ReadOnly = true;
             this.txtthanhtoan.Size = new System.Drawing.Size(164, 23);
             this.txtthanhtoan.TabIndex = 8;
             // 
@@ -164,6 +165,7 @@
             this.txtmasp.Location = new System.Drawing.Point(744, 78);
             this.txtmasp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtmasp.Name = "txtmasp";
+            this.txtmasp.ReadOnly = true;
             this.txtmasp.Size = new System.Drawing.Size(272, 23);
             this.txtmasp.TabIndex = 10;
             this.txtmasp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtmasp_KeyDown);
@@ -442,13 +444,13 @@
             this.btnhuyHD.IconChar = FontAwesome.Sharp.IconChar.None;
             this.btnhuyHD.IconColor = System.Drawing.Color.Black;
             this.btnhuyHD.IconSize = 16;
-            this.btnhuyHD.Location = new System.Drawing.Point(831, 513);
+            this.btnhuyHD.Location = new System.Drawing.Point(792, 513);
             this.btnhuyHD.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnhuyHD.Name = "btnhuyHD";
             this.btnhuyHD.Rotation = 0D;
-            this.btnhuyHD.Size = new System.Drawing.Size(90, 40);
+            this.btnhuyHD.Size = new System.Drawing.Size(129, 40);
             this.btnhuyHD.TabIndex = 25;
-            this.btnhuyHD.Text = "Hủy HĐ";
+            this.btnhuyHD.Text = "Hủy hoá đơn";
             this.btnhuyHD.UseVisualStyleBackColor = true;
             this.btnhuyHD.Click += new System.EventHandler(this.btnhuyHD_Click);
             // 
@@ -696,7 +698,7 @@
             this.Controls.Add(this.txtgiamtientong);
             this.Controls.Add(this.txttongcongtiensp);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.txtMakh);
+            this.Controls.Add(this.txtTenKh);
             this.Controls.Add(this.txtsdhKh);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "BanHang";
@@ -711,7 +713,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox txtsdhKh;
-        private System.Windows.Forms.TextBox txtMakh;
+        private System.Windows.Forms.TextBox txtTenKh;
         private System.Windows.Forms.TextBox txttongcongtiensp;
         private System.Windows.Forms.TextBox txtgiamtientong;
         private System.Windows.Forms.TextBox txtgiamphantramtong;
