@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.PanelMenu = new System.Windows.Forms.Panel();
+            this.btnGiamGia = new FontAwesome.Sharp.IconButton();
             this.btnsetting = new FontAwesome.Sharp.IconButton();
             this.PanelDropDownSP = new System.Windows.Forms.Panel();
             this.iconButtonSPDonvi = new FontAwesome.Sharp.IconButton();
@@ -67,6 +68,7 @@
             // PanelMenu
             // 
             this.PanelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
+            this.PanelMenu.Controls.Add(this.btnGiamGia);
             this.PanelMenu.Controls.Add(this.btnsetting);
             this.PanelMenu.Controls.Add(this.PanelDropDownSP);
             this.PanelMenu.Controls.Add(this.iconButtonSPNhaCungCap);
@@ -81,8 +83,32 @@
             this.PanelMenu.Location = new System.Drawing.Point(0, 0);
             this.PanelMenu.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.PanelMenu.Name = "PanelMenu";
-            this.PanelMenu.Size = new System.Drawing.Size(198, 772);
+            this.PanelMenu.Size = new System.Drawing.Size(198, 859);
             this.PanelMenu.TabIndex = 0;
+            // 
+            // btnGiamGia
+            // 
+            this.btnGiamGia.FlatAppearance.BorderSize = 0;
+            this.btnGiamGia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGiamGia.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnGiamGia.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnGiamGia.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnGiamGia.IconChar = FontAwesome.Sharp.IconChar.Boxes;
+            this.btnGiamGia.IconColor = System.Drawing.Color.Gainsboro;
+            this.btnGiamGia.IconSize = 35;
+            this.btnGiamGia.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGiamGia.Location = new System.Drawing.Point(0, 352);
+            this.btnGiamGia.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnGiamGia.Name = "btnGiamGia";
+            this.btnGiamGia.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
+            this.btnGiamGia.Rotation = 0D;
+            this.btnGiamGia.Size = new System.Drawing.Size(198, 58);
+            this.btnGiamGia.TabIndex = 6;
+            this.btnGiamGia.Text = "Giảm giá";
+            this.btnGiamGia.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGiamGia.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnGiamGia.UseVisualStyleBackColor = true;
+            this.btnGiamGia.Click += new System.EventHandler(this.btngiamgia_Click);
             // 
             // btnsetting
             // 
@@ -96,7 +122,7 @@
             this.btnsetting.IconColor = System.Drawing.Color.Gainsboro;
             this.btnsetting.IconSize = 35;
             this.btnsetting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnsetting.Location = new System.Drawing.Point(0, 656);
+            this.btnsetting.Location = new System.Drawing.Point(0, 743);
             this.btnsetting.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnsetting.Name = "btnsetting";
             this.btnsetting.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
@@ -114,10 +140,10 @@
             this.PanelDropDownSP.Controls.Add(this.iconButtonSPDonvi);
             this.PanelDropDownSP.Controls.Add(this.iconButtonSPLoai);
             this.PanelDropDownSP.Controls.Add(this.iconButtonSP);
-            this.PanelDropDownSP.Location = new System.Drawing.Point(0, 404);
+            this.PanelDropDownSP.Location = new System.Drawing.Point(0, 480);
             this.PanelDropDownSP.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.PanelDropDownSP.Name = "PanelDropDownSP";
-            this.PanelDropDownSP.Size = new System.Drawing.Size(300, 58);
+            this.PanelDropDownSP.Size = new System.Drawing.Size(198, 58);
             this.PanelDropDownSP.TabIndex = 5;
             // 
             // iconButtonSPDonvi
@@ -138,7 +164,7 @@
             this.iconButtonSPDonvi.Name = "iconButtonSPDonvi";
             this.iconButtonSPDonvi.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
             this.iconButtonSPDonvi.Rotation = 0D;
-            this.iconButtonSPDonvi.Size = new System.Drawing.Size(300, 58);
+            this.iconButtonSPDonvi.Size = new System.Drawing.Size(198, 58);
             this.iconButtonSPDonvi.TabIndex = 6;
             this.iconButtonSPDonvi.Text = "Đơn vị";
             this.iconButtonSPDonvi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -164,7 +190,7 @@
             this.iconButtonSPLoai.Name = "iconButtonSPLoai";
             this.iconButtonSPLoai.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
             this.iconButtonSPLoai.Rotation = 0D;
-            this.iconButtonSPLoai.Size = new System.Drawing.Size(300, 58);
+            this.iconButtonSPLoai.Size = new System.Drawing.Size(198, 58);
             this.iconButtonSPLoai.TabIndex = 5;
             this.iconButtonSPLoai.Text = "Loại";
             this.iconButtonSPLoai.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -189,7 +215,7 @@
             this.iconButtonSP.Name = "iconButtonSP";
             this.iconButtonSP.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
             this.iconButtonSP.Rotation = 0D;
-            this.iconButtonSP.Size = new System.Drawing.Size(300, 58);
+            this.iconButtonSP.Size = new System.Drawing.Size(198, 58);
             this.iconButtonSP.TabIndex = 4;
             this.iconButtonSP.Text = "Sản phẩm";
             this.iconButtonSP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -234,7 +260,7 @@
             this.btndashboard.IconColor = System.Drawing.Color.Gainsboro;
             this.btndashboard.IconSize = 35;
             this.btndashboard.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btndashboard.Location = new System.Drawing.Point(0, 346);
+            this.btndashboard.Location = new System.Drawing.Point(0, 416);
             this.btndashboard.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btndashboard.Name = "btndashboard";
             this.btndashboard.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
@@ -259,7 +285,7 @@
             this.btnlogout.IconColor = System.Drawing.Color.Gainsboro;
             this.btnlogout.IconSize = 35;
             this.btnlogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnlogout.Location = new System.Drawing.Point(0, 714);
+            this.btnlogout.Location = new System.Drawing.Point(0, 801);
             this.btnlogout.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnlogout.Name = "btnlogout";
             this.btnlogout.Padding = new System.Windows.Forms.Padding(12, 0, 23, 0);
@@ -518,7 +544,7 @@
             this.paneltrangcon.Location = new System.Drawing.Point(198, 77);
             this.paneltrangcon.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.paneltrangcon.Name = "paneltrangcon";
-            this.paneltrangcon.Size = new System.Drawing.Size(1085, 695);
+            this.paneltrangcon.Size = new System.Drawing.Size(1085, 782);
             this.paneltrangcon.TabIndex = 3;
             // 
             // lbDateBig
@@ -565,7 +591,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1283, 772);
+            this.ClientSize = new System.Drawing.Size(1283, 859);
             this.Controls.Add(this.panelTitlebar);
             this.Controls.Add(this.paneltrangcon);
             this.Controls.Add(this.panelshadow);
@@ -617,5 +643,6 @@
         private System.Windows.Forms.Label labelGioBig;
         private System.Windows.Forms.Label lbNgayThangBig;
         private System.Windows.Forms.Label lbDateBig;
+        private FontAwesome.Sharp.IconButton btnGiamGia;
     }
 }
