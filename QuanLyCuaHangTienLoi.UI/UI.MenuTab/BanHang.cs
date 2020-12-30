@@ -69,6 +69,11 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 var task = JsonConvert.DeserializeObject<MqMsg>(raw);
                 Guid.TryParse(task.TaskData, out Guid scannedId);
 
+                if (!(CuaSoChinh.currentchildform is BanHang))
+                {
+                    return;
+                }
+
                 (CuaSoChinh.currentchildform as BanHang).Invoke((MethodInvoker)delegate { (CuaSoChinh.currentchildform as BanHang).DisplayScaned(scannedId); });
             };
             client.OnError += (string error, Exception ex) =>

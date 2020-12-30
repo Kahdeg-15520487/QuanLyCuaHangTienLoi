@@ -1,4 +1,5 @@
-﻿using QuanLyCuaHangTienLoi.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using QuanLyCuaHangTienLoi.Data;
 using QuanLyCuaHangTienLoi.Data.Implementation;
 using QuanLyCuaHangTienLoi.Data.Models;
 using QuanLyCuaHangTienLoi.UI.DisplayObject;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
@@ -25,6 +27,9 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         Label lbSDT = new Label();
         Label lbLoichao = new Label();
 
+        string tenKh = string.Empty;
+        string maKh = string.Empty;
+
         public HoaDonChiTiet()
         {
             InitializeComponent();
@@ -32,6 +37,11 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void HoaDonChiTiet_Load(object sender, EventArgs e)
         {
+            lbtenshop.Text = "Khang Chi";
+            lbSDT.Text = "0907033339";
+            lbdiachi.Text = "Bình phước";
+            lbLoichao.Text = "Hẹn gặp lại bạn trong lần tới!";
+
             try
             {
                 using (CuaHangTienLoiDbContext dbCxt = new CuaHangTienLoiDbContext(ClassKetnoi.contextOptions))
@@ -48,8 +58,10 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                     });
                     dataGridViewct.DataSource = chitiethoadons.ToList().ToDataTable();
 
-                    var hoadon = hdRepo.Get(DonHang.hdid);
+                    var hoadon = hdRepo.Query(hd => hd.Id == DonHang.hdid).Include(hd => hd.KhachHang).FirstOrDefault();
                     txtBoxNo.Text = string.Format("{0:N2}", hoadon.No);
+                    tenKh = hoadon.KhachHang.TenKhachHang;
+                    maKh = hoadon.KhachHangId.ToString();
                 }
             }
             catch (Exception ex)
@@ -61,22 +73,23 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void button1_Click(object sender, EventArgs e)
         {
             //todo replace print
-            PrintDialog printDialog = new PrintDialog();
-            PrintDocument printDocument = new PrintDocument();
-            PaperSize pageSize = new PaperSize();
-            pageSize.Width = 284;
-            printDocument.DefaultPageSettings.PaperSize = pageSize;
+            //PrintDialog printDialog = new PrintDialog();
+            //PrintDocument printDocument = new PrintDocument();
+            //PaperSize pageSize = new PaperSize();
+            //pageSize.Width = 284;
+            //printDocument.DefaultPageSettings.PaperSize = pageSize;
 
-            printDialog.Document = printDocument; //add the document to the dialog box...        
+            //printDialog.Document = printDocument; //add the document to the dialog box...        
 
-            printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(HDthuong); //add an event handler that will do the printing
-            DialogResult result = printDialog.ShowDialog();
+            //printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(HDthuong); //add an event handler that will do the printing
+            //DialogResult result = printDialog.ShowDialog();
 
-            if (result == DialogResult.OK)
-            {
-                printDocument.Print();
+            //if (result == DialogResult.OK)
+            //{
+            //    printDocument.Print();
 
-            }
+            //}
+            HDthuong(null, null);
             Close();
         }
         public void HDthuong(object sender, System.Drawing.Printing.PrintPageEventArgs e)
@@ -85,7 +98,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             ListBox listBoxHD1 = new ListBox();
             foreach (DataGridViewRow item in dataGridViewct.Rows)
             {
-                listBoxHD1.Items.Add(item.Cells[3].Value.ToString() + '/' + item.Cells[5].Value.ToString() + '/' + item.Cells[7].Value.ToString());
+                listBoxHD1.Items.Add(item.Cells[1].Value.ToString() + '/' + item.Cells[2].Value.ToString() + '/' + item.Cells[3].Value.ToString());
             }
             //--------------------------------------------//
 
@@ -94,8 +107,11 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             float change = 0f;
 
             //this prints the reciept
+            Bitmap bmp = new Bitmap(400, 1000);
+            //Graphics graphic = e.Graphics;
+            Graphics graphic = Graphics.FromImage(bmp);
+            graphic.Clear(Color.White);
 
-            Graphics graphic = e.Graphics;
             Font font = new Font("Courier New", 12); //must use a mono spaced font as the spaces need to line up
             float fontHeight = font.GetHeight();
 
@@ -128,7 +144,7 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
                 //create the string to print on the reciept
                 //  string productDescription = item;
                 //string productTotal = item.Substring(item.Length - 6, 6);
-                float productTotal = float.Parse(dataGridViewct.Rows[0].Cells[8].Value.ToString());
+                float productTotal = Lgiasp * Lsoluongsp;
                 //   float productPrice = float.Parse(item.Substring(item.Length - 5, 5));
 
                 //totalprice += productPrice;
@@ -155,6 +171,17 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
             //offset = offset + 30; //make some room so that the total stands out.
             graphic.DrawString(lbLoichao.Text, font, new SolidBrush(Color.Black), startX, startY + offset);
             offset = offset + 15;
+
+            var receiptPath = $"{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}_{tenKh}_{maKh}.png";
+            bmp.Save(receiptPath);
+            new Process
+            {
+                StartInfo = new ProcessStartInfo(receiptPath)
+                {
+                    UseShellExecute = true
+                }
+            }.Start();
+            graphic.Dispose();
         }
 
         private void button3_Click_1(object sender, EventArgs e)
