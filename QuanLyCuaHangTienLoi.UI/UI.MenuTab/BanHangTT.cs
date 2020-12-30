@@ -84,13 +84,19 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
         private void txtTienKhachDua_TextChanged(object sender, EventArgs e)
         {
             double tienTT;
-            double tienkhacdua;
+            double tienkhachdua;
             double TienThoiLai;
 
-            tienTT = double.Parse(txtTTOK.Text);
-            tienkhacdua = double.Parse(txtTienKhachDua.Text);
+            if (!double.TryParse(txtTTOK.Text, out tienTT))
+            {
+                return;
+            }
+            if (!double.TryParse(txtTienKhachDua.Text, out tienkhachdua))
+            {
+                return;
+            }
 
-            TienThoiLai = tienkhacdua - tienTT;
+            TienThoiLai = tienkhachdua - tienTT;
             if (TienThoiLai == 0)
             {
                 txtTienThoiLai.Text = "0";

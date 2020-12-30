@@ -337,6 +337,17 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void txtgiamtientong_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtgiamtientong.Text))
+            {
+                return;
+            }
+            if (dataGridView1.Rows.Count == 0)
+            {
+                MessageBox.Show("Hóa đơn trống!");
+                txtgiamtientong.Clear();
+                return;
+            }
+
             txtgiamphantramtong.Enabled = false;
             txtcongtientong.Enabled = false;
             txtcongphantramtong.Enabled = false;
@@ -375,6 +386,17 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void txtgiamphantramtong_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtgiamphantramtong.Text))
+            {
+                return;
+            }
+            if (dataGridView1.Rows.Count == 0)
+            {
+                MessageBox.Show("Hóa đơn trống!");
+                txtgiamphantramtong.Clear();
+                return;
+            }
+
             txtgiamtientong.Enabled = false;
             txtcongtientong.Enabled = false;
             txtcongphantramtong.Enabled = false;
@@ -436,6 +458,17 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void txtcongtientong_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtcongtientong.Text))
+            {
+                return;
+            }
+            if (dataGridView1.Rows.Count == 0)
+            {
+                MessageBox.Show("Hóa đơn trống!");
+                txtcongtientong.Clear();
+                return;
+            }
+
             txtcongphantramtong.Enabled = false;
             txtgiamtientong.Enabled = false;
             txtgiamphantramtong.Enabled = false;
@@ -472,6 +505,18 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void txtcongphantramtong_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtcongphantramtong.Text))
+            {
+                return;
+            }
+
+            if (dataGridView1.Rows.Count == 0)
+            {
+                MessageBox.Show("Hóa đơn trống!");
+                txtcongphantramtong.Text = string.Empty;
+                return;
+            }
+
             txtcongtientong.Enabled = false;
             txtgiamtientong.Enabled = false;
             txtgiamphantramtong.Enabled = false;
@@ -534,8 +579,12 @@ namespace QuanLyCuaHangTienLoi.UI.MenuTab
 
         private void btnthanhtoan_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.Rows.Count == 0)
+            {
+                MessageBox.Show("Hóa đơn trống!");
+                return;
+            }
 
-            //------------------------------------------------// pass datadridview to listbox formTT
             ListBox listBox1a = new ListBox();
 
             foreach (DataGridViewRow item in dataGridView1.Rows)

@@ -69,5 +69,14 @@
     <Compile Update="UI.MenuTab\tonkho.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UI.MenuTab\*.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="cuasochinh.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>
