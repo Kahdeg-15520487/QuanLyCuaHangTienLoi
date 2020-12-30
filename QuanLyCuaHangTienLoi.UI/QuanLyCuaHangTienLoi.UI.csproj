@@ -56,7 +56,7 @@
     <PackageReference Include="Websocket.Client" Version="4.3.21" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AdvancedSockets\AdvancedSockets.csproj" />
+    <ProjectReference Include="..\AdvancedSockets\AdvancedSockets.csproj" />
     <ProjectReference Include="..\QuanLyCuaHangTienLoi.Data\QuanLyCuaHangTienLoi.Data.csproj" />
   </ItemGroup>
   <ItemGroup>

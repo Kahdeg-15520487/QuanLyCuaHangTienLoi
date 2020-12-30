@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testconsole", "Dev\testcons
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuanLyCuaHangTienLoi.Data", "QuanLyCuaHangTienLoi.Data\QuanLyCuaHangTienLoi.Data.csproj", "{87924427-4744-489B-8107-69923895F438}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvancedSockets", "..\AdvancedSockets\AdvancedSockets.csproj", "{3FFC31C6-3D05-49D6-B3AC-A5FE12ED2740}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvancedSockets", "AdvancedSockets\AdvancedSockets.csproj", "{3FFC31C6-3D05-49D6-B3AC-A5FE12ED2740}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
